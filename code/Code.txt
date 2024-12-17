@@ -1,0 +1,38 @@
+// ---------------- In Frontend
+
+npm install
+
+npm install react-router-dom 
+
+npm install react-icons --save
+
+npm i axios
+
+// React Hook forms
+
+npm install react-hook-form
+
+// For mui
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+
+
+// for data-pickers 
+npm install @mui/x-date-pickers
+
+npm install dayjs
+
+// ----------------- In Backend
+
+npm init
+
+npm install express cors mysql2
+
+http://localhost:3001/ <-- backend server link
+
+npm install nodemon <-- need for run server auto
+
+TO start server -> npm start
+
+npm install sequelize sequelize-cli
+
+To create database in backend - npx sequelize init
