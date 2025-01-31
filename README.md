@@ -19,7 +19,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Registration Numbers  | Name  | Email  | ePortfolioe Link  |
 |-----------------------|-------|--------|------------------ |
 | E/20/016 | Kavindu Gajendra   | e20016@eng.pdn.ac.lk | https://www.thecn.com/EA768 |
-| E/20/055 |           |        |                        |
+| E/20/055 |   Se Silva H.D.S.        |    e20055@eng.pdn.ac.lk    |             thecn.com/ED671            |
 | E/20/231 |           |        |                        |
 | E/20/404 |           |        |                        |
 
