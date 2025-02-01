@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'login_screen.dart'; // Import the login screen
-import '../widgets/custom_button.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
