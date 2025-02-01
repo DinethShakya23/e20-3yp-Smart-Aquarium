@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/gestures.dart';
 import '../widgets/custom_button.dart';
-import 'dashboard_screen.dart'; // Import the dashboard screen
 import 'registration_screen.dart'; // Import the registration screen
 import '../widgets/Dividerwithtext.dart';
 
@@ -25,7 +24,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset('assert/images/Logo_Icon.jpg',
-                  width: 100, height: 100),
+                  width: 86, height: 86),
               const SizedBox(height: 20),
               const Text(
                 'Login',
@@ -94,7 +93,8 @@ class LoginScreen extends StatelessWidget {
                 lineColor: Color(0xFFD0F0FF),
                 thickness: 3.0,
               ),
-              const SizedBox(height: 20),
+
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -114,18 +114,33 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              CustomButton(
-                text: "Don't have an account? Register",
-                onPressed: () {
-                  // Handle registration
-                  // Navigate to the registration screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegistrationScreen()),
-                  );
-                },
+              RichText(
+              text: TextSpan(
+                style: TextStyle(
+                  fontSize: 16,
+                  color: const Color.fromARGB(255, 0, 0, 0),  
+                ),
+                children: [
+                  TextSpan(text: "Don't have an account?  "),  
+                  TextSpan(
+                    text: "Register",  // clickable text
+                    style: TextStyle(
+                      color: Color.fromRGBO(30, 120, 190, 1), 
+                      fontWeight: FontWeight.bold,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      },
+                  ),
+                ],
               ),
+            ),
             ],
           ),
         ),
