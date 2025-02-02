@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_button.dart';
 import 'package:flutter/gestures.dart';
-import 'login_screen.dart'; // Import the login screen
+import 'login_screen.dart'; //// Import the login screen
+import '../widgets/Password_filed.dart';
 
 
 class RegistrationScreen extends StatelessWidget {
@@ -9,6 +10,8 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController passwordControllerconform = TextEditingController();
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -48,7 +51,7 @@ class RegistrationScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextField(
-                obscureText: true,
+                obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
@@ -60,33 +63,18 @@ class RegistrationScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  
-                  prefixIcon: const Icon(Icons.lock),
-                  suffixIcon: const Icon(Icons.visibility),
-                  fillColor: Colors.white, // Set background color
-                  filled: true,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                ),
+              CustomPasswordField(
+                label: "Password",
+                prefixIcon: Icons.lock,
+                controller: passwordController,
+                isPassword: true,
               ),
               const SizedBox(height: 10),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Confirm Password',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  prefixIcon: const Icon(Icons.lock),
-                  suffixIcon: const Icon(Icons.visibility),
-                  fillColor: Colors.white, // Set background color
-                  filled: true,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                ),
+              CustomPasswordField(
+                label: "Confirm Password",
+                prefixIcon: Icons.lock,
+                controller: passwordControllerconform,
+                isPassword: true,
               ),
 
               const SizedBox(height: 40),
