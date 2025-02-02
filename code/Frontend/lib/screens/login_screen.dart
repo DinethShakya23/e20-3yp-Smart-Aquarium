@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:frontend/screens/dashboard_screen.dart';
 import '../widgets/custom_button.dart';
 import 'registration_screen.dart'; // Import the registration screen
 import '../widgets/Dividerwithtext.dart';
+import 'Forget_password.dart';
+import '../widgets/Password_filed.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController passwordController = TextEditingController();
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -42,7 +47,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
-                obscureText: true,
+                obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
@@ -54,27 +59,28 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  prefixIcon: const Icon(Icons.lock),
-                  suffixIcon: const Icon(Icons.visibility),
-                  fillColor: Colors.white, // Set background color
-                  filled: true,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                ),
+              CustomPasswordField(
+                label: "Password",
+                prefixIcon: Icons.lock,
+                controller: passwordController,
+                isPassword: true,
               ),
               const SizedBox(height: 20),
-              const Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'Forgot Password?',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ForgetPassword()),
+                  );
+                },
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
@@ -89,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const LoginScreen()),
+                        builder: (context) => const DashboardScreen()),
                   );
                 },
               ),
