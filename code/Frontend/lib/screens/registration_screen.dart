@@ -23,9 +23,15 @@ class RegistrationScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assert/images/Logo_Icon.jpg',
-                  width: 86, height: 86),
-              const SizedBox(height: 40),
+              ClipRRect(
+                        borderRadius: BorderRadius.circular(100.0), // Adjust the radius as needed
+                        child: Image.asset(
+                          'assert/images/Logo00.jpg',
+                          width: 86,
+                          height: 86,
+                          fit: BoxFit.cover, // Ensures the image scales properly
+                        ),
+                      ),
               SizedBox(
                 width: 500,
                 child: const Align(
