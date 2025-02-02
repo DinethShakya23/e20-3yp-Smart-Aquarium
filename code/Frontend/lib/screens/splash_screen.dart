@@ -31,8 +31,16 @@ class SplashScreen extends StatelessWidget {
             
             children: [
               const SizedBox(height: 140),
-              Image.asset('assert/images/Logo_Icon.jpg',
-                  width: 86, height: 86),
+              ClipRRect(
+                        borderRadius: BorderRadius.circular(100.0), // Adjust the radius as needed
+                        child: Image.asset(
+                          'assert/images/Logo00.jpg',
+                          width: 86,
+                          height: 86,
+                          fit: BoxFit.cover, // Ensures the image scales properly
+                        ),
+                      ),
+              
               const SizedBox(height: 20),
               const Text(
                 'AquaSense',
@@ -48,7 +56,7 @@ class SplashScreen extends StatelessWidget {
                 width: 200,
                 child : const Text(
                   textAlign: TextAlign.center,
-                  'Your personal aquarium assistant',
+                  'Your Personal Aquarium Assistant',
                   style: TextStyle(
                     fontFamily: 'urbanist',
                     fontSize: 16,
