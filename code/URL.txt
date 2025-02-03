@@ -1,0 +1,2 @@
+Backend url :- http://localhost:3001/api/register
+Matching Frontend url :- http://10.0.2.2:3001/api/register

@@ -14,3 +14,9 @@ TO start server -> npm start
 npm install sequelize sequelize-cli
 
 To create database in backend - npx sequelize init
+
+// ---------------------- To create database
+
+Create a database using MYSQl workbench
+
+Then run npx sequelize-cli db:migrate to create tables
