@@ -10,7 +10,6 @@ import '../widgets/Password_filed.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final TextEditingController passwordController = TextEditingController();
@@ -29,14 +28,15 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClipRRect(
-                        borderRadius: BorderRadius.circular(100.0), // Adjust the radius as needed
-                        child: Image.asset(
-                          'assert/images/Logo00.jpg',
-                          width: 86,
-                          height: 86,
-                          fit: BoxFit.cover, // Ensures the image scales properly
-                        ),
-                      ),
+                borderRadius:
+                    BorderRadius.circular(100.0), // Adjust the radius as needed
+                child: Image.asset(
+                  'assert/images/Logo00.jpg',
+                  width: 86,
+                  height: 86,
+                  fit: BoxFit.cover, // Ensures the image scales properly
+                ),
+              ),
               const Text(
                 'Login',
                 style: TextStyle(
@@ -88,14 +88,14 @@ class LoginScreen extends StatelessWidget {
               CustomButton(
                 text: "Login",
                 fontSize: 30,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 onPressed: () {
                   // Handle registration
                   // Navigate to the registration screen
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const DashboardScreen()),
+                    MaterialPageRoute(builder: (context) => const DashBoard()),
                   );
                 },
               ),
@@ -105,7 +105,6 @@ class LoginScreen extends StatelessWidget {
                 lineColor: Color(0xFFD0F0FF),
                 thickness: 3.0,
               ),
-
               const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -115,44 +114,48 @@ class LoginScreen extends StatelessWidget {
                     color: Color(0xFF1e52e6),
                     size: 55.0,
                   ),
-                  const SizedBox(width: 25,),
+                  const SizedBox(
+                    width: 25,
+                  ),
                   const Icon(
                     Icons.apple,
                     size: 55.0,
                   ),
-                  const SizedBox(width: 25,),
+                  const SizedBox(
+                    width: 25,
+                  ),
                   Image.asset('assert/images/Google_logo.png',
                       width: 55, height: 55),
                 ],
               ),
               const SizedBox(height: 20),
               RichText(
-              text: TextSpan(
-                style: TextStyle(
-                  fontSize: 16,
-                  color: const Color.fromARGB(255, 0, 0, 0),  
-                ),
-                children: [
-                  TextSpan(text: "Don't have an account?  "),  
-                  TextSpan(
-                    text: "Register",  // clickable text
-                    style: TextStyle(
-                      color: Color.fromRGBO(30, 120, 190, 1), 
-                      fontWeight: FontWeight.bold,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegistrationScreen(),
-                          ),
-                        );
-                      },
+                text: TextSpan(
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: const Color.fromARGB(255, 0, 0, 0),
                   ),
-                ],
+                  children: [
+                    TextSpan(text: "Don't have an account?  "),
+                    TextSpan(
+                      text: "Register", // clickable text
+                      style: TextStyle(
+                        color: Color.fromRGBO(30, 120, 190, 1),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegistrationScreen(),
+                            ),
+                          );
+                        },
+                    ),
+                  ],
+                ),
               ),
-            ),
             ],
           ),
         ),
