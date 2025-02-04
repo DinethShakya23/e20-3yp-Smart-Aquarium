@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../widgets/searchfield.dart';
-import '../widgets/searchbutton.dart';
-import '../widgets/notificationbutton.dart';
-import '../widgets/popupmenu.dart';
-import '../widgets/notificationitem.dart';
-import '../widgets/dashboardrow.dart';
+import '../Widgets/searchfield.dart';
+import '../Widgets/searchbutton.dart';
+import '../Widgets/notificationbutton.dart';
+import '../Widgets/popupmenu.dart';
+import '../Widgets/notificationitem.dart';
+import '../Widgets/dashboardrow.dart';
+import 'schedulefeed.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -20,7 +21,7 @@ class _DashBoardState extends State<DashBoard> {
     "Temperature",
     "Turbidity",
     "pH",
-    "Feed",
+    "Schedule Feed",
     "Analytics",
     "Settings",
     "Messages",
@@ -32,6 +33,15 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: _isSearching
             ? SearchField(_searchController, _filterItems)
             : const Text("Dashboard",
@@ -105,20 +115,35 @@ class _DashBoardState extends State<DashBoard> {
                   height: 86, width: 86, fit: BoxFit.cover),
             ),
             const SizedBox(height: 20),
-            DashboardRow(Icons.thermostat, "Temperature", Colors.redAccent,
-                Icons.opacity, "Turbidity", Colors.orangeAccent),
-            DashboardRow(Icons.science, "pH", Colors.pink, Icons.fastfood,
-                "Feed", Colors.redAccent),
-            DashboardRow(Icons.analytics, "Analytics", Colors.indigo,
-                Icons.settings, "Settings", Colors.amber),
             DashboardRow(
-              Icons.notifications,
-              "Notifications",
-              Colors.green,
-              Icons.account_circle,
-              "Profile",
-              Colors.purple,
-            ),
+                Icons.thermostat,
+                "Temperature",
+                Colors.redAccent,
+                Schedulefeed(),
+                Icons.opacity,
+                "Turbidity",
+                Colors.orangeAccent,
+                Schedulefeed()),
+            DashboardRow(Icons.science, "pH", Colors.pink, Schedulefeed(),
+                Icons.timer, "Schedule Feed", Colors.redAccent, Schedulefeed()),
+            DashboardRow(
+                Icons.analytics,
+                "Analytics",
+                Colors.indigo,
+                Schedulefeed(),
+                Icons.settings,
+                "Settings",
+                Colors.amber,
+                Schedulefeed()),
+            DashboardRow(
+                Icons.notifications,
+                "Notifications",
+                Colors.green,
+                Schedulefeed(),
+                Icons.account_circle,
+                "Profile",
+                Colors.purple,
+                Schedulefeed()),
           ],
         ),
       ),
