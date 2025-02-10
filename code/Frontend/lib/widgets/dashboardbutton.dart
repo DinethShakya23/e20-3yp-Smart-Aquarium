@@ -4,21 +4,25 @@ class DashboardButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final Color color;
+  final Widget destinationScreen;
 
-  const DashboardButton(
-      {required this.icon, required this.label, required this.color, Key? key})
-      : super(key: key);
+  const DashboardButton({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.destinationScreen,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          if (label == "Notifications") {
-            // Show notifications
-          } else {
-            // Handle other actions
-          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => destinationScreen),
+          );
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -28,9 +32,10 @@ class DashboardButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                  color: Colors.white.withOpacity(0.2),
-                  blurRadius: 5,
-                  offset: const Offset(2, 2))
+                color: Colors.white.withOpacity(0.2),
+                blurRadius: 5,
+                offset: const Offset(2, 2),
+              ),
             ],
           ),
           child: Material(
@@ -38,15 +43,24 @@ class DashboardButton extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
               splashColor: Colors.white.withOpacity(0.2),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => destinationScreen),
+                );
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(icon, size: 40, color: Colors.white),
                   const SizedBox(height: 8),
-                  Text(label,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),
