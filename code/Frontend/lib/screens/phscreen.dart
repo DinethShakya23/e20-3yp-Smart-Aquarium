@@ -1,58 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'dart:async';
+import 'dart:math';
+
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
 import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
-import '../Widgets/dashboardrow.dart';
-import 'schedulefeed.dart';
-import 'temperaturescreen.dart';
-import 'phscreen.dart';
-import 'turbidityscreen.dart';
 
-class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
-
+class PHLevel extends StatefulWidget {
   @override
-  State<DashBoard> createState() => _DashBoardState();
+  State<PHLevel> createState() => _PHLevelState();
 }
 
-class _DashBoardState extends State<DashBoard> {
+class _PHLevelState extends State<PHLevel> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
-  final List<String> _allItems = [
-    "Temperature",
-    "Turbidity",
-    "pH",
-    "Schedule Feed",
-    "Analytics",
-    "Settings",
-    "Messages",
-    "Profile"
+  List<String> _allItems = [
+    "Fish Feeding",
+    "Water Change",
+    "Filter Cleaning",
+    "pH Check",
+    "Temperature Monitoring"
   ];
   List<String> _filteredItems = [];
-  double TemperatureLevel = 30.0;
-  double pHLevel = 7.0;
-  double turbidityLevel = 50.0;
+  double pHLevel = 7.0; // Initial dummy value
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _simulatePHUpdates();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _simulatePHUpdates() {
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+      setState(() {
+        pHLevel = Random().nextDouble() * 14; // Random pH between 0 and 14
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
+          icon: const Icon(Icons.home, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: _isSearching
             ? SearchField(_searchController, _filterItems)
-            : const Text("Dashboard",
-                style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
+            : const Text(
+                "pH Level",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
         backgroundColor: Colors.blueGrey.shade900,
         elevation: 4.0,
         shadowColor: Colors.blueGrey.shade500,
@@ -64,19 +76,19 @@ class _DashBoardState extends State<DashBoard> {
       ),
       body: Container(
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF0468BF), Color(0xFFA1D6F3)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-        child: _isSearching ? _buildSearchResults() : _buildDashboard(),
+        child: _isSearching ? _buildSearchResults() : _buildDefaultView(),
       ),
     );
   }
 
-  _filterItems(String query) {
+  void _filterItems(String query) {
     setState(() {
       _filteredItems = _allItems
           .where((item) => item.toLowerCase().contains(query.toLowerCase()))
@@ -84,7 +96,7 @@ class _DashBoardState extends State<DashBoard> {
     });
   }
 
-  _toggleSearch() {
+  void _toggleSearch() {
     setState(() {
       _isSearching = !_isSearching;
       if (!_isSearching) {
@@ -94,41 +106,16 @@ class _DashBoardState extends State<DashBoard> {
     });
   }
 
-  Widget _buildInfoCard(IconData icon, String value, Color color) {
-    return Card(
-      color: Colors.white.withOpacity(0.1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Icon(icon, size: 30, color: color),
-            const SizedBox(height: 8),
-            const SizedBox(height: 5),
-            Text(
-              value,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildSearchResults() {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: _filteredItems.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(_filteredItems[index],
-              style: const TextStyle(color: Colors.white)),
+          title: Text(
+            _filteredItems[index],
+            style: const TextStyle(color: Colors.white),
+          ),
           leading: const Icon(Icons.search, color: Colors.white),
           onTap: () {},
         );
@@ -136,7 +123,7 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
-  Widget _buildDashboard() {
+  Widget _buildDefaultView() {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -144,59 +131,79 @@ class _DashBoardState extends State<DashBoard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(100.0),
-              child: Image.asset("assert/images/Logo00.jpg",
-                  height: 86, width: 86, fit: BoxFit.cover),
+              child: Image.asset(
+                "assert/images/Logo00.jpg",
+                height: 86,
+                width: 86,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                  Icons.image_not_supported,
+                  size: 86,
+                  color: Colors.white,
+                ),
+              ),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: _buildInfoCard(
-                    Icons.thermostat,
-                    "$TemperatureLevel°C",
-                    Colors.redAccent,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _buildInfoCard(
-                    Icons.opacity,
-                    "$turbidityLevel NTU",
-                    Colors.orangeAccent,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _buildInfoCard(
-                    Icons.science,
-                    "$pHLevel",
-                    Colors.blueAccent,
-                  ),
-                ),
-              ],
+            const Text(
+              "Current pH Level",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            DashboardRow(
-                Icons.thermostat,
-                "Temperature",
-                Colors.redAccent,
-                Temperature(),
-                Icons.opacity,
-                "Turbidity",
-                Colors.orangeAccent,
-                Turbidity()),
-            DashboardRow(Icons.science, "pH", Colors.pink, PHLevel(),
-                Icons.timer, "Schedule Feed", Colors.redAccent, Schedulefeed()),
-            DashboardRow(
-                Icons.analytics,
-                "Analytics",
-                Colors.indigo,
-                Schedulefeed(),
-                Icons.settings,
-                "Settings",
-                Colors.amber,
-                Schedulefeed()),
+
+            // pH Gauge
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.6,
+              child: SfRadialGauge(
+                axes: <RadialAxis>[
+                  RadialAxis(
+                    minimum: 5,
+                    maximum: 9,
+                    ranges: <GaugeRange>[
+                      GaugeRange(
+                        startValue: 5,
+                        endValue: 6.5,
+                        color: Colors.red,
+                      ),
+                      GaugeRange(
+                        startValue: 6.5,
+                        endValue: 7.5,
+                        color: Colors.green,
+                      ),
+                      GaugeRange(
+                        startValue: 7.5,
+                        endValue: 9,
+                        color: Colors.orange,
+                      ),
+                    ],
+                    pointers: <GaugePointer>[
+                      NeedlePointer(value: pHLevel),
+                    ],
+                    annotations: <GaugeAnnotation>[
+                      GaugeAnnotation(
+                        widget: Text(
+                          "${pHLevel.toStringAsFixed(1)} pH",
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.white),
+                        ),
+                        angle: 90,
+                        positionFactor: 0.5,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              "pH: ${pHLevel.toStringAsFixed(1)}",
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),

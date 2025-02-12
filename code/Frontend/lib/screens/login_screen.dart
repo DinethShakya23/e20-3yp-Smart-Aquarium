@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:frontend/screens/dashboard_screen.dart';
@@ -6,6 +8,7 @@ import 'registration_screen.dart'; // Import the registration screen
 import '../widgets/Dividerwithtext.dart';
 import 'Forget_password.dart';
 import '../widgets/Password_filed.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -13,6 +16,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController passwordController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -48,6 +53,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 20),
               TextField(
                 obscureText: false,
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
@@ -90,13 +96,47 @@ class LoginScreen extends StatelessWidget {
                 fontSize: 30,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                onPressed: () {
-                  // Handle registration
-                  // Navigate to the registration screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const DashBoard()),
-                  );
+                onPressed: () async {
+                  String email = emailController.text.trim();
+                  String password = passwordController.text.trim();
+
+                  if (email.isEmpty || password.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Please fill all fields")),
+                    );
+                    return;
+                  }
+
+                  try {
+                    final response = await http.post(
+                      Uri.parse('http://10.0.2.2:3001/api/login'),
+                      headers: {'Content-Type': 'application/json'},
+                      body: jsonEncode({'email': email, 'password': password}),
+                    );
+
+                    if (response.statusCode == 200 ||
+                        response.statusCode == 201) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Login successfully!")),
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DashBoard()),
+                      );
+                    } else {
+                      print(response.statusCode);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("Email or Password Incorrect")),
+                      );
+                    }
+                  } catch (e, stackTrace) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text("An error occurred: ${e.toString()}")),
+                    );
+                  }
                 },
               ),
               const SizedBox(height: 20),
