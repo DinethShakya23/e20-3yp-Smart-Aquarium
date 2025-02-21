@@ -1,5 +1,8 @@
 import { connect } from 'mqtt';
 
+// TO see use(In CMD) = mosquitto_sub -h 192.168.3.244 -t sensor/ph
+
+
 const MQTT_BROKER = '192.168.3.244'; // your IP address
 const MQTT_PORT = 1883;
 const MQTT_TOPIC = 'sensor/ph';
@@ -10,6 +13,7 @@ client.on('connect', () => {
     console.log('Connected to MQTT broker');
     client.subscribe(MQTT_TOPIC);
 });
+
 
 client.on('message', (topic, message) => {
     try {
