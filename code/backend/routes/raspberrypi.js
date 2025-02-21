@@ -1,6 +1,6 @@
 import { connect } from 'mqtt';
 
-const MQTT_BROKER = 'your_mqtt_broker_ip';
+const MQTT_BROKER = '192.168.3.244'; // your IP address
 const MQTT_PORT = 1883;
 const MQTT_TOPIC = 'sensor/ph';
 
@@ -12,5 +12,10 @@ client.on('connect', () => {
 });
 
 client.on('message', (topic, message) => {
-    console.log(`Received: ${message.toString()} from topic: ${topic}`);
+    try {
+        const data = JSON.parse(message.toString());
+        console.log(`📡 Received pH Data: Voltage=${data.voltage}V | pH=${data.pH}`);
+    } catch (error) {
+        console.error('Error parsing message:', error);
+    }
 });
