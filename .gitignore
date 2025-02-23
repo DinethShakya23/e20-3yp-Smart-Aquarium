@@ -92,3 +92,10 @@ code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/TargetDirectorie
 code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/configure_fingerprint.bin
 code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/metadata_generation_command.txt
 code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/symbol_folder_index.txt
+code/Frontend/linux/flutter/generated_plugin_registrant.cc
+code/Frontend/linux/flutter/generated_plugin_registrant.h
+code/Frontend/linux/flutter/generated_plugins.cmake
+code/Frontend/macos/Flutter/GeneratedPluginRegistrant.swift
+code/Frontend/windows/flutter/generated_plugin_registrant.cc
+code/Frontend/windows/flutter/generated_plugin_registrant.h
+code/Frontend/windows/flutter/generated_plugins.cmake
