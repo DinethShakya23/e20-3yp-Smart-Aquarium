@@ -9,6 +9,8 @@ import 'schedulefeed.dart';
 import 'temperaturescreen.dart';
 import 'phscreen.dart';
 import 'turbidityscreen.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'dart:convert';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -18,6 +20,10 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  final channel = WebSocketChannel.connect(
+    Uri.parse('ws://192.168.3.244:3000'), // Replace with your server IP
+  );
+
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
   final List<String> _allItems = [
@@ -36,6 +42,28 @@ class _DashBoardState extends State<DashBoard> {
   double turbidityLevel = 50.0;
 
   @override
+  void initState() {
+    super.initState();
+    _listenToWebSocket();
+  }
+
+  void _listenToWebSocket() {
+    channel.stream.listen((message) {
+      try {
+        // ✅ Parse WebSocket JSON data
+        Map<String, dynamic> data = jsonDecode(message);
+        setState(() {
+          TemperatureLevel = data['temperature'] ?? TemperatureLevel;
+          pHLevel = data['pH'] ?? pHLevel;
+          turbidityLevel = data['turbidity'] ?? turbidityLevel;
+        });
+      } catch (e) {
+        print("Error parsing WebSocket data: $e");
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -51,8 +79,8 @@ class _DashBoardState extends State<DashBoard> {
         title: _isSearching
             ? SearchField(_searchController, _filterItems)
             : const Text("Dashboard",
-                style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.blueGrey.shade900,
         elevation: 4.0,
         shadowColor: Colors.blueGrey.shade500,
@@ -107,7 +135,6 @@ class _DashBoardState extends State<DashBoard> {
           children: [
             Icon(icon, size: 30, color: color),
             const SizedBox(height: 8),
-            const SizedBox(height: 5),
             Text(
               value,
               style: const TextStyle(
@@ -240,4 +267,11 @@ class _DashBoardState extends State<DashBoard> {
       },
     );
   }
+
+  @override
+  void dispose() {
+    channel.sink.close();
+    super.dispose();
+  }
 }
+
