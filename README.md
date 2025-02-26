@@ -36,3 +36,13 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 - Automated Control: The system automates feeding and temperature regulation, reducing manual intervention for users.
 - Fish Behaviour Monitoring: Detects irregular fish movements and alerts users to potential health issues.
 - Alert Systems: Continuously monitors the aquarium and sends notifications to users if unfavourable conditions arise.
+
+## 3. Solution Architecture
+
+- Control Flow of the System
+
+  <p align="center">
+  <img src="docs/images/Solution Architecture.png" width="500">
+</p>
+
+
