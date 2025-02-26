@@ -60,7 +60,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 ## 4. BOM
 
 <p align="center">
-  <img src="docs/images/bom.png" height="600" width="900">
+  <img src="docs/images/bom.png" height="600" width="800">
 </p>
 
 - "-" are get form the department 
