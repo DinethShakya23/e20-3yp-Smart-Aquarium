@@ -28,12 +28,15 @@ title: Smart Fish Tank monitoring & Controlling System
   <img src="images/Readme_image.jpg" width="500">
 </p>
 
-###1. Problem Domain
-     -  Inconsistent Environment Management
-     -  Time-Consuming Maintenance
-     -  Overfeeding and Underfeeding
-     -  Lack of Early Problem Detection
-2. [Our Solution](#Our Solution)
+## 1. Problem Domain
+
+-  Inconsistent Environment Management
+-  Time-Consuming Maintenance
+-  Overfeeding and Underfeeding
+-  Lack of Early Problem Detection
+  
+## 2. Our Solution
+
 3. [Solution Architecture](#solution-architecture )
 4. [Hardware & Software Designs](#hardware-and-software-designs)
 5. [Testing](#testing)
