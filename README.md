@@ -51,7 +51,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
   <img src="docs/images/hardware1.PNG" height="140" width="500">
 </p>
 <p align="center">
-  <img src="docs/images/hardware2.PNG"  height="150" width="500">
+  <img src="docs/images/hardware2.png"  height="150" width="500">
 </p>
 <p align="center">
   <img src="docs/images/hardware3.PNG"  height="150" width="500">
