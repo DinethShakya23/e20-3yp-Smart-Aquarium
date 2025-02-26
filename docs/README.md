@@ -26,15 +26,6 @@ title: Smart Fish Tank monitoring & Controlling System
 -  E/20/231, Madhura T.W.K.J., [email](e20231@eng.pdn.ac.lk)
 -  E/20/404, Ukwaththa U.A.N.T., [email](e20404@eng.pdn.ac.lk)
 
-# Table of Contents
-
- 1. [Problem Domain](Problem_Domain)
- 2. [Our Solution](Our_Solution)
- 3. [Solution Architecture](Solution_Architecture)
- 4. [Infrastructure](Infrastructure)
- 5. [BOM](BOM)
- 6. [Links](Links)
-
 ## 1. Problem Domain
 
 -  Inconsistent Environment Management
