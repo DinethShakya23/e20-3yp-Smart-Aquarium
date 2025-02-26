@@ -48,13 +48,13 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 - Hardware Components
 
 <p align="center">
-  <img src="docs/images/hardwera 1.png" width="500">
+  <img src="docs/images/hardware 1.png" width="500">
 </p>
 <p align="center">
-  <img src="docs/images/hardwera 2.png" width="500">
+  <img src="docs/images/hardware 2.png" width="500">
 </p>
 <p align="center">
-  <img src="docs/images/hardwera 3.png" width="500">
+  <img src="docs/images/hardware 3.png" width="500">
 </p>
 
   
