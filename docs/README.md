@@ -9,9 +9,7 @@ title: Smart Fish Tank monitoring & Controlling System
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# Project Title
-
----Smart Fish Tank monitoring & Controlling System
+# Smart Fish Tank monitoring & Controlling System
 
 <!-- Image (photo/drawing of the final hardware) should be here -->
 
@@ -83,8 +81,8 @@ title: Smart Fish Tank monitoring & Controlling System
 - "-" are get form the department 
 ## Links
 
-- [Project Repository](https://github.com/cepdnaclk/{{ e20-3yp-Smart-Aquarium }}){:target="_blank"}
-- [Project Page](https://cepdnaclk.github.io/{{ e20-3yp-Smart-Aquarium}}){:target="_blank"}
+- [Project Repository](https://github.com/cepdnaclk/e20-3yp-Smart-Aquarium)
+- [Project Page](https://cepdnaclk.github.io/e20-3yp-Smart-Aquarium)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
