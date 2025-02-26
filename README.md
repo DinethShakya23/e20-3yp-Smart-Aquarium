@@ -39,10 +39,14 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 
 ## 3. Solution Architecture
 
-- Control Flow of the System
-
   <p align="center">
   <img src="docs/images/Solution Architecture.png" width="500">
 </p>
 
+## 4. Infrastructure
+
+- Hardware Components
+
+  
+  
 
