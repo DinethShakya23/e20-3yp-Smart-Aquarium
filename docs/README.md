@@ -3,7 +3,7 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and project title
-repository-name: eYY-3yp-Smart-Aquarium
+repository-name: e20-3yp-Smart-Aquarium
 title: Smart Fish Tank monitoring & Controlling System
 ---
 
@@ -25,6 +25,15 @@ title: Smart Fish Tank monitoring & Controlling System
 -  E/20/055, De Silva H.D.S., [email](e20055@eng.pdn.ac.lk)
 -  E/20/231, Madhura T.W.K.J., [email](e20231@eng.pdn.ac.lk)
 -  E/20/404, Ukwaththa U.A.N.T., [email](e20404@eng.pdn.ac.lk)
+
+# Table of Contents
+
+ 1. [Problem Domain](Problem Domain)
+ 2. [Our Solution](Our Solution)
+ 3. [Solution Architecture](Solution Architecture)
+ 4. [Infrastructure](Infrastructure)
+ 5. [BOM](BOM)
+ 6. [Links](Links)
 
 ## 1. Problem Domain
 
@@ -60,7 +69,7 @@ title: Smart Fish Tank monitoring & Controlling System
   <img src="images/hardware3.PNG"  height="150" width="500">
 </p>
 
-## 4. BOM
+## 5. BOM
 
 | Item                                                                | Unit Cost (LKR) | Quantity | Cost (LKR)  |
 |---------------------------------------------------------------------|----------------|----------|-------------|
