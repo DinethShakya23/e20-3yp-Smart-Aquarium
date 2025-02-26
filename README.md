@@ -40,12 +40,22 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 ## 3. Solution Architecture
 
   <p align="center">
-  <img src="docs/images/Solution Architecture.png" width="500">
+  <img src="docs/images/Solution Architecture.png" width="700">
 </p>
 
 ## 4. Infrastructure
 
 - Hardware Components
+
+<p align="center">
+  <img src="docs/images/hardwera 1.png" width="500">
+</p>
+<p align="center">
+  <img src="docs/images/hardwera 2.png" width="500">
+</p>
+<p align="center">
+  <img src="docs/images/hardwera 3.png" width="500">
+</p>
 
   
   
