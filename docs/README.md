@@ -43,7 +43,7 @@ title: Smart Fish Tank monitoring & Controlling System
 ## 3. Solution Architecture
 
   <p align="center">
-  <img src="docs/images/Solution Architecture.png" width="700">
+  <img src="images/Solution Architecture.png" width="700">
 </p>
 
 ## 4. Infrastructure
