@@ -51,13 +51,13 @@ title: Smart Fish Tank monitoring & Controlling System
 - Hardware Components
 
 <p align="center">
-  <img src="docs/images/hardware1.PNG" height="140" width="500">
+  <img src="images/hardware1.PNG" height="140" width="500">
 </p>
 <p align="center">
-  <img src="docs/images/hardware2.PNG"  height="150" width="500">
+  <img src="images/hardware2.PNG"  height="150" width="500">
 </p>
 <p align="center">
-  <img src="docs/images/hardware3.PNG"  height="150" width="500">
+  <img src="images/hardware3.PNG"  height="150" width="500">
 </p>
 
 ## 4. BOM
