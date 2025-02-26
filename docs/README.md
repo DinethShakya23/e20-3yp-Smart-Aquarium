@@ -28,9 +28,9 @@ title: Smart Fish Tank monitoring & Controlling System
 
 # Table of Contents
 
- 1. [Problem Domain](Problem Domain)
- 2. [Our Solution](Our Solution)
- 3. [Solution Architecture](Solution Architecture)
+ 1. [Problem Domain](Problem_Domain)
+ 2. [Our Solution](Our_Solution)
+ 3. [Solution Architecture](Solution_Architecture)
  4. [Infrastructure](Infrastructure)
  5. [BOM](BOM)
  6. [Links](Links)
