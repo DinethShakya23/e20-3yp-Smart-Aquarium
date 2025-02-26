@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'dart:convert';
+
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
@@ -9,8 +12,6 @@ import 'schedulefeed.dart';
 import 'temperaturescreen.dart';
 import 'phscreen.dart';
 import 'turbidityscreen.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'dart:convert';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -21,7 +22,7 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   final channel = WebSocketChannel.connect(
-    Uri.parse('ws://192.168.3.244:3000'), // Replace with your server IP
+    Uri.parse('ws://192.168.3.244:3002'), // Replace with your server IP
   );
 
   bool _isSearching = false;
@@ -48,19 +49,35 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   void _listenToWebSocket() {
-    channel.stream.listen((message) {
-      try {
-        // ✅ Parse WebSocket JSON data
-        Map<String, dynamic> data = jsonDecode(message);
-        setState(() {
-          TemperatureLevel = data['temperature'] ?? TemperatureLevel;
-          pHLevel = data['pH'] ?? pHLevel;
-          turbidityLevel = data['turbidity'] ?? turbidityLevel;
-        });
-      } catch (e) {
-        print("Error parsing WebSocket data: $e");
-      }
-    });
+    debugPrint("🔌 Connecting to WebSocket...");
+
+    channel.stream.listen(
+          (message) {
+            debugPrint("📩 Received Raw WebSocket Message: $message"); // Log raw data
+
+        try {
+          Map<String, dynamic> data = jsonDecode(message);
+          setState(() {
+            TemperatureLevel = (data['temp'] as num).toDouble() ?? TemperatureLevel;
+            pHLevel = (data['pH'] as num).toDouble() ?? pHLevel;
+            turbidityLevel = (data['turbidity'] as num).toDouble() ?? turbidityLevel;
+          });
+
+
+          debugPrint(
+              "✅ Updated Values - Temperature: $TemperatureLevel°C, pH: $pHLevel, Turbidity: $turbidityLevel NTU");
+        } catch (e) {
+          debugPrint("❌ Error parsing WebSocket data: $e");
+        }
+      },
+      onError: (error) {
+        debugPrint("❌ WebSocket Error: $error");
+      },
+      onDone: () {
+        debugPrint("🔌 WebSocket connection closed.");
+      },
+      cancelOnError: true,
+    );
   }
 
   @override
@@ -256,11 +273,6 @@ class _DashBoardState extends State<DashBoard> {
                   "New data available", "10 min ago"),
               NotificationItem(Icons.fastfood, "Feeding Schedule Updated",
                   "New schedule available", "2 min ago"),
-              const SizedBox(height: 10),
-              TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("Close",
-                      style: TextStyle(color: Colors.blueAccent))),
             ],
           ),
         );
@@ -271,7 +283,9 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void dispose() {
     channel.sink.close();
+    print("🛑 WebSocket Closed.");
     super.dispose();
   }
 }
+
 

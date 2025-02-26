@@ -99,3 +99,10 @@ code/Frontend/macos/Flutter/GeneratedPluginRegistrant.swift
 code/Frontend/windows/flutter/generated_plugin_registrant.cc
 code/Frontend/windows/flutter/generated_plugin_registrant.h
 code/Frontend/windows/flutter/generated_plugins.cmake
+code/Frontend/linux/flutter/generated_plugin_registrant.cc
+code/Frontend/linux/flutter/generated_plugin_registrant.h
+code/Frontend/linux/flutter/generated_plugins.cmake
+code/Frontend/macos/Flutter/GeneratedPluginRegistrant.swift
+code/Frontend/windows/flutter/generated_plugin_registrant.cc
+code/Frontend/windows/flutter/generated_plugin_registrant.h
+code/Frontend/windows/flutter/generated_plugins.cmake

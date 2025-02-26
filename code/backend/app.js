@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const app = express();
+const ws = require('./controllers/raspberrypi')
 
 // Middleware to enable Cross-Origin Resource Sharing (CORS) for your API.
 app.use(cors());
