@@ -10,6 +10,8 @@ import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 
 class Turbidity extends StatefulWidget {
+  const Turbidity({super.key});
+
   @override
   State<Turbidity> createState() => _TurbidityState();
 }
@@ -17,7 +19,7 @@ class Turbidity extends StatefulWidget {
 class _TurbidityState extends State<Turbidity> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
-  List<String> _allItems = [
+  final List<String> _allItems = [
     "Fish Feeding",
     "Water Change",
     "Filter Cleaning",

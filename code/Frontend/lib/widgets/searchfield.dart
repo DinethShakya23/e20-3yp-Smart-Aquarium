@@ -4,8 +4,7 @@ class SearchField extends StatelessWidget {
   final TextEditingController searchController;
   final Function(String) onChanged;
 
-  const SearchField(this.searchController, this.onChanged, {Key? key})
-      : super(key: key);
+  const SearchField(this.searchController, this.onChanged, {super.key});
 
   @override
   Widget build(BuildContext context) {

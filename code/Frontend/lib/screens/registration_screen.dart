@@ -113,7 +113,7 @@ class RegistrationScreen extends StatelessWidget {
 
                     try {
                       final response = await http.post(
-                        Uri.parse('http://10.0.2.2:3001/api/register'),
+                        Uri.parse('http://13.53.127.196:8080/api/register'),  //http://13.53.127.196:8080/  192.168.59.89
                         headers: {'Content-Type': 'application/json'},
                         body:
                             jsonEncode({'email': email, 'password': password}),
@@ -137,7 +137,7 @@ class RegistrationScreen extends StatelessWidget {
                               content: Text("Failed to create account")),
                         );
                       }
-                    } catch (e, stackTrace) {
+                    } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("An error occurred: ${e.toString()}")),
                       );

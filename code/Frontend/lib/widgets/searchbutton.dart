@@ -4,8 +4,7 @@ class SearchButton extends StatelessWidget {
   final bool isSearching;
   final VoidCallback onPressed;
 
-  const SearchButton(this.isSearching, this.onPressed, {Key? key})
-      : super(key: key);
+  const SearchButton(this.isSearching, this.onPressed, {super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -109,7 +109,7 @@ class LoginScreen extends StatelessWidget {
 
                   try {
                     final response = await http.post(
-                      Uri.parse('http://192.168.3.244:3001/api/login'),
+                      Uri.parse('http://13.53.127.196:8080/api/login'),
                       headers: {'Content-Type': 'application/json'},
                       body: jsonEncode({'email': email, 'password': password}),
                     );
@@ -131,7 +131,7 @@ class LoginScreen extends StatelessWidget {
                             content: Text("Email or Password Incorrect")),
                       );
                     }
-                  } catch (e, stackTrace) {
+                  } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                           content: Text("An error occurred: ${e.toString()}")),

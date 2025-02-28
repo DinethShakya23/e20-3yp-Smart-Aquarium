@@ -7,6 +7,8 @@ import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 
 class Schedulefeed extends StatefulWidget {
+  const Schedulefeed({super.key});
+
   @override
   State<Schedulefeed> createState() => _ScheduleFeedState();
 }
@@ -14,7 +16,7 @@ class Schedulefeed extends StatefulWidget {
 class _ScheduleFeedState extends State<Schedulefeed> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
-  List<String> _allItems = [
+  final List<String> _allItems = [
     "Fish Feeding",
     "Water Change",
     "Filter Cleaning",
@@ -244,8 +246,8 @@ class _ScheduleFeedState extends State<Schedulefeed> {
               onPressed: () {
                 setState(() {
                   _scheduledTime =
-                      "${_selectedHour}:${_selectedMinute.toString().padLeft(2, '0')} ";
-                  _scheduledQuantity = "${_selectedQuantity} g";
+                      "$_selectedHour:${_selectedMinute.toString().padLeft(2, '0')} ";
+                  _scheduledQuantity = "$_selectedQuantity g";
                 });
               },
               child: const Text(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class NotificationButton extends StatelessWidget {
   final Function(BuildContext) onPressed;
 
-  const NotificationButton(this.onPressed, {Key? key}) : super(key: key);
+  const NotificationButton(this.onPressed, {super.key});
 
   @override
   Widget build(BuildContext context) {

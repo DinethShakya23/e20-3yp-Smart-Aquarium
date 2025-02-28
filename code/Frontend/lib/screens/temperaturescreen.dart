@@ -10,6 +10,8 @@ import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 
 class Temperature extends StatefulWidget {
+  const Temperature({super.key});
+
   @override
   State<Temperature> createState() => _TemperatureState();
 }
@@ -17,7 +19,7 @@ class Temperature extends StatefulWidget {
 class _TemperatureState extends State<Temperature> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
-  List<String> _allItems = [
+  final List<String> _allItems = [
     "Fish Feeding",
     "Water Change",
     "Filter Cleaning",
@@ -209,20 +211,20 @@ class _TemperatureState extends State<Temperature> {
             children: [
               ElevatedButton(
                 onPressed: () {},
-                child: const Icon(Icons.arrow_upward),
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),
                   padding: EdgeInsets.all(16),
                 ),
+                child: const Icon(Icons.arrow_upward),
               ),
               const SizedBox(width: 20),
               ElevatedButton(
                 onPressed: () {},
-                child: const Icon(Icons.arrow_downward),
                 style: ElevatedButton.styleFrom(
                   shape: CircleBorder(),
                   padding: EdgeInsets.all(16),
                 ),
+                child: const Icon(Icons.arrow_downward),
               ),
             ],
           ),

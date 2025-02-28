@@ -1,10 +1,10 @@
 const WebSocket = require('ws');
 const mqtt = require('mqtt');
 
-const server = new WebSocket.Server({ port: 3002 });
+const server = new WebSocket.Server({ host: '0.0.0.0', port: 8081 });
 
 // Configuration
-const MQTT_BROKER = '192.168.3.244'; // MQTT Broker IP
+const MQTT_BROKER = '13.53.127.196'; // MQTT Broker IP
 const MQTT_PORT = 1883;
 const MQTT_TOPIC = 'sensor/data';
 
