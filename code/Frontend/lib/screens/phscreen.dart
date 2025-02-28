@@ -10,6 +10,8 @@ import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 
 class PHLevel extends StatefulWidget {
+  const PHLevel({super.key});
+
   @override
   State<PHLevel> createState() => _PHLevelState();
 }
@@ -17,7 +19,7 @@ class PHLevel extends StatefulWidget {
 class _PHLevelState extends State<PHLevel> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
-  List<String> _allItems = [
+  final List<String> _allItems = [
     "Fish Feeding",
     "Water Change",
     "Filter Cleaning",

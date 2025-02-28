@@ -20,8 +20,7 @@ class DashboardRow extends StatelessWidget {
       this.secondLabel,
       this.secondColor,
       this.destination2,
-      {Key? key})
-      : super(key: key);
+      {super.key});
 
   @override
   Widget build(BuildContext context) {

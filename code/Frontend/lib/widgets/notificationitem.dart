@@ -7,8 +7,7 @@ class NotificationItem extends StatelessWidget {
   final String time;
 
   const NotificationItem(this.icon, this.title, this.message, this.time,
-      {Key? key})
-      : super(key: key);
+      {super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import '../screens/login_screen.dart';
 class PopupMenu extends StatelessWidget {
   final BuildContext context;
 
-  const PopupMenu(this.context, {Key? key}) : super(key: key);
+  const PopupMenu(this.context, {super.key});
 
   @override
   Widget build(BuildContext context) {

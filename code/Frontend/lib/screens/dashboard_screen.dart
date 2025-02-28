@@ -22,7 +22,7 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   final channel = WebSocketChannel.connect(
-    Uri.parse('ws://192.168.3.244:3002'), // Replace with your server IP
+    Uri.parse('ws://13.53.127.196:8081'), // Replace with your server IP
   );
 
   bool _isSearching = false;
@@ -58,7 +58,7 @@ class _DashBoardState extends State<DashBoard> {
         try {
           Map<String, dynamic> data = jsonDecode(message);
           setState(() {
-            TemperatureLevel = (data['temp'] as num).toDouble() ?? TemperatureLevel;
+            TemperatureLevel = (data['temperature'] as num).toDouble() ?? TemperatureLevel;
             pHLevel = (data['pH'] as num).toDouble() ?? pHLevel;
             turbidityLevel = (data['turbidity'] as num).toDouble() ?? turbidityLevel;
           });

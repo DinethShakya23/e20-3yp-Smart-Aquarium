@@ -11,8 +11,8 @@ class DashboardButton extends StatelessWidget {
     required this.label,
     required this.color,
     required this.destinationScreen,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
