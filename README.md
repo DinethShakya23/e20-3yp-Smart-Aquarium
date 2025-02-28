@@ -74,8 +74,11 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Jumper wires, Breadboard, Ethernet Cable                           | 1,417.50       | 60/1/1   | 1,417.50    |
 | **Total**                                                          |                |          | **20,502.50** |
 
+- "-" are get form the department
 
-- "-" are get form the department 
+  ## 5. For More Details
+  -For More Details: [Smart Aquarium Project](https://cepdnaclk.github.io/e20-3yp-Smart-Aquarium/)
+
 
   
   
