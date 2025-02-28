@@ -77,7 +77,9 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 - "-" are get form the department
 
   ## 5. For More Details
-  -For More Details: [Smart Aquarium Project](https://cepdnaclk.github.io/e20-3yp-Smart-Aquarium/)
+  -[Our Project Page](https://cepdnaclk.github.io/e20-3yp-Smart-Aquarium/)
+  -[Department of Computer Engineering](https://projects.ce.pdn.ac.lk/)
+  -[University of Peradeniya](https://eng.pdn.ac.lk/)
 
 
   
