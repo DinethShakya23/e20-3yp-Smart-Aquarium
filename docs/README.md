@@ -54,7 +54,7 @@ title: Smart Fish Tank monitoring & Controlling System
   <img src="images/hardware1.PNG" height="140" width="500">
 </p>
 <p align="center">
-  <img src="images/hardware2.PNG"  height="150" width="500">
+  <img src="images/hardware2.png"  height="150" width="500">
 </p>
 <p align="center">
   <img src="images/hardware3.PNG"  height="150" width="500">
@@ -86,5 +86,4 @@ title: Smart Fish Tank monitoring & Controlling System
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
-[//]: # (Please refer this to learn more about Markdown syntax)
-[//]: # (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
