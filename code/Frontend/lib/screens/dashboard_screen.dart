@@ -1,16 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:convert';
 
-import '../Widgets/searchfield.dart';
-import '../Widgets/searchbutton.dart';
-import '../Widgets/notificationbutton.dart';
-import '../Widgets/popupmenu.dart';
-import '../Widgets/notificationitem.dart';
+import 'package:flutter/material.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+
 import '../Widgets/dashboardrow.dart';
+import '../Widgets/notificationbutton.dart';
+import '../Widgets/notificationitem.dart';
+import '../Widgets/popupmenu.dart';
+import '../Widgets/searchbutton.dart';
+import '../Widgets/searchfield.dart';
+import 'phscreen.dart';
 import 'schedulefeed.dart';
 import 'temperaturescreen.dart';
-import 'phscreen.dart';
 import 'turbidityscreen.dart';
 
 class DashBoard extends StatefulWidget {
@@ -53,19 +54,24 @@ class _DashBoardState extends State<DashBoard> {
 
     channel.stream.listen(
           (message) {
-            debugPrint("📩 Received Raw WebSocket Message: $message"); // Log raw data
+        debugPrint("📩 Received Raw WebSocket Message: $message"); // Log raw data
 
         try {
-          Map<String, dynamic> data = jsonDecode(message);
-          setState(() {
-            TemperatureLevel = (data['temperature'] as num).toDouble() ?? TemperatureLevel;
-            pHLevel = (data['pH'] as num).toDouble() ?? pHLevel;
-            turbidityLevel = (data['turbidity'] as num).toDouble() ?? turbidityLevel;
-          });
+          Map<String, dynamic> jsonData = jsonDecode(message);
 
+          if (jsonData['type'] == 'sensor' && jsonData['data'] is Map<String, dynamic>) {
+            Map<String, dynamic> data = jsonData['data'];
 
-          debugPrint(
-              "✅ Updated Values - Temperature: $TemperatureLevel°C, pH: $pHLevel, Turbidity: $turbidityLevel NTU");
+            setState(() {
+              TemperatureLevel = (data['temperature'] as num?)?.toDouble() ?? TemperatureLevel;
+              pHLevel = (data['pH'] as num?)?.toDouble() ?? pHLevel;
+              turbidityLevel = (data['turbidity'] as num?)?.toDouble() ?? turbidityLevel;
+            });
+
+            debugPrint("✅ Updated Values - 🌡 Temp: $TemperatureLevel°C, pH: $pHLevel, 💧 Turbidity: $turbidityLevel NTU");
+          } else {
+            debugPrint("⚠️ Unexpected WebSocket message format: $jsonData");
+          }
         } catch (e) {
           debugPrint("❌ Error parsing WebSocket data: $e");
         }
@@ -79,6 +85,8 @@ class _DashBoardState extends State<DashBoard> {
       cancelOnError: true,
     );
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +104,8 @@ class _DashBoardState extends State<DashBoard> {
         title: _isSearching
             ? SearchField(_searchController, _filterItems)
             : const Text("Dashboard",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.blueGrey.shade900,
         elevation: 4.0,
         shadowColor: Colors.blueGrey.shade500,
@@ -287,5 +295,3 @@ class _DashBoardState extends State<DashBoard> {
     super.dispose();
   }
 }
-
-
