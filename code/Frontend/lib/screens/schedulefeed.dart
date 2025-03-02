@@ -5,6 +5,8 @@ import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
 import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
+import 'dart:convert';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Schedulefeed extends StatefulWidget {
   const Schedulefeed({super.key});
@@ -243,13 +245,8 @@ class _ScheduleFeedState extends State<Schedulefeed> {
 
             // Submit Button
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _scheduledTime =
-                      "$_selectedHour:${_selectedMinute.toString().padLeft(2, '0')} ";
-                  _scheduledQuantity = "$_selectedQuantity g";
-                });
-              },
+              onPressed: _setSchedule,
+
               child: const Text(
                 "Set Schedule",
                 style: TextStyle(
@@ -338,5 +335,45 @@ class _ScheduleFeedState extends State<Schedulefeed> {
         );
       },
     );
+  }
+
+  void _setSchedule() async {
+    setState(() {
+      _scheduledTime =
+      "$_selectedHour:${_selectedMinute.toString().padLeft(2, '0')} ";
+      _scheduledQuantity = "$_selectedQuantity g";
+    });
+
+    // WebSocket server URI
+    final String wsUrl = "ws://13.53.127.196:8081";
+
+    // Prepare the JSON payload
+    Map<String, dynamic> data = {
+      "time": _scheduledTime,
+      "quantity": _selectedQuantity,
+    };
+
+    try {
+      final channel = WebSocketChannel.connect(Uri.parse(wsUrl));
+
+      // Send the schedule data as JSON
+      channel.sink.add(jsonEncode(data));
+      print("✅ Schedule sent successfully via WebSocket");
+
+      // Optionally listen for responses
+      channel.stream.listen(
+            (message) {
+          print("🔄 Server response: $message");
+        },
+        onError: (error) {
+          print("❌ WebSocket error: $error");
+        },
+        onDone: () {
+          print("✅ WebSocket connection closed.");
+        },
+      );
+    } catch (e) {
+      print("❌ Error connecting to WebSocket: $e");
+    }
   }
 }
