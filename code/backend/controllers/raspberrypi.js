@@ -13,7 +13,7 @@ const mqttClient = mqtt.connect(`mqtt://${MQTT_BROKER}:${MQTT_PORT}`);
 
 // Store the latest sensor data
 let latestSensorData = {
-    temp: null,
+    temperature: null,
     pH: null,
     turbidity: null,
 };
@@ -46,11 +46,11 @@ mqttClient.on('message', (topic, message) => {
 
         if (topic === MQTT_TOPIC_SENSOR) {
             if (data.pH) {
-                console.log(`📡 Received Sensor Data: pH=${data.pH}, turbidity=${data.turbidity}, temperature=${data.temp}`);
+                console.log(`📡 Received Sensor Data: pH=${data.pH}, turbidity=${data.turbidity}, temperatureerature=${data.temperature}`);
 
                 latestSensorData.pH = parseFloat(data.pH);
                 latestSensorData.turbidity = parseFloat(data.turbidity);
-                latestSensorData.temp = parseFloat(data.temp);
+                latestSensorData.temperature = parseFloat(data.temperature);
 
                 // Broadcast updated sensor data to WebSocket clients
                 server.clients.forEach(client => {
