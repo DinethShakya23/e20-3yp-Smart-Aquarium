@@ -43,7 +43,13 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
   <img src="docs/images/Solution Architecture.png" width="700">
 </p>
 
-## 4. Infrastructure
+## 4. User Flow
+
+  <p align="center">
+  <img src="docs/images/Uesrflow.PNG" width="500">
+</p>
+
+## 5. Infrastructure
 
 - Hardware Components
 
@@ -57,7 +63,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
   <img src="docs/images/hardware3.PNG"  height="150" width="500">
 </p>
 
-## 4. BOM
+## 6. BOM
 
 | Item                                                                | Unit Cost (LKR) | Quantity | Cost (LKR)  |
 |---------------------------------------------------------------------|----------------|----------|-------------|
@@ -74,8 +80,14 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Jumper wires, Breadboard, Ethernet Cable                           | 1,417.50       | 60/1/1   | 1,417.50    |
 | **Total**                                                          |                |          | **20,502.50** |
 
+- "-" are get form the department
 
-- "-" are get form the department 
+## 7. For More Details
+- [Our Project Page](https://cepdnaclk.github.io/e20-3yp-Smart-Aquarium/)  
+- [Department of Computer Engineering](https://www.ce.pdn.ac.lk/)  
+- [Faculty Of Engineering University Of Peradeniya](https://eng.pdn.ac.lk/)  
+
+
 
   
   
