@@ -23,7 +23,7 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   final channel = WebSocketChannel.connect(
-    Uri.parse('ws://13.53.127.196:8081'), // Replace with your server IP
+    Uri.parse('ws://0.0.0.0:8081'), // Replace with your server IP
   );
 
   bool _isSearching = false;
