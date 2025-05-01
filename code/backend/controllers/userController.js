@@ -39,7 +39,7 @@ const UserController = {
             // Compare provided password with stored hashed password
             const isValidPassword = user.checkPassword(password);
             if (!isValidPassword) {
-                return res.status(400).json({ error: 'Invalid email or password' });
+                return res.status(400).json({ error: 'Invalid password' });
             }
 
             

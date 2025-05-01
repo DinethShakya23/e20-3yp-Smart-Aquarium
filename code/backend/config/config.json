@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "Shakya@MYSQL#2024",
+    "password": "Kavindu@2000",
     "database": "database_development",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "mysql",
     "createDatabaseIfNotExist": true
   },
