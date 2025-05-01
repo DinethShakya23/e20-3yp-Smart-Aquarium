@@ -8,6 +8,7 @@ import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
 import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
+import '../widgets/TemperatureChart.dart';
 
 class Temperature extends StatefulWidget {
   const Temperature({super.key});
@@ -227,6 +228,18 @@ class _TemperatureState extends State<Temperature> {
                 child: const Icon(Icons.arrow_downward),
               ),
             ],
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            "Temperature History",
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            height: 500,
+            child: TemperatureChartPage(), // Assuming you have a chart widget
           ),
         ]),
       ),
