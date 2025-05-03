@@ -1,0 +1,28 @@
+putty hostname = raspberrypi.local
+      port = 22
+
+login as = pi
+password = K
+
+sudo raspi-config
+
+sudo reboot
+
+python3 -m venv myenv
+source myenv/bin/activate
+
+pip install paho-mqtt requests
+
+pip install adafruit-circuitpython-ads1x15
+
+pip install adafruit-blinka
+
+
+
+
+# camera initiate 
+
+
+libcamera-vid -t 0 --framerate 30 --width 1640 --height 1232 --codec h264 --listen --preview 0,0,640,480 -o tcp://0.0.0.0:8554
+
+
