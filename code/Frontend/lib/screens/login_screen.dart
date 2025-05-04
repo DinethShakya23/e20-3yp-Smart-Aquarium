@@ -1,17 +1,23 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:frontend/screens/dashboard_screen.dart';
-import '../widgets/custom_button.dart';
-import 'registration_screen.dart'; // Import the registration screen
-import '../widgets/Dividerwithtext.dart';
-import 'Forget_password.dart';
-import '../widgets/Password_filed.dart';
 import 'package:http/http.dart' as http;
+import '../widgets/custom_button.dart';
+import '../widgets/Dividerwithtext.dart';
+import '../widgets/Password_filed.dart';
+import 'dashboard_screen.dart';
+import 'registration_screen.dart';
+import 'Forget_password.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Add this import
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
+  // Save user email to shared preferences
+  Future<void> _saveUserEmail(String email) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userEmail', email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class LoginScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF0468BF), Color(0xFFA1D6F3)], // Gradient colors
+            colors: [Color(0xFF0468BF), Color(0xFFA1D6F3)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -33,13 +39,12 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(100.0), // Adjust the radius as needed
+                borderRadius: BorderRadius.circular(100.0),
                 child: Image.asset(
                   'assert/images/Logo00.jpg',
                   width: 86,
                   height: 86,
-                  fit: BoxFit.cover, // Ensures the image scales properly
+                  fit: BoxFit.cover,
                 ),
               ),
               const Text(
@@ -52,14 +57,14 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
-                obscureText: false,
                 controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100)),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
                   prefixIcon: const Icon(Icons.email),
-                  fillColor: Colors.white, // Set background color
+                  fillColor: Colors.white,
                   filled: true,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
@@ -79,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => ForgetPassword()),
                   );
                 },
-                child: Align(
+                child: const Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     'Forgot Password?',
@@ -116,16 +121,20 @@ class LoginScreen extends StatelessWidget {
 
                     if (response.statusCode == 200 ||
                         response.statusCode == 201) {
+                      // Save user email to shared preferences for later use
+                      await _saveUserEmail(email);
+
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Login successfully!")),
+                        const SnackBar(content: Text("Login successful!")),
                       );
+
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DashBoard()),
+                          builder: (context) => DashBoard(userEmail: email),
+                        ),
                       );
                     } else {
-                      print(response.statusCode);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text("Email or Password Incorrect")),
@@ -149,21 +158,11 @@ class LoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.facebook,
-                    color: Color(0xFF1e52e6),
-                    size: 55.0,
-                  ),
-                  const SizedBox(
-                    width: 25,
-                  ),
-                  const Icon(
-                    Icons.apple,
-                    size: 55.0,
-                  ),
-                  const SizedBox(
-                    width: 25,
-                  ),
+                  const Icon(Icons.facebook,
+                      color: Color(0xFF1e52e6), size: 55.0),
+                  const SizedBox(width: 25),
+                  const Icon(Icons.apple, size: 55.0),
+                  const SizedBox(width: 25),
                   Image.asset('assert/images/Google_logo.png',
                       width: 55, height: 55),
                 ],
@@ -171,15 +170,12 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 20),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: const Color.fromARGB(255, 0, 0, 0),
-                  ),
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
                   children: [
-                    TextSpan(text: "Don't have an account?  "),
+                    const TextSpan(text: "Don't have an account?  "),
                     TextSpan(
-                      text: "Register", // clickable text
-                      style: TextStyle(
+                      text: "Register",
+                      style: const TextStyle(
                         color: Color.fromRGBO(30, 120, 190, 1),
                         fontWeight: FontWeight.bold,
                       ),
@@ -188,8 +184,8 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegistrationScreen(),
-                            ),
+                                builder: (context) =>
+                                    const RegistrationScreen()),
                           );
                         },
                     ),

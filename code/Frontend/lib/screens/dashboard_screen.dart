@@ -1,21 +1,23 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../Widgets/dashboardrow.dart';
 import '../Widgets/notificationbutton.dart';
 import '../Widgets/notificationitem.dart';
-import '../Widgets/popupmenu.dart';
+import '../widgets/popupmenu.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/searchfield.dart';
 import 'phscreen.dart';
 import 'schedulefeed.dart';
 import 'temperaturescreen.dart';
 import 'turbidityscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
+  final String userEmail;
+
+  const DashBoard({super.key, required this.userEmail});
 
   @override
   State<DashBoard> createState() => _DashBoardState();
@@ -23,7 +25,7 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   final channel = WebSocketChannel.connect(
-    Uri.parse('ws://0.0.0.0:8081'), // Replace with your server IP
+    Uri.parse('ws://0.0.0.0:8081'),
   );
 
   bool _isSearching = false;
@@ -39,36 +41,51 @@ class _DashBoardState extends State<DashBoard> {
     "Profile"
   ];
   List<String> _filteredItems = [];
+
   double TemperatureLevel = 30.0;
   double pHLevel = 7.0;
   double turbidityLevel = 50.0;
+  String userEmail = "";
 
   @override
   void initState() {
     super.initState();
+    _saveUserEmail(widget.userEmail);
     _listenToWebSocket();
+  }
+
+  // Save userEmail to SharedPreferences for persistence
+  Future<void> _saveUserEmail(String email) async {
+    if (email.isNotEmpty) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userEmail', email);
+    }
   }
 
   void _listenToWebSocket() {
     debugPrint("🔌 Connecting to WebSocket...");
 
     channel.stream.listen(
-          (message) {
-        debugPrint("📩 Received Raw WebSocket Message: $message"); // Log raw data
+      (message) {
+        debugPrint("📩 Received Raw WebSocket Message: $message");
 
         try {
           Map<String, dynamic> jsonData = jsonDecode(message);
 
-          if (jsonData['type'] == 'sensor' && jsonData['data'] is Map<String, dynamic>) {
+          if (jsonData['type'] == 'sensor' &&
+              jsonData['data'] is Map<String, dynamic>) {
             Map<String, dynamic> data = jsonData['data'];
 
             setState(() {
-              TemperatureLevel = (data['temperature'] as num?)?.toDouble() ?? TemperatureLevel;
+              TemperatureLevel =
+                  (data['temperature'] as num?)?.toDouble() ?? TemperatureLevel;
               pHLevel = (data['pH'] as num?)?.toDouble() ?? pHLevel;
-              turbidityLevel = (data['turbidity'] as num?)?.toDouble() ?? turbidityLevel;
+              turbidityLevel =
+                  (data['turbidity'] as num?)?.toDouble() ?? turbidityLevel;
             });
 
-            debugPrint("✅ Updated Values - 🌡 Temp: $TemperatureLevel°C, pH: $pHLevel, 💧 Turbidity: $turbidityLevel NTU");
+            debugPrint(
+                "✅ Updated Values - 🌡 Temp: $TemperatureLevel°C, pH: $pHLevel, 💧 Turbidity: $turbidityLevel NTU");
           } else {
             debugPrint("⚠️ Unexpected WebSocket message format: $jsonData");
           }
@@ -76,31 +93,17 @@ class _DashBoardState extends State<DashBoard> {
           debugPrint("❌ Error parsing WebSocket data: $e");
         }
       },
-      onError: (error) {
-        debugPrint("❌ WebSocket Error: $error");
-      },
-      onDone: () {
-        debugPrint("🔌 WebSocket connection closed.");
-      },
+      onError: (error) => debugPrint("❌ WebSocket Error: $error"),
+      onDone: () => debugPrint("🔌 WebSocket connection closed."),
       cancelOnError: true,
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: BackButton(color: Colors.white),
         title: _isSearching
             ? SearchField(_searchController, _filterItems)
             : const Text("Dashboard",
@@ -111,13 +114,13 @@ class _DashBoardState extends State<DashBoard> {
         shadowColor: Colors.blueGrey.shade500,
         actions: [
           SearchButton(_isSearching, _toggleSearch),
-          NotificationButton(_showNotifications),
-          PopupMenu(context),
+          NotificationButton(_showNotifications), // ✅ Corrected
+          DashboardPopupMenu(userEmail: widget.userEmail),
         ],
       ),
       body: Container(
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF0468BF), Color(0xFFA1D6F3)],
             begin: Alignment.topLeft,
@@ -129,7 +132,7 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
-  _filterItems(String query) {
+  void _filterItems(String query) {
     setState(() {
       _filteredItems = _allItems
           .where((item) => item.toLowerCase().contains(query.toLowerCase()))
@@ -137,7 +140,7 @@ class _DashBoardState extends State<DashBoard> {
     });
   }
 
-  _toggleSearch() {
+  void _toggleSearch() {
     setState(() {
       _isSearching = !_isSearching;
       if (!_isSearching) {
@@ -150,9 +153,7 @@ class _DashBoardState extends State<DashBoard> {
   Widget _buildInfoCard(IconData icon, String value, Color color) {
     return Card(
       color: Colors.white.withOpacity(0.1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 4,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -160,13 +161,11 @@ class _DashBoardState extends State<DashBoard> {
           children: [
             Icon(icon, size: 30, color: color),
             const SizedBox(height: 8),
-            Text(
-              value,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
+            Text(value,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
       ),
@@ -204,28 +203,16 @@ class _DashBoardState extends State<DashBoard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: _buildInfoCard(
-                    Icons.thermostat,
-                    "$TemperatureLevel°C",
-                    Colors.redAccent,
-                  ),
-                ),
+                    child: _buildInfoCard(Icons.thermostat,
+                        "$TemperatureLevel°C", Colors.redAccent)),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: _buildInfoCard(
-                    Icons.opacity,
-                    "$turbidityLevel NTU",
-                    Colors.orangeAccent,
-                  ),
-                ),
+                    child: _buildInfoCard(Icons.opacity, "$turbidityLevel NTU",
+                        Colors.orangeAccent)),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: _buildInfoCard(
-                    Icons.science,
-                    "$pHLevel",
-                    Colors.blueAccent,
-                  ),
-                ),
+                    child: _buildInfoCard(
+                        Icons.science, "$pHLevel", Colors.blueAccent)),
               ],
             ),
             const SizedBox(height: 20),
@@ -266,13 +253,13 @@ class _DashBoardState extends State<DashBoard> {
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text("Notifications",
+            children: const [
+              Text("Notifications",
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.bold)),
-              const Divider(color: Colors.white54),
+              Divider(color: Colors.white54),
               NotificationItem(Icons.warning, "High Temperature",
                   "Temperature reached 30°C", "2 min ago"),
               NotificationItem(Icons.opacity, "Turbidity Alert",
@@ -291,7 +278,7 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void dispose() {
     channel.sink.close();
-    print("🛑 WebSocket Closed.");
+    debugPrint("🛑 WebSocket Closed.");
     super.dispose();
   }
 }

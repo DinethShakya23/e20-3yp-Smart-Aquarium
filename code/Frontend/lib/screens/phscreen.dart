@@ -6,7 +6,7 @@ import 'dart:math';
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
-import '../Widgets/popupmenu.dart';
+// import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 
 class PHLevel extends StatefulWidget {
@@ -73,7 +73,7 @@ class _PHLevelState extends State<PHLevel> {
         actions: [
           SearchButton(_isSearching, _toggleSearch),
           NotificationButton(_showNotifications),
-          PopupMenu(context),
+          // PopupMenu(userEmail: widget.userEmail),
         ],
       ),
       body: Container(

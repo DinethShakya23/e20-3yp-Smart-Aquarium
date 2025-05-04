@@ -6,7 +6,7 @@ import 'dart:math'; // Import for random turbidity values
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
-import '../Widgets/popupmenu.dart';
+// import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 import '../widgets/TemperatureChart.dart';
 
@@ -75,7 +75,7 @@ class _TemperatureState extends State<Temperature> {
         actions: [
           SearchButton(_isSearching, _toggleSearch),
           NotificationButton(_showNotifications),
-          PopupMenu(context),
+          // PopupMenu(context),
         ],
       ),
       body: Container(

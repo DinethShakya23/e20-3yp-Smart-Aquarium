@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
-import '../Widgets/popupmenu.dart';
+// import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -60,7 +60,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
         actions: [
           SearchButton(_isSearching, _toggleSearch),
           NotificationButton(_showNotifications),
-          PopupMenu(context),
+          // PopupMenu(context),
         ],
       ),
       body: Container(
@@ -246,7 +246,6 @@ class _ScheduleFeedState extends State<Schedulefeed> {
             // Submit Button
             ElevatedButton(
               onPressed: _setSchedule,
-
               child: const Text(
                 "Set Schedule",
                 style: TextStyle(
@@ -340,7 +339,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
   void _setSchedule() async {
     setState(() {
       _scheduledTime =
-      "$_selectedHour:${_selectedMinute.toString().padLeft(2, '0')} ";
+          "$_selectedHour:${_selectedMinute.toString().padLeft(2, '0')} ";
       _scheduledQuantity = "$_selectedQuantity g";
     });
 
@@ -362,7 +361,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
 
       // Optionally listen for responses
       channel.stream.listen(
-            (message) {
+        (message) {
           print("🔄 Server response: $message");
         },
         onError: (error) {
