@@ -6,7 +6,7 @@ import 'dart:math'; // Import for random turbidity values
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
-import '../Widgets/popupmenu.dart';
+// import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 
 class Turbidity extends StatefulWidget {
@@ -74,7 +74,7 @@ class _TurbidityState extends State<Turbidity> {
         actions: [
           SearchButton(_isSearching, _toggleSearch),
           NotificationButton(_showNotifications),
-          PopupMenu(context),
+          // PopupMenu(context),
         ],
       ),
       body: Container(

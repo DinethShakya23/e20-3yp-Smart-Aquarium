@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/login_screen.dart';
+import '../screens/profile_screen.dart';
 
-class PopupMenu extends StatelessWidget {
-  final BuildContext context;
+class DashboardPopupMenu extends StatelessWidget {
+  final String userEmail;
 
-  const PopupMenu(this.context, {super.key});
+  const DashboardPopupMenu({
+    required this.userEmail,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
-      onSelected: (value) {
+      onSelected: (value) async {
         if (value == 'logout') {
           _showLogoutConfirmation(context);
+        } else if (value == 'profile') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileScreen(userEmail: userEmail),
+            ),
+          );
         }
       },
       itemBuilder: (context) => [
@@ -20,17 +32,13 @@ class PopupMenu extends StatelessWidget {
             child: ListTile(
                 leading: Icon(Icons.person, color: Colors.blueAccent),
                 title: Text('Profile'))),
-        const PopupMenuItem(
-            value: 'settings',
-            child: ListTile(
-                leading: Icon(Icons.settings, color: Colors.orangeAccent),
-                title: Text('Settings'))),
         const PopupMenuDivider(),
         const PopupMenuItem(
             value: 'help',
             child: ListTile(
                 leading: Icon(Icons.help, color: Colors.green),
                 title: Text('Help & Support'))),
+        const PopupMenuDivider(),
         const PopupMenuItem(
             value: 'feedback',
             child: ListTile(
@@ -58,11 +66,20 @@ class PopupMenu extends StatelessWidget {
               onPressed: () => Navigator.pop(context),
               child: const Text("Cancel")),
           TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
-                );
+              onPressed: () async {
+                // Clear saved user email when logging out
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove('userEmail');
+
+                // Navigate to login screen and clear navigation stack
+                if (context.mounted) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
+                    (route) => false, // Remove all previous routes
+                  );
+                }
               },
               child: const Text("Logout", style: TextStyle(color: Colors.red))),
         ],
