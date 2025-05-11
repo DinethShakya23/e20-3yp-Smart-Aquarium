@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontend/screens/profile_screen.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../Widgets/dashboardrow.dart';
@@ -12,7 +13,9 @@ import 'phscreen.dart';
 import 'schedulefeed.dart';
 import 'temperaturescreen.dart';
 import 'turbidityscreen.dart';
+import 'seeFish_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DashBoard extends StatefulWidget {
   final String userEmail;
@@ -35,9 +38,7 @@ class _DashBoardState extends State<DashBoard> {
     "Turbidity",
     "pH",
     "Schedule Feed",
-    "Analytics",
-    "Settings",
-    "Messages",
+    "See Fish Activity",
     "Profile"
   ];
   List<String> _filteredItems = [];
@@ -228,14 +229,14 @@ class _DashBoardState extends State<DashBoard> {
             DashboardRow(Icons.science, "pH", Colors.pink, PHLevel(),
                 Icons.timer, "Schedule Feed", Colors.redAccent, Schedulefeed()),
             DashboardRow(
-                Icons.analytics,
-                "Analytics",
+                FontAwesomeIcons.fish,
+                "See Fish Activity",
                 Colors.indigo,
-                Schedulefeed(),
-                Icons.settings,
-                "Settings",
+                SeefishScreen(),
+                Icons.account_circle,
+                "Profile",
                 Colors.amber,
-                Schedulefeed()),
+                ProfileScreen(userEmail: userEmail)),
           ],
         ),
       ),

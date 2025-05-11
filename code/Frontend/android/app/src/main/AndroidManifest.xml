@@ -7,6 +7,9 @@
     <!-- ✅ Android 13+ support -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
+    <!-- ✅ Add this line -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:label="frontend"
         android:name="${applicationName}"
