@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.7.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,6 +30,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  media_kit: ^1.1.0 # Use the latest version from pub.dev
+  media_kit_video: ^1.2.0 # Use the latest version
+  media_kit_libs_video: ^1.0.0+1 # Use the latest version for Android native libraries
   http: ^0.13.6
   syncfusion_flutter_gauges: ^28.1.37
   web_socket_channel: ^2.1.0

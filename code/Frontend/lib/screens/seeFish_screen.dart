@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
+import 'package:media_kit/media_kit.dart';          // Import package
+import 'package:media_kit_video/media_kit_video.dart'; // Import package
 
 class SeefishScreen extends StatefulWidget {
   const SeefishScreen({super.key});
@@ -10,121 +10,49 @@ class SeefishScreen extends StatefulWidget {
 }
 
 class _SeefishScreenState extends State<SeefishScreen> {
-  late VideoPlayerController _controller;
-  bool _isInitialized = false;
+  late final Player player; // Declared as late final, will be initialized in initState
+  late final VideoController controller;
 
-  final String streamUrl =
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4';
+  final String streamUrl = 'rtsp://192.168.8.132:8554/mystream';
 
   @override
   void initState() {
     super.initState();
+    print("Flutter app attempting to connect to streamUrl: $streamUrl with media_kit");
 
-    // Allow all orientations while on this screen
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    // --- IMPORTANT: Initialize the player with the configuration to enable logging ---
+    player = Player(
+      configuration: const PlayerConfiguration(
+        // Set the log level to debug
+        //logLevel: MpvLogLevel.debug, // This should now be recognized after fixing pubspec.yaml
+      ),
+    );
+    // --- END IMPORTANT ---
 
-    _controller = VideoPlayerController.network(streamUrl)
-      ..initialize().then((_) {
-        if (mounted) {
-          setState(() {
-            _isInitialized = true;
-          });
-          _controller
-            ..setLooping(true)
-            ..play();
-        }
-      });
+    controller = VideoController(player); // Initialize controller after player
+
+    // Open the stream
+    player.open(Media(streamUrl), play: true);
   }
 
   @override
   void dispose() {
-    // Lock back to portrait when leaving this screen
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-
-    _controller.dispose();
+    player.dispose(); // Dispose the player when the widget is unmounted
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey.shade900,
-        elevation: 4.0,
-        shadowColor: Colors.blueGrey.shade500,
-        title: const Text(
-          '🐟 Live Fish Activity',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.home, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
+        title: const Text('Live Fish Activity'),
       ),
-      body: Stack(
-        children: [
-          // Gradient background
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF0468BF), Color(0xFFA1D6F3)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
-
-          // Video player with orientation handling
-          if (_isInitialized)
-            OrientationBuilder(
-              builder: (context, orientation) {
-                return Center(
-                  child: AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  ),
-                );
-              },
-            )
-          else
-            const Center(child: CircularProgressIndicator()),
-
-          // Bottom banner
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: SafeArea(
-              child: Container(
-                margin: const EdgeInsets.all(20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(199, 237, 24, 24),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.videocam, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text(
-                      'Live Streaming...',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+      body: Center(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.width * (9 / 16), // Example aspect ratio
+          child: Video(controller: controller), // Use the Video widget
+        ),
       ),
     );
   }
