@@ -196,7 +196,7 @@ def process_frames():
 
     cv2.destroyAllWindows()
 # Main execution
-video_url = "tcp://192.168.8.132:8554"
+video_url = "rtsp://192.168.8.132:8554/mystream"
 thread1 = threading.Thread(target=capture_frames, args=(video_url,))
 thread2 = threading.Thread(target=process_frames)
 

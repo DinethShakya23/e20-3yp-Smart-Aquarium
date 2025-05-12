@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:media_kit/media_kit.dart';
 //import 'screens/login_screen.dart'; // Import the login screen
 import 'screens/splash_screen.dart'; // Import the splash screen
 //import 'screens/registration_screen.dart'; // Import the registration screen
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
   runApp(const MyApp());
 }
 

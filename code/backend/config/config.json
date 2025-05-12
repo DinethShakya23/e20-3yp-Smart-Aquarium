@@ -1,10 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "Tharu@2000",
+    "password": "janithmaZ12#$",
     "database": "database_development",
     "host": "localhost",
-    "port": 3310,
     "dialect": "mysql",
     "createDatabaseIfNotExist": true
   },
