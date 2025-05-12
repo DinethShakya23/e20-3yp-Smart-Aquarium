@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 class SeefishScreen extends StatefulWidget {
@@ -18,6 +19,15 @@ class _SeefishScreenState extends State<SeefishScreen> {
   @override
   void initState() {
     super.initState();
+
+    // Allow all orientations while on this screen
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
     _controller = VideoPlayerController.network(streamUrl)
       ..initialize().then((_) {
         if (mounted) {
@@ -33,6 +43,11 @@ class _SeefishScreenState extends State<SeefishScreen> {
 
   @override
   void dispose() {
+    // Lock back to portrait when leaving this screen
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
     _controller.dispose();
     super.dispose();
   }
@@ -57,7 +72,7 @@ class _SeefishScreenState extends State<SeefishScreen> {
       ),
       body: Stack(
         children: [
-          // Gradient background (behind video)
+          // Gradient background
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -68,13 +83,17 @@ class _SeefishScreenState extends State<SeefishScreen> {
             ),
           ),
 
-          // Video player
+          // Video player with orientation handling
           if (_isInitialized)
-            Center(
-              child: AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              ),
+            OrientationBuilder(
+              builder: (context, orientation) {
+                return Center(
+                  child: AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  ),
+                );
+              },
             )
           else
             const Center(child: CircularProgressIndicator()),
