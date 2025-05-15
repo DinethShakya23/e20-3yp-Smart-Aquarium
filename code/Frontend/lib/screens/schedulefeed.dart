@@ -344,7 +344,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
     });
 
     // WebSocket server URI
-    final String wsUrl = "ws://13.53.127.196:8081";
+    final String wsUrl = "ws://10.0.2.2:8081";
 
     // Prepare the JSON payload
     Map<String, dynamic> data = {

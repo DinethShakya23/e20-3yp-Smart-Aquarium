@@ -4,12 +4,12 @@ const mqtt = require('mqtt');
 const server = new WebSocket.Server({ host: '0.0.0.0', port: 8081 });
 
 // Configuration
-const MQTT_BROKER = '192.168.3.244'; // MQTT Broker IP
+const MQTT_BROKER = '192.168.254.46'; // MQTT Broker IP
 const MQTT_PORT = 1883;
 const MQTT_TOPIC_SENSOR = 'sensor/data';
 const MQTT_TOPIC_FEED = 'feeder/control'; // New topic for feeding control
 
-//const mqttClient = mqtt.connect(`mqtt://${MQTT_BROKER}:${MQTT_PORT}`);
+const mqttClient = mqtt.connect(`mqtt://${MQTT_BROKER}:${MQTT_PORT}`);
 
 // Store the latest sensor data
 let latestSensorData = {
@@ -24,6 +24,49 @@ let feedingSchedule = {
     quantity: null
 };
 
+// Connect to MQTT broker
+mqttClient.on('connect', () => {
+    console.log('✅ Connected to MQTT broker');
+
+    // Subscribe to sensor data
+    mqttClient.subscribe(MQTT_TOPIC_SENSOR, (err) => {
+        if (err) console.error('❌ Failed to subscribe to sensor topic:', err);
+        else console.log(`:📡 Subscribed to MQTT topic: ${MQTT_TOPIC_SENSOR}`);
+    });
+});
+
+mqttClient.on('error', (err) => {
+    console.error('❌ MQTT Connection Error:', err);
+});
+
+// Handle incoming MQTT sensor data
+mqttClient.on('message', (topic, message) => {
+    try {
+        const data = JSON.parse(message.toString());
+
+        if (topic === MQTT_TOPIC_SENSOR) {
+            if (data.pH) {
+                console.log(`📡 Received Sensor Data: pH=${data.pH}, turbidity=${data.turbidity}, temperatureerature=${data.temperature}`);
+
+                latestSensorData.pH = parseFloat(data.pH);
+                latestSensorData.turbidity = parseFloat(data.turbidity);
+                latestSensorData.temperature = parseFloat(data.temperature);
+
+                // Broadcast updated sensor data to WebSocket clients
+                server.clients.forEach(client => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify({ type: "sensor", data: latestSensorData }));
+                    }
+                });
+            } else {
+                console.warn('⚠ Incomplete sensor data received:', data);
+            }
+
+        }
+    } catch (error) {
+        console.error('❌ Error parsing MQTT message:', error);
+    }
+});
 
 
 // Handle WebSocket connections
