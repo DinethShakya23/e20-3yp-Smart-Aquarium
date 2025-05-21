@@ -5,6 +5,7 @@ const ws = require('./controllers/raspberrypi');
 
 const userRoutes = require('./routes/userRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const temperatureRoutes = require('./routes/temperature');
 // const authRoutes = require('./routes/auth');
 
 
@@ -24,6 +25,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', userRoutes);
 app.use('/api', profileRoutes);
 // app.use('/api', authRoutes);
+app.use('/api/temperature', temperatureRoutes);
 
 // Root route
 app.get('/', (req, res) => {

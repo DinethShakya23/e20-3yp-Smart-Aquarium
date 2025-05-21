@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 void main() => runApp(TemperatureChartApp());
 
@@ -28,80 +29,77 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
   @override
   void initState() {
     super.initState();
-    loadJsonData();
+    fetchTemperatureData();
   }
 
-  void loadJsonData() {
-    // 🔽 Hardcoded JSON string
-    String jsonString = '''
-    {
-  "2025-05-01": [
-    {"time": "00:00", "temperature": 24},
-    {"time": "01:00", "temperature": 23.5},
-    {"time": "02:00", "temperature": 23},
-    {"time": "03:00", "temperature": 22.5},
-    {"time": "04:00", "temperature": 22},
-    {"time": "05:00", "temperature": 21.5},
-    {"time": "06:00", "temperature": 22},
-    {"time": "07:00", "temperature": 23},
-    {"time": "08:00", "temperature": 25},
-    {"time": "09:00", "temperature": 26},
-    {"time": "10:00", "temperature": 27},
-    {"time": "11:00", "temperature": 28},
-    {"time": "12:00", "temperature": 29},
-    {"time": "13:00", "temperature": 30},
-    {"time": "14:00", "temperature": 30.5},
-    {"time": "15:00", "temperature": 31},
-    {"time": "16:00", "temperature": 30},
-    {"time": "17:00", "temperature": 29},
-    {"time": "18:00", "temperature": 28},
-    {"time": "19:00", "temperature": 27},
-    {"time": "20:00", "temperature": 26},
-    {"time": "21:00", "temperature": 25},
-    {"time": "22:00", "temperature": 24},
-    {"time": "23:00", "temperature": 23}
-  ],
-  "2025-05-02": [
-    {"time": "00:00", "temperature": 22},
-    {"time": "01:00", "temperature": 21.5},
-    {"time": "02:00", "temperature": 21},
-    {"time": "03:00", "temperature": 20.5},
-    {"time": "04:00", "temperature": 20},
-    {"time": "05:00", "temperature": 19.5},
-    {"time": "06:00", "temperature": 20},
-    {"time": "07:00", "temperature": 21},
-    {"time": "08:00", "temperature": 23},
-    {"time": "09:00", "temperature": 24},
-    {"time": "10:00", "temperature": 25},
-    {"time": "11:00", "temperature": 26},
-    {"time": "12:00", "temperature": 27},
-    {"time": "13:00", "temperature": 28},
-    {"time": "14:00", "temperature": 28.5},
-    {"time": "15:00", "temperature": 29},
-    {"time": "16:00", "temperature": 28},
-    {"time": "17:00", "temperature": 27},
-    {"time": "18:00", "temperature": 26},
-    {"time": "19:00", "temperature": 25},
-    {"time": "20:00", "temperature": 24},
-    {"time": "21:00", "temperature": 23},
-    {"time": "22:00", "temperature": 22},
-    {"time": "23:00", "temperature": 21}
-  ]
-}
+  Future<void> fetchTemperatureData() async {
+    final url = Uri.parse("http://10.0.2.2:3002/api/temperature/hourly");
 
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        print("✅ Data fetched from backend: ${jsonData.keys}");
+
+        setState(() {
+          data = jsonData;
+          selectedDate = jsonData.keys.first;
+        });
+      } else {
+        print("⚠ Server responded with status ${response.statusCode}, loading fallback data...");
+        loadFallbackJson();
+      }
+    } catch (e) {
+      print("❌ Error fetching data: $e. Loading fallback...");
+      loadFallbackJson();
+    }
+  }
+
+  void loadFallbackJson() {
+    String jsonString = ''' 
+    {
+      "2025-05-01": [
+        {"time": "00:00", "temperature": 24},
+        {"time": "01:00", "temperature": 23.5},
+        {"time": "02:00", "temperature": 23},
+        {"time": "03:00", "temperature": 22.5},
+        {"time": "04:00", "temperature": 22},
+        {"time": "05:00", "temperature": 21.5},
+        {"time": "06:00", "temperature": 22},
+        {"time": "07:00", "temperature": 23},
+        {"time": "08:00", "temperature": 25},
+        {"time": "09:00", "temperature": 26},
+        {"time": "10:00", "temperature": 27},
+        {"time": "11:00", "temperature": 28},
+        {"time": "12:00", "temperature": 29},
+        {"time": "13:00", "temperature": 30},
+        {"time": "14:00", "temperature": 30.5},
+        {"time": "15:00", "temperature": 31},
+        {"time": "16:00", "temperature": 30},
+        {"time": "17:00", "temperature": 29},
+        {"time": "18:00", "temperature": 28},
+        {"time": "19:00", "temperature": 27},
+        {"time": "20:00", "temperature": 26},
+        {"time": "21:00", "temperature": 25},
+        {"time": "22:00", "temperature": 24},
+        {"time": "23:00", "temperature": 23}
+      ]
+    }
     ''';
 
     final Map<String, dynamic> jsonData = json.decode(jsonString);
-    print("Available keys: ${data.keys}");
+    print("📦 Loaded fallback JSON keys: ${jsonData.keys}");
+
     setState(() {
       data = jsonData;
-      selectedDate = data.keys.first;
-
+      selectedDate = jsonData.keys.first;
     });
   }
 
   List<FlSpot> getSpotsForDate(String date) {
     if (!data.containsKey(date)) return [];
+
     final entries = List<Map<String, dynamic>>.from(data[date]);
     return entries.map((entry) {
       int hour = int.parse(entry['time'].split(":")[0]);

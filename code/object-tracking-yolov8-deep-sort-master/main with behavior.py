@@ -12,6 +12,21 @@ from deep_sort.deep_sort.detection import Detection
 from deep_sort.deep_sort import nn_matching
 from deep_sort.tools import generate_detections as gdet
 
+# WebSocket server
+from websocket_server_local import start_server, send_to_clients
+import threading
+import asyncio
+
+
+# 🛠️ Wrap coroutine in a function that runs the event loop
+def run_ws_server():
+    asyncio.run(start_server())
+
+# ✅ Start WebSocket server in a background thread properly
+ws_thread = threading.Thread(target=run_ws_server, daemon=True)
+ws_thread.start()
+
+
 frame_queue = queue.Queue(maxsize=1)
 
 # Lucas-Kanade Optical Flow Parameters
@@ -146,12 +161,25 @@ def process_frames():
                     if current_time - start_time > 1:  # 1 seconds threshold
                         cv2.putText(frame, "STRESSED?", (int(x1), int(y2) + 15),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+                        
+                        # 🟢 SEND TO WEBSOCKET CLIENT (Flutter)
+                        alert = {
+                            "track_id": track_id,
+                            "type": "STRESSED",
+                            "position": {"x": cx, "y": cy},
+                            "timestamp": current_time
+                        }
+                        try:
+                            loop = asyncio.get_running_loop()
+                        except RuntimeError:
+                            loop = asyncio.new_event_loop()
+                            asyncio.set_event_loop(loop)
+                            loop = asyncio.get_event_loop()
+                        loop.create_task(send_to_clients(alert))
                 else:
                     stationary_tracker[track_id] = ((cx, cy), current_time)
 
             # 2. Surfacing Detection
-            
-
             if cy < surface_threshold:
                 if track_id not in surface_stay_tracker:
                     surface_stay_tracker[track_id] = ((cx,cy), current_time)
@@ -161,7 +189,21 @@ def process_frames():
                         if current_time - start_time > 1:
                             cv2.putText(frame, "LOW OXYGEN!", (int(x1), int(y2) + 50),
                                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-                        
+                            
+                            # 🟢 SEND TO WEBSOCKET CLIENT (Flutter)
+                            alert = {
+                                "track_id": track_id,
+                                "type": "LOW_OXYGEN",
+                                "position": {"x": cx, "y": cy},
+                                "timestamp": current_time
+                            }
+                            try:
+                                loop = asyncio.get_running_loop()
+                            except RuntimeError:
+                                loop = asyncio.new_event_loop()
+                                asyncio.set_event_loop(loop)
+                                loop = asyncio.get_event_loop() 
+                            loop.create_task(send_to_clients(alert))
                     else:
                         surface_stay_tracker[track_id] = ((cx, cy), current_time)
             else:
