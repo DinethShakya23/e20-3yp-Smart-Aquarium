@@ -16,6 +16,7 @@ import 'turbidityscreen.dart';
 import 'seeFish_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'Notification.dart';
 
 class DashBoard extends StatefulWidget {
   final String userEmail;
@@ -237,6 +238,13 @@ class _DashBoardState extends State<DashBoard> {
                 "Profile",
                 Colors.amber,
                 ProfileScreen(userEmail: userEmail)),
+            DashboardCard(
+              FontAwesomeIcons.bell,
+              "Check Notifications",
+              Colors.pinkAccent,
+                FishAlertWidget()
+
+            ),
           ],
         ),
       ),
@@ -281,5 +289,67 @@ class _DashBoardState extends State<DashBoard> {
     channel.sink.close();
     debugPrint("🛑 WebSocket Closed.");
     super.dispose();
+  }
+}
+
+
+class DashboardCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final Widget screen;
+
+  const DashboardCard(
+      this.icon,
+      this.label,
+      this.color,
+      this.screen, {
+        Key? key,
+      }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => screen),
+        );
+      },
+      child: SizedBox(
+        width: screenWidth / 2 - 24,
+        height: 120,
+        child: Card(
+          color: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 5,
+          margin: const EdgeInsets.all(1),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Ensures tight fit around content
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(icon, size: 40, color: Colors.white),
+                const SizedBox(height: 10),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,5 +1,6 @@
 const WebSocket = require('ws');
 const mqtt = require('mqtt');
+const { TemperatureReading } = require('../models'); 
 
 const server = new WebSocket.Server({ host: '0.0.0.0', port: 8081 });
 
@@ -40,19 +41,31 @@ mqttClient.on('error', (err) => {
 });
 
 // Handle incoming MQTT sensor data
-mqttClient.on('message', (topic, message) => {
+mqttClient.on('message', async (topic, message) => {
     try {
         const data = JSON.parse(message.toString());
 
         if (topic === MQTT_TOPIC_SENSOR) {
-            if (data.pH) {
-                console.log(`📡 Received Sensor Data: pH=${data.pH}, turbidity=${data.turbidity}, temperatureerature=${data.temperature}`);
+            if (data.pH && data.temperature && data.turbidity) {
+                console.log(`📡 Received Sensor Data: pH=${data.pH}, turbidity=${data.turbidity}, temperature=${data.temperature}`);
 
+                const now = new Date();
+                const date = now.toISOString().slice(0, 10); // YYYY-MM-DD
+                const time = now.toTimeString().slice(0, 8);  // HH:MM:SS
+
+                // Store in DB
+                await TemperatureReading.create({
+                    date,
+                    time,
+                    temperature: parseFloat(data.temperature)
+                });
+
+                // Update in-memory latest data
                 latestSensorData.pH = parseFloat(data.pH);
                 latestSensorData.turbidity = parseFloat(data.turbidity);
                 latestSensorData.temperature = parseFloat(data.temperature);
 
-                // Broadcast updated sensor data to WebSocket clients
+                // Send to connected WebSocket clients
                 server.clients.forEach(client => {
                     if (client.readyState === WebSocket.OPEN) {
                         client.send(JSON.stringify({ type: "sensor", data: latestSensorData }));
@@ -61,7 +74,6 @@ mqttClient.on('message', (topic, message) => {
             } else {
                 console.warn('⚠ Incomplete sensor data received:', data);
             }
-
         }
     } catch (error) {
         console.error('❌ Error parsing MQTT message:', error);
