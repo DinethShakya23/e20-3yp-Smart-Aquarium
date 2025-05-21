@@ -19,10 +19,13 @@ import asyncio
 
 
 # 🛠️ Wrap coroutine in a function that runs the event loop
-def run_ws_server():
-    asyncio.run(start_server())
+ws_loop = asyncio.new_event_loop()
 
-# ✅ Start WebSocket server in a background thread properly
+def run_ws_server():
+    asyncio.set_event_loop(ws_loop)
+    ws_loop.run_until_complete(start_server())
+
+# Start the WebSocket server in a background thread
 ws_thread = threading.Thread(target=run_ws_server, daemon=True)
 ws_thread.start()
 
@@ -69,6 +72,8 @@ deep_tracker = DeepSortTracker(metric, max_age=30, n_init=3)
 kalman_filter_dict = {}
 fish_paths = {}
 track_colors = {}
+last_alert_times = {}
+alert_cooldown = 10
 
 prev_gray = None
 prev_points = None
@@ -158,52 +163,53 @@ def process_frames():
             else:
                 (prev_cx, prev_cy), start_time = stationary_tracker[track_id]
                 if np.linalg.norm(np.array([cx - prev_cx, cy - prev_cy])) < 10:
-                    if current_time - start_time > 1:  # 1 seconds threshold
-                        cv2.putText(frame, "STRESSED?", (int(x1), int(y2) + 15),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-                        
-                        # 🟢 SEND TO WEBSOCKET CLIENT (Flutter)
-                        alert = {
-                            "track_id": track_id,
-                            "type": "STRESSED",
-                            "position": {"x": cx, "y": cy},
-                            "timestamp": current_time
-                        }
-                        try:
-                            loop = asyncio.get_running_loop()
-                        except RuntimeError:
-                            loop = asyncio.new_event_loop()
-                            asyncio.set_event_loop(loop)
-                            loop = asyncio.get_event_loop()
-                        loop.create_task(send_to_clients(alert))
+                    if current_time - start_time > 1:  # 1 second threshold for being stationary
+
+                        # Check cooldown for sending alert
+                        alert_key = (track_id, "STRESSED")
+                        last_sent = last_alert_times.get(alert_key, 0)
+                        if current_time - last_sent > alert_cooldown:
+                            last_alert_times[alert_key] = current_time
+
+                            cv2.putText(frame, "STRESSED?", (int(x1), int(y2) + 15),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
+                            # Send to WebSocket client only once per cooldown period
+                            alert = {
+                                "track_id": track_id,
+                                "type": "STRESSED",
+                                "position": {"x": cx, "y": cy},
+                                "timestamp": current_time
+                            }
+                            asyncio.run_coroutine_threadsafe(send_to_clients(alert), ws_loop)
+
                 else:
                     stationary_tracker[track_id] = ((cx, cy), current_time)
 
             # 2. Surfacing Detection
             if cy < surface_threshold:
                 if track_id not in surface_stay_tracker:
-                    surface_stay_tracker[track_id] = ((cx,cy), current_time)
+                    surface_stay_tracker[track_id] = ((cx, cy), current_time)
                 else:
                     (prev_cx, prev_cy), start_time = surface_stay_tracker[track_id]
                     if np.linalg.norm(np.array([cx - prev_cx, cy - prev_cy])) < 10:
                         if current_time - start_time > 1:
-                            cv2.putText(frame, "LOW OXYGEN!", (int(x1), int(y2) + 50),
-                                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-                            
-                            # 🟢 SEND TO WEBSOCKET CLIENT (Flutter)
-                            alert = {
-                                "track_id": track_id,
-                                "type": "LOW_OXYGEN",
-                                "position": {"x": cx, "y": cy},
-                                "timestamp": current_time
-                            }
-                            try:
-                                loop = asyncio.get_running_loop()
-                            except RuntimeError:
-                                loop = asyncio.new_event_loop()
-                                asyncio.set_event_loop(loop)
-                                loop = asyncio.get_event_loop() 
-                            loop.create_task(send_to_clients(alert))
+                            alert_key = (track_id, "LOW_OXYGEN")
+                            last_sent = last_alert_times.get(alert_key, 0)
+                            if current_time - last_sent > alert_cooldown:
+                                last_alert_times[alert_key] = current_time
+
+                                cv2.putText(frame, "LOW OXYGEN!", (int(x1), int(y2) + 50),
+                                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
+                                # 🟢 SEND TO WEBSOCKET CLIENT (Flutter)
+                                alert = {
+                                    "track_id": track_id,
+                                    "type": "LOW_OXYGEN",
+                                    "position": {"x": cx, "y": cy},
+                                    "timestamp": current_time
+                                }
+                                asyncio.run_coroutine_threadsafe(send_to_clients(alert), ws_loop)
                     else:
                         surface_stay_tracker[track_id] = ((cx, cy), current_time)
             else:
