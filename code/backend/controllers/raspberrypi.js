@@ -5,7 +5,7 @@ const { TemperatureReading } = require('../models');
 const server = new WebSocket.Server({ host: '0.0.0.0', port: 8081 });
 
 // Configuration
-const MQTT_BROKER = '192.168.254.46'; // MQTT Broker IP
+const MQTT_BROKER = '192.168.8.132'; // MQTT Broker IP
 const MQTT_PORT = 1883;
 const MQTT_TOPIC_SENSOR = 'sensor/data';
 const MQTT_TOPIC_FEED = 'feeder/control'; // New topic for feeding control
