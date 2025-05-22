@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'dart:async';
-import 'dart:math'; // Import for random turbidity values
+// import 'dart:async';
+// import 'dart:math'; // Import for random turbidity values
 
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
@@ -11,7 +11,9 @@ import '../Widgets/notificationitem.dart';
 import '../widgets/TemperatureChart.dart';
 
 class Temperature extends StatefulWidget {
-  const Temperature({super.key});
+  final double temperature;
+
+  const Temperature({super.key, required this.temperature});
 
   @override
   State<Temperature> createState() => _TemperatureState();
@@ -28,29 +30,29 @@ class _TemperatureState extends State<Temperature> {
     "Temperature Monitoring"
   ];
   List<String> _filteredItems = [];
-  double TemperatureLevel = 30.0; // Initial dummy value
-  late Timer _timer;
+  // double TemperatureLevel = 30.0; // Initial dummy value
+  // late Timer _timer;
 
-  @override
-  void initState() {
-    super.initState();
-    _simulateTurbidityUpdates();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _simulateTurbidityUpdates();
+  // }
 
-  @override
-  void dispose() {
-    _timer.cancel(); // Cancel timer to prevent memory leaks
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _timer.cancel(); // Cancel timer to prevent memory leaks
+  //   super.dispose();
+  // }
 
-  void _simulateTurbidityUpdates() {
-    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      setState(() {
-        TemperatureLevel =
-            20 + Random().nextDouble() * 80; // Random between 20-100
-      });
-    });
-  }
+  // void _simulateTurbidityUpdates() {
+  //   _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+  //     setState(() {
+  //       TemperatureLevel =
+  //           20 + Random().nextDouble() * 80; // Random between 20-100
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -180,12 +182,12 @@ class _TemperatureState extends State<Temperature> {
                     ),
                   ],
                   pointers: <GaugePointer>[
-                    NeedlePointer(value: TemperatureLevel),
+                    NeedlePointer(value: widget.temperature),
                   ],
                   annotations: <GaugeAnnotation>[
                     GaugeAnnotation(
                       widget: Text(
-                        "${TemperatureLevel.toStringAsFixed(1)} °C",
+                        "${widget.temperature.toStringAsFixed(1)} °C",
                         style:
                             const TextStyle(fontSize: 18, color: Colors.white),
                       ),
@@ -200,36 +202,13 @@ class _TemperatureState extends State<Temperature> {
 
           const SizedBox(height: 20),
           Text(
-            "Temperature: ${TemperatureLevel.toStringAsFixed(1)} °C",
+            "Temperature: ${widget.temperature.toStringAsFixed(1)} °C",
             style: const TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
           ),
 
           const SizedBox(height: 20),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  padding: EdgeInsets.all(16),
-                ),
-                child: const Icon(Icons.arrow_upward),
-              ),
-              const SizedBox(width: 20),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  padding: EdgeInsets.all(16),
-                ),
-                child: const Icon(Icons.arrow_downward),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
           const Text(
             "Temperature History",
             style: TextStyle(

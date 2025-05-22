@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'dart:async';
-import 'dart:math'; // Import for random turbidity values
+// import 'dart:async';
+// import 'dart:math'; // Import for random turbidity values
 
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
 // import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
+import '../Widgets/TurbidityChart.dart';
 
 class Turbidity extends StatefulWidget {
-  const Turbidity({super.key});
+  final double turbidity;
+
+  const Turbidity({super.key, required this.turbidity});
 
   @override
   State<Turbidity> createState() => _TurbidityState();
@@ -27,29 +30,29 @@ class _TurbidityState extends State<Turbidity> {
     "Temperature Monitoring"
   ];
   List<String> _filteredItems = [];
-  double turbidityLevel = 50.0; // Initial dummy value
-  late Timer _timer;
+  // final double turbidityLevel; // Initial dummy value
+  // late Timer _timer;
 
-  @override
-  void initState() {
-    super.initState();
-    _simulateTurbidityUpdates();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _simulateTurbidityUpdates();
+  // }
 
-  @override
-  void dispose() {
-    _timer.cancel(); // Cancel timer to prevent memory leaks
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _timer.cancel(); // Cancel timer to prevent memory leaks
+  //   super.dispose();
+  // }
 
-  void _simulateTurbidityUpdates() {
-    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      setState(() {
-        turbidityLevel =
-            20 + Random().nextDouble() * 80; // Random between 20-100
-      });
-    });
-  }
+  // void _simulateTurbidityUpdates() {
+  //   _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+  //     setState(() {
+  //       turbidityLevel =
+  //           20 + Random().nextDouble() * 80; // Random between 20-100
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -182,12 +185,12 @@ class _TurbidityState extends State<Turbidity> {
                       ),
                     ],
                     pointers: <GaugePointer>[
-                      NeedlePointer(value: turbidityLevel),
+                      NeedlePointer(value: widget.turbidity),
                     ],
                     annotations: <GaugeAnnotation>[
                       GaugeAnnotation(
                         widget: Text(
-                          "${turbidityLevel.toStringAsFixed(1)} NTU",
+                          "${widget.turbidity.toStringAsFixed(1)} NTU",
                           style: const TextStyle(
                               fontSize: 18, color: Colors.white),
                         ),
@@ -202,11 +205,25 @@ class _TurbidityState extends State<Turbidity> {
 
             const SizedBox(height: 20),
             Text(
-              "Turbidity: ${turbidityLevel.toStringAsFixed(1)} NTU",
+              "Turbidity: ${widget.turbidity.toStringAsFixed(1)} NTU",
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              "Turbidity History",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 500,
+              child: TurbidityChartPage(),
             ),
           ],
         ),

@@ -6,6 +6,8 @@ const ws = require('./controllers/raspberrypi');
 const userRoutes = require('./routes/userRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const temperatureRoutes = require('./routes/temperature');
+const pHRoutes = require('./routes/pHRoutes');
+const turbidityRoutes = require('./routes/turbidityRoutes');
 // const authRoutes = require('./routes/auth');
 
 
@@ -26,6 +28,8 @@ app.use('/api', userRoutes);
 app.use('/api', profileRoutes);
 // app.use('/api', authRoutes);
 app.use('/api/temperature', temperatureRoutes);
+app.use('/api/pH', pHRoutes);
+app.use('/api/turbidity', turbidityRoutes);
 
 // Root route
 app.get('/', (req, res) => {

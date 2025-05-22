@@ -33,7 +33,7 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
   }
 
   Future<void> fetchTemperatureData() async {
-    final url = Uri.parse("http://10.0.2.2:3002/api/temperature/hourly");
+    final url = Uri.parse("http://10.0.2.2:3001/api/temperature/hourly");
 
     try {
       final response = await http.get(url);
@@ -47,7 +47,8 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
           selectedDate = jsonData.keys.first;
         });
       } else {
-        print("⚠ Server responded with status ${response.statusCode}, loading fallback data...");
+        print(
+            "⚠ Server responded with status ${response.statusCode}, loading fallback data...");
         loadFallbackJson();
       }
     } catch (e) {
@@ -57,7 +58,7 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
   }
 
   void loadFallbackJson() {
-    String jsonString = ''' 
+    String jsonString = '''
     {
       "2025-05-01": [
         {"time": "00:00", "temperature": 24},
@@ -113,160 +114,163 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
     final spots = getSpotsForDate(selectedDate);
 
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF0468BF),
-            Color(0xFFA1D6F3),
-          ],
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
-            "Temperature - $selectedDate",
-            style: const TextStyle(color: Colors.white),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF0468BF),
+              Color(0xFFA1D6F3),
+            ],
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.calendar_today, color: Colors.white),
-              onPressed: () async {
-                final pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.parse(selectedDate),
-                  firstDate: DateTime(2020),
-                  lastDate: DateTime(2030),
-                );
-
-                if (pickedDate != null) {
-                  final formatted = DateFormat('yyyy-MM-dd').format(pickedDate);
-                  if (data.containsKey(formatted)) {
-                    setState(() => selectedDate = formatted);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("No data for $formatted")),
-                    );
-                  }
-                }
-              },
-            ),
-          ],
         ),
-    body: data.isEmpty
-    ? const Center(child: CircularProgressIndicator())
-        : Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-    children: [
-    Expanded(
-    child: Card(
-    color: Colors.white.withOpacity(0.9),
-    elevation: 8,
-    shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(20),
-    ),
-    child: Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-    children: [
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: Text(
+              "Temperature - $selectedDate",
+              style: const TextStyle(color: Colors.white),
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.calendar_today, color: Colors.white),
+                onPressed: () async {
+                  final pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.parse(selectedDate),
+                    firstDate: DateTime(2020),
+                    lastDate: DateTime(2030),
+                  );
 
-    const SizedBox(height: 8),
-    Expanded(
-    child: Row(
-    children: [
-    const RotatedBox(
-    quarterTurns: -1,
-    child: Text(
-    "Temperature (°C)",
-    style: TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    ),
-    ),
-    ),
-    const SizedBox(width: 8),
-    Expanded(
-    child: LineChart(
-    LineChartData(
-    gridData: FlGridData(show: true),
-    titlesData: FlTitlesData(
-    leftTitles: AxisTitles(
-    sideTitles: SideTitles(
-    showTitles: false,
-    interval: 2,
-    ),
-    ),
-    bottomTitles: AxisTitles(
-    sideTitles: SideTitles(
-    showTitles: true,
-    interval: 3,
-    getTitlesWidget: (value, meta) {
-    return Text(
-    value.toInt().toString(),
-    style: const TextStyle(
-    fontSize: 10,
-    ),
-    );
-    },
-    ),
-    ),
-    ),
-    borderData: FlBorderData(
-    show: true,
-    border: Border.all(color: Colors.grey, width: 1),
-    ),
-    minX: 0,
-    maxX: 23,
-    minY: 5,
-    maxY: 35,
-    lineBarsData: [
-    LineChartBarData(
-    spots: spots,
-    isCurved: true,
-    color: const Color(0xFF0468BF),
-    barWidth: 4,
-    dotData: FlDotData(show: true),
-    belowBarData: BarAreaData(
-    show: true,
-    gradient: LinearGradient(
-    colors: [
-    const Color(0xFF0468BF).withOpacity(0.4),
-    const Color(0xFFA1D6F3).withOpacity(0.1),
-    ],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    ),
-    ),
-    ),
-    ],
-    ),
-    ),
-    ),
-    ],
-    ),
-    ),
-    const SizedBox(height: 12),
-    const Text(
-    "Time (Hours)",
-    style: TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    ),
-    ),
-    ],
-    ),
-    ),
-    ),
-    ),
-    ],
-    ),
-    ),
-      )
-    );
+                  if (pickedDate != null) {
+                    final formatted =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                    if (data.containsKey(formatted)) {
+                      setState(() => selectedDate = formatted);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("No data for $formatted")),
+                      );
+                    }
+                  }
+                },
+              ),
+            ],
+          ),
+          body: data.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Card(
+                          color: Colors.white.withOpacity(0.9),
+                          elevation: 8,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 8),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      const RotatedBox(
+                                        quarterTurns: -1,
+                                        child: Text(
+                                          "Temperature (°C)",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: LineChart(
+                                          LineChartData(
+                                            gridData: FlGridData(show: true),
+                                            titlesData: FlTitlesData(
+                                              leftTitles: AxisTitles(
+                                                sideTitles: SideTitles(
+                                                  showTitles: false,
+                                                  interval: 2,
+                                                ),
+                                              ),
+                                              bottomTitles: AxisTitles(
+                                                sideTitles: SideTitles(
+                                                  showTitles: true,
+                                                  interval: 3,
+                                                  getTitlesWidget:
+                                                      (value, meta) {
+                                                    return Text(
+                                                      value.toInt().toString(),
+                                                      style: const TextStyle(
+                                                        fontSize: 10,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            borderData: FlBorderData(
+                                              show: true,
+                                              border: Border.all(
+                                                  color: Colors.grey, width: 1),
+                                            ),
+                                            minX: 0,
+                                            maxX: 23,
+                                            minY: 5,
+                                            maxY: 35,
+                                            lineBarsData: [
+                                              LineChartBarData(
+                                                spots: spots,
+                                                isCurved: true,
+                                                color: const Color(0xFF0468BF),
+                                                barWidth: 4,
+                                                dotData: FlDotData(show: true),
+                                                belowBarData: BarAreaData(
+                                                  show: true,
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      const Color(0xFF0468BF)
+                                                          .withOpacity(0.4),
+                                                      const Color(0xFFA1D6F3)
+                                                          .withOpacity(0.1),
+                                                    ],
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                const Text(
+                                  "Time (Hours)",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+        ));
   }
 }

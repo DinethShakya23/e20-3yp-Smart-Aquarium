@@ -222,12 +222,12 @@ class _DashBoardState extends State<DashBoard> {
                 Icons.thermostat,
                 "Temperature",
                 Colors.redAccent,
-                Temperature(),
+                Temperature(temperature: TemperatureLevel),
                 Icons.opacity,
                 "Turbidity",
                 Colors.orangeAccent,
-                Turbidity()),
-            DashboardRow(Icons.science, "pH", Colors.pink, PHLevel(),
+                Turbidity(turbidity: turbidityLevel)),
+            DashboardRow(Icons.science, "pH", Colors.pink, PHLevel(pH: pHLevel),
                 Icons.timer, "Schedule Feed", Colors.redAccent, Schedulefeed()),
             DashboardRow(
                 FontAwesomeIcons.fish,
@@ -238,13 +238,8 @@ class _DashBoardState extends State<DashBoard> {
                 "Profile",
                 Colors.amber,
                 ProfileScreen(userEmail: userEmail)),
-            DashboardCard(
-              FontAwesomeIcons.bell,
-              "Check Notifications",
-              Colors.pinkAccent,
-                FishAlertWidget()
-
-            ),
+            DashboardCard(FontAwesomeIcons.bell, "Check Notifications",
+                Colors.pinkAccent, FishAlertWidget()),
           ],
         ),
       ),
@@ -292,7 +287,6 @@ class _DashBoardState extends State<DashBoard> {
   }
 }
 
-
 class DashboardCard extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -300,12 +294,12 @@ class DashboardCard extends StatelessWidget {
   final Widget screen;
 
   const DashboardCard(
-      this.icon,
-      this.label,
-      this.color,
-      this.screen, {
-        Key? key,
-      }) : super(key: key);
+    this.icon,
+    this.label,
+    this.color,
+    this.screen, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -330,7 +324,8 @@ class DashboardCard extends StatelessWidget {
           margin: const EdgeInsets.all(1),
           child: Center(
             child: Column(
-              mainAxisSize: MainAxisSize.min, // Ensures tight fit around content
+              mainAxisSize:
+                  MainAxisSize.min, // Ensures tight fit around content
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

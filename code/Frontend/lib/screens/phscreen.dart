@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'dart:async';
-import 'dart:math';
+// import 'dart:async';
+// import 'dart:math';
 
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
 // import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
+import '../widgets/PHChart.dart';
 
 class PHLevel extends StatefulWidget {
-  const PHLevel({super.key});
+  final double pH;
+  const PHLevel({super.key, required this.pH});
 
   @override
   State<PHLevel> createState() => _PHLevelState();
@@ -27,28 +29,28 @@ class _PHLevelState extends State<PHLevel> {
     "Temperature Monitoring"
   ];
   List<String> _filteredItems = [];
-  double pHLevel = 7.0; // Initial dummy value
-  late Timer _timer;
+  // double pHLevel = 7.0; // Initial dummy value
+  // late Timer _timer;
 
-  @override
-  void initState() {
-    super.initState();
-    _simulatePHUpdates();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _simulatePHUpdates();
+  // }
 
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _timer.cancel();
+  //   super.dispose();
+  // }
 
-  void _simulatePHUpdates() {
-    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      setState(() {
-        pHLevel = Random().nextDouble() * 14; // Random pH between 0 and 14
-      });
-    });
-  }
+  // void _simulatePHUpdates() {
+  //   _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+  //     setState(() {
+  //       pHLevel = Random().nextDouble() * 14; // Random pH between 0 and 14
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -181,12 +183,12 @@ class _PHLevelState extends State<PHLevel> {
                       ),
                     ],
                     pointers: <GaugePointer>[
-                      NeedlePointer(value: pHLevel),
+                      NeedlePointer(value: widget.pH),
                     ],
                     annotations: <GaugeAnnotation>[
                       GaugeAnnotation(
                         widget: Text(
-                          "${pHLevel.toStringAsFixed(1)} pH",
+                          "${widget.pH.toStringAsFixed(1)} pH",
                           style: const TextStyle(
                               fontSize: 18, color: Colors.white),
                         ),
@@ -200,11 +202,26 @@ class _PHLevelState extends State<PHLevel> {
             ),
             const SizedBox(height: 20),
             Text(
-              "pH: ${pHLevel.toStringAsFixed(1)}",
+              "pH: ${widget.pH.toStringAsFixed(1)}",
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 30),
+            const Text(
+              "pH History",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 500,
+              child: PHChartPage(),
             ),
           ],
         ),

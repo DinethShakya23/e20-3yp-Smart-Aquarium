@@ -57,6 +57,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                key: const Key('emailField'),
                 controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
@@ -71,6 +72,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               CustomPasswordField(
+                key: const Key('passwordField'),
                 label: "Password",
                 prefixIcon: Icons.lock,
                 controller: passwordController,
@@ -97,6 +99,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               CustomButton(
+                key: const Key('loginButton'),
                 text: "Login",
                 fontSize: 30,
                 padding:
