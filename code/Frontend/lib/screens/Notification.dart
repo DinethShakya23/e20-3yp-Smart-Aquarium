@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:convert';
+import 'dart:async';
+
 
 class FishAlertWidget extends StatefulWidget {
   const FishAlertWidget({super.key});
@@ -16,6 +18,7 @@ class _FishAlertWidgetState extends State<FishAlertWidget> {
   final List<Map<String, dynamic>> _alerts = [];
   bool _usingDummyData = false;
   bool _connected = false;
+  Timer? _connectionCheckTimer;
 
   final List<Map<String, dynamic>> dummyAlerts = [
     {
@@ -74,6 +77,16 @@ class _FishAlertWidgetState extends State<FishAlertWidget> {
         });
       },
     );
+
+    _connectionCheckTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      try {
+        channel.sink.add(jsonEncode({"ping": true}));
+      } catch (_) {
+        setState(() {
+          _connected = false;
+        });
+      }
+    });
   }
 
 
@@ -89,6 +102,7 @@ class _FishAlertWidgetState extends State<FishAlertWidget> {
 
   @override
   void dispose() {
+    _connectionCheckTimer?.cancel();
     channel.sink.close();
     super.dispose();
   }

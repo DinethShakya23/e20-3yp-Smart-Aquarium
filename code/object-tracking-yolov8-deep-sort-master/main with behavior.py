@@ -73,6 +73,8 @@ kalman_filter_dict = {}
 fish_paths = {}
 track_colors = {}
 last_alert_times = {}
+total_time_tracker = {}
+surface_time_tracker = {}
 alert_cooldown = 10
 
 prev_gray = None
@@ -185,7 +187,7 @@ def process_frames():
 
                 else:
                     stationary_tracker[track_id] = ((cx, cy), current_time)
-
+            """
             # 2. Surfacing Detection
             if cy < surface_threshold:
                 if track_id not in surface_stay_tracker:
@@ -215,6 +217,45 @@ def process_frames():
             else:
                 if track_id in surface_stay_tracker:
                     del surface_stay_tracker[track_id]
+            """
+            # --- Behavior: Surfacing Detection ---
+            if track_id not in total_time_tracker:
+                total_time_tracker[track_id] = 0.0
+                surface_time_tracker[track_id] = 0.0
+
+            frame_duration = 1 / 30  # duration of one frame in seconds, set this accordingly
+
+            # Update total observed time for the fish
+            total_time_tracker[track_id] += frame_duration
+
+            if cy < surface_threshold:
+                # Update surface time if fish is near surface
+                surface_time_tracker[track_id] += frame_duration
+
+                # Now check if fish spent over 90% of time near surface
+                surface_ratio = surface_time_tracker[track_id] / total_time_tracker[track_id]
+                if surface_ratio > 0.9:
+                    alert_key = (track_id, "LOW_OXYGEN")
+                    last_sent = last_alert_times.get(alert_key, 0)
+                    if current_time - last_sent > alert_cooldown:
+                        last_alert_times[alert_key] = current_time
+
+                        cv2.putText(frame, "LOW OXYGEN!", (int(x1), int(y2) + 50),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
+                        alert = {
+                                "track_id": track_id,
+                                "type": "LOW_OXYGEN",
+                                "position": {"x": cx, "y": cy},
+                                "timestamp": current_time
+                        }
+                        asyncio.run_coroutine_threadsafe(send_to_clients(alert), ws_loop)
+
+            else:
+                # Reset surface tracking if fish not near surface
+                surface_time_tracker[track_id] = 0.0
+                total_time_tracker[track_id] = 0.0
+            
             # Draw tracking box
             if track_id not in track_colors:
                 track_colors[track_id] = (random.randint(0, 255),
