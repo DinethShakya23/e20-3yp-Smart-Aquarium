@@ -137,7 +137,7 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
                   gridData: FlGridData(show: true),
                   titlesData: FlTitlesData(
                     leftTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: true, interval: 0.5),
+                      sideTitles: SideTitles(showTitles: false, interval: 0.5),
                     ),
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
@@ -151,7 +151,7 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
                   minX: 0,
                   maxX: 23,
                   minY: 0,
-                  maxY: 5,
+                  maxY: 100,
                   lineBarsData: [
                     LineChartBarData(
                       spots: spots,
