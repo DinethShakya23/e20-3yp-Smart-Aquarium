@@ -136,7 +136,7 @@ class _PHChartPageState extends State<PHChartPage> {
                   gridData: FlGridData(show: true),
                   titlesData: FlTitlesData(
                     leftTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: true, interval: 0.5),
+                      sideTitles: SideTitles(showTitles: false, interval: 0.5),
                     ),
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
@@ -149,8 +149,8 @@ class _PHChartPageState extends State<PHChartPage> {
                   ),
                   minX: 0,
                   maxX: 23,
-                  minY: 5,
-                  maxY: 9,
+                  minY: 2,
+                  maxY: 13,
                   lineBarsData: [
                     LineChartBarData(
                       spots: spots,

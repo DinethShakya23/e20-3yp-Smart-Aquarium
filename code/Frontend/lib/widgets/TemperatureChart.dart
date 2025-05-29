@@ -226,7 +226,7 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                                             minX: 0,
                                             maxX: 23,
                                             minY: 5,
-                                            maxY: 35,
+                                            maxY: 40,
                                             lineBarsData: [
                                               LineChartBarData(
                                                 spots: spots,
