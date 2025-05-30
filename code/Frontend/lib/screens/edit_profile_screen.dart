@@ -51,8 +51,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _saveChanges() async {
-    final uri =
-        Uri.parse("http://10.0.2.2:3001/api/profile"); // Update IP if needed
+    final uri = Uri.parse(
+        "http://98.84.177.58:3001/api/profile"); // Update IP if needed
 
     final request = http.MultipartRequest('POST', uri)
       ..fields['name'] = nameController.text
