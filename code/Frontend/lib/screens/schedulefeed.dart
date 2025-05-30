@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
-// import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -39,13 +38,8 @@ class _ScheduleFeedState extends State<Schedulefeed> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
-            Icons.home,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          icon: const Icon(Icons.home, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
         ),
         title: _isSearching
             ? SearchField(_searchController, _filterItems)
@@ -60,7 +54,6 @@ class _ScheduleFeedState extends State<Schedulefeed> {
         actions: [
           SearchButton(_isSearching, _toggleSearch),
           NotificationButton(_showNotifications),
-          // PopupMenu(context),
         ],
       ),
       body: Container(
@@ -133,6 +126,38 @@ class _ScheduleFeedState extends State<Schedulefeed> {
               ),
             ),
             const SizedBox(height: 20),
+
+            // Quick Feed Buttons
+            const Text(
+              "Quick Feed",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(5, (index) {
+                  int gram = (index + 1) * 5;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: ElevatedButton(
+                      onPressed: () => _feedNow(gram),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                      ),
+                      child: Text("Feed ${gram}g"),
+                    ),
+                  );
+                }),
+              ),
+            ),
+
+            const SizedBox(height: 30),
 
             // Time Selection
             const Text(
@@ -257,7 +282,6 @@ class _ScheduleFeedState extends State<Schedulefeed> {
 
             const SizedBox(height: 20),
 
-            // Display Scheduled Time & Quantity
             if (_scheduledTime != null && _scheduledQuantity != null)
               Container(
                 padding: const EdgeInsets.all(12),
@@ -343,10 +367,8 @@ class _ScheduleFeedState extends State<Schedulefeed> {
       _scheduledQuantity = "$_selectedQuantity g";
     });
 
-    // WebSocket server URI
     final String wsUrl = "ws://10.0.2.2:8081";
 
-    // Prepare the JSON payload
     Map<String, dynamic> data = {
       "time": _scheduledTime,
       "quantity": _selectedQuantity,
@@ -354,25 +376,39 @@ class _ScheduleFeedState extends State<Schedulefeed> {
 
     try {
       final channel = WebSocketChannel.connect(Uri.parse(wsUrl));
-
-      // Send the schedule data as JSON
       channel.sink.add(jsonEncode(data));
       print("✅ Schedule sent successfully via WebSocket");
 
-      // Optionally listen for responses
       channel.stream.listen(
-        (message) {
-          print("🔄 Server response: $message");
-        },
-        onError: (error) {
-          print("❌ WebSocket error: $error");
-        },
-        onDone: () {
-          print("✅ WebSocket connection closed.");
-        },
+        (message) => print("🔄 Server response: $message"),
+        onError: (error) => print("❌ WebSocket error: $error"),
+        onDone: () => print("✅ WebSocket connection closed."),
       );
     } catch (e) {
       print("❌ Error connecting to WebSocket: $e");
+    }
+  }
+
+  void _feedNow(int grams) async {
+    final String wsUrl = "ws://10.0.2.2:8081";
+
+    Map<String, dynamic> data = {
+      "feed_now": true,
+      "quantity": grams,
+    };
+
+    try {
+      final channel = WebSocketChannel.connect(Uri.parse(wsUrl));
+      channel.sink.add(jsonEncode(data));
+      print("✅ Instant feed sent: $grams g");
+
+      channel.stream.listen(
+        (message) => print("🔄 Server response: $message"),
+        onError: (error) => print("❌ WebSocket error: $error"),
+        onDone: () => print("✅ WebSocket connection closed."),
+      );
+    } catch (e) {
+      print("❌ Error during feed_now: $e");
     }
   }
 }
