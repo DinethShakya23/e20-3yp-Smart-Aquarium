@@ -109,21 +109,36 @@ server.on('connection', (socket) => {
         try {
             const receivedData = JSON.parse(message);
 
+            // Instant feed command
+            if (receivedData.feed_now === true && receivedData.quantity) {
+                console.log(`⚡ Instant Feed Request: Quantity=${receivedData.quantity}g`);
+
+                const instantFeedCommand = {
+                    feed_now: true,
+                    quantity: receivedData.quantity
+                };
+
+                mqttClient.publish(MQTT_TOPIC_FEED, JSON.stringify(instantFeedCommand));
+                console.log(`📤 Published Instant Feed to MQTT: ${JSON.stringify(instantFeedCommand)}`);
+
+                socket.send(JSON.stringify({ status: "success", message: "Instant feeding triggered" }));
+                return;
+            }
+
+            // Scheduled feed command
             if (receivedData.time && receivedData.quantity) {
                 console.log(`📩 Received Feeding Schedule: Time=${receivedData.time}, Quantity=${receivedData.quantity}`);
-                // Store feeding schedule
                 feedingSchedule.time = receivedData.time;
                 feedingSchedule.quantity = receivedData.quantity;
 
-                // Publish feeding schedule to MQTT (Raspberry Pi)
                 mqttClient.publish(MQTT_TOPIC_FEED, JSON.stringify(feedingSchedule));
-                console.log(`📤 Sent Feeding Command to MQTT: ${JSON.stringify(feedingSchedule)}`);
+                console.log(`📤 Published Scheduled Feed to MQTT: ${JSON.stringify(feedingSchedule)}`);
 
-                // Send confirmation back to Flutter
                 socket.send(JSON.stringify({ status: "success", message: "Feeding schedule received successfully" }));
-            } else {
-                console.warn('⚠️ Incomplete feeding schedule received:', receivedData);
+                return;
             }
+
+            console.warn('⚠️ Unknown or incomplete message:', receivedData);
         } catch (error) {
             console.error('❌ Error parsing WebSocket message:', error);
         }
