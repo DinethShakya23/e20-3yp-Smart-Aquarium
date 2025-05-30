@@ -113,7 +113,8 @@ class RegistrationScreen extends StatelessWidget {
 
                     try {
                       final response = await http.post(
-                        Uri.parse('http://10.0.2.2:3001/api/register'),  //http://13.53.127.196:8080/  192.168.59.89
+                        Uri.parse(
+                            'http://98.84.177.58:3001/api/register'), //http://13.53.127.196:8080/  192.168.59.89
                         headers: {'Content-Type': 'application/json'},
                         body:
                             jsonEncode({'email': email, 'password': password}),
@@ -131,7 +132,7 @@ class RegistrationScreen extends StatelessWidget {
                               builder: (context) => const LoginScreen()),
                         );
                       } else {
-                        print(response.statusCode) ;
+                        print(response.statusCode);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                               content: Text("Failed to create account")),
@@ -139,7 +140,9 @@ class RegistrationScreen extends StatelessWidget {
                       }
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("An error occurred: ${e.toString()}")),
+                        SnackBar(
+                            content:
+                                Text("An error occurred: ${e.toString()}")),
                       );
                     }
                   },

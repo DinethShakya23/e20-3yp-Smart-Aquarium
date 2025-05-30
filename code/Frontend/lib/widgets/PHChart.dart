@@ -33,7 +33,7 @@ class _PHChartPageState extends State<PHChartPage> {
   }
 
   Future<void> fetchPHData() async {
-    final url = Uri.parse("http://10.0.2.2:3001/api/pH/hourly-ph");
+    final url = Uri.parse("http://98.84.177.58:3001/api/pH/hourly-ph");
 
     try {
       final response = await http.get(url);
