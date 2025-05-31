@@ -1,6 +1,8 @@
 const WebSocket = require('ws');
 const mqtt = require('mqtt');
 const { TemperatureReading } = require('../models');
+const {PHReading} = require('../models');
+const { TurbidityReading } = require('../models');
 
 const server = new WebSocket.Server({ host: '0.0.0.0', port: 8081 });
 
@@ -64,14 +66,14 @@ mqttClient.on('message', async (topic, message) => {
                 await PHReading.create({
                     date,
                     time,
-                    ph: parseFloat(pH)
+                    ph: parseFloat(data.pH)
                 });
 
                 // Store turbidity
                 await TurbidityReading.create({
                     date,
                     time,
-                    turbidity: parseFloat(turbidity)
+                    turbidity: parseFloat(data.turbidity)
                 });
 
                 // Update in-memory latest data

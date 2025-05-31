@@ -13,7 +13,7 @@ class _SeefishScreenState extends State<SeefishScreen> {
   late final Player player; // Declared as late final, will be initialized in initState
   late final VideoController controller;
 
-  final String streamUrl = 'rtsp://192.168.254.46:8554/mystream';
+  final String streamUrl = 'rtsp://54.211.9.164:8555/mystream';
 
   @override
   void initState() {
