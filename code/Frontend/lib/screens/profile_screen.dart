@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _fetchProfile(String userEmail) async {
     final uri = Uri.parse(
-        'http://98.84.177.58:3001/api/profile/${Uri.encodeComponent(userEmail)}');
+        'http://54.211.9.164:3001/api/profile/${Uri.encodeComponent(userEmail)}');
 
     try {
       final response = await http.get(uri);

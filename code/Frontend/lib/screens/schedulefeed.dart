@@ -141,7 +141,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(5, (index) {
-                  int gram = (index + 1) * 5;
+                  int gram = (index + 1) * 1;
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: ElevatedButton(
@@ -248,14 +248,14 @@ class _ScheduleFeedState extends State<Schedulefeed> {
                 itemExtent: 40,
                 onSelectedItemChanged: (index) {
                   setState(() {
-                    _selectedQuantity = (index + 1) * 5;
+                    _selectedQuantity = (index + 1) * 1;
                   });
                 },
                 children: List.generate(
                   10,
                   (index) => Center(
                     child: Text(
-                      "${(index + 1) * 5} g",
+                      "${(index + 1) * 1} g",
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -367,7 +367,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
       _scheduledQuantity = "$_selectedQuantity g";
     });
 
-    final String wsUrl = "ws://10.0.2.2:8081";
+    final String wsUrl = "ws://54.211.9.164:8081";
 
     Map<String, dynamic> data = {
       "time": _scheduledTime,
@@ -390,7 +390,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
   }
 
   void _feedNow(int grams) async {
-    final String wsUrl = "ws://10.0.2.2:8081";
+    final String wsUrl = "ws://54.211.9.164:8081";
 
     Map<String, dynamic> data = {
       "feed_now": true,
