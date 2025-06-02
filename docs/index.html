@@ -19,6 +19,7 @@
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#intro" class="nav-link">Introduction</a></li>
+                <li><a href="#demo" class="nav-link">Demo</a></li>
                 <li><a href="#architecture" class="nav-link">Architecture</a></li>
                 <li><a href="#userflow" class="nav-link">User Flow</a></li>
                 <li><a href="#bom" class="nav-link">BOM</a></li>
@@ -108,24 +109,57 @@
         </div>
     </section>
 
-   <!-- Solution Architecture Section -->
-<section id="architecture" class="architecture-section">
+            <!-- Demo Section -->
+<section id="demo" class="demo-section">
     <div class="container">
         <div class="section-header">
-            <h2>Solution Architecture</h2>
+            <h2>Demo</h2>
             <div class="section-line"></div>
         </div>
-        <p class="architecture-description">
-            The architecture of our system is designed to seamlessly integrate IoT sensors, cloud analytics, and user interfaces.
-        </p>
-        <div class="architecture-image">
-            <div class="image-placeholder">
-                <img src="images/Solution Architecture.jpg" alt="System Architecture Diagram" style="max-width:100%; height:auto;">
-                <p>System Architecture Diagram</p>
+        <p class="demo-description">Watch how our system works in real-time and explore its key features in action.</p>
+        <div class="demo-content">
+            <div class="video-container">
+                <div class="video-placeholder" onclick="playDemo()">
+                    <div class="play-button"><i class="fas fa-play"></i></div>
+                    <div class="video-info">
+                        <!-- <i class="fas fa-video"></i> -->
+                        <iframe id="demo-video"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                                </iframe>
+                        <h3>Live System Demo</h3>
+                        <p>Click to watch the demo</p>
+                    </div>
+                </div>
+                <div class="video-overlay">
+                    <iframe id="demo-video" src="https://www.youtube.com/embed/j0_2CdlJUlw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+
+    <!-- Solution Architecture Section -->
+    <section id="architecture" class="architecture-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Solution Architecture</h2>
+                <div class="section-line"></div>
+            </div>
+            <p class="architecture-description">
+                The architecture of our system is designed to seamlessly integrate IoT sensors, cloud analytics, and user interfaces.
+            </p>
+            <div class="architecture-image">
+                <div class="image-placeholder">
+                    <img src="images/Solution Architecture.jpg" alt="System Architecture Diagram" style="max-width:100%; height:auto;">
+                    <p>System Architecture Diagram</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- User Flow Section -->
     <section id="userflow" class="userflow-section">
