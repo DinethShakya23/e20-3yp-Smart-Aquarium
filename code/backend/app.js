@@ -10,6 +10,9 @@ const pHRoutes = require('./routes/pHRoutes');
 const turbidityRoutes = require('./routes/turbidityRoutes');
 // const authRoutes = require('./routes/auth');
 
+const bodyParser = require("body-parser");
+const wifiRoutes = require("./routes/wifiRoutes");
+
 
 const { sequelize } = require('./models'); // Sequelize instance
 
@@ -30,6 +33,11 @@ app.use('/api', profileRoutes);
 app.use('/api/temperature', temperatureRoutes);
 app.use('/api/pH', pHRoutes);
 app.use('/api/turbidity', turbidityRoutes);
+
+app.use(bodyParser.json());
+
+// Mount the Wi-Fi routes under /api
+app.use("/api", wifiRoutes);
 
 // Root route
 app.get('/', (req, res) => {
