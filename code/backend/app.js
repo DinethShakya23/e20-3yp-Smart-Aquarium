@@ -10,7 +10,7 @@ const pHRoutes = require('./routes/pHRoutes');
 const turbidityRoutes = require('./routes/turbidityRoutes');
 // const authRoutes = require('./routes/auth');
 
-const bodyParser = require("body-parser");
+//const bodyParser = require("body-parser");
 const wifiRoutes = require("./routes/wifiRoutes");
 
 
@@ -34,7 +34,7 @@ app.use('/api/temperature', temperatureRoutes);
 app.use('/api/pH', pHRoutes);
 app.use('/api/turbidity', turbidityRoutes);
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 // Mount the Wi-Fi routes under /api
 app.use("/api", wifiRoutes);
