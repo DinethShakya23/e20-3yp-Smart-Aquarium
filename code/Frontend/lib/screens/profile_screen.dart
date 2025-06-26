@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _fetchProfile(String userEmail) async {
     final uri = Uri.parse(
-        'http://54.211.9.164:3001/api/profile/${Uri.encodeComponent(userEmail)}');
+        'http://10.0.2.2:3001/api/profile/${Uri.encodeComponent(userEmail)}');
 
     try {
       final response = await http.get(uri);
@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // Handle image URL properly
           final img = data['image_url'];
           if (img != null && img.isNotEmpty) {
-            imageUrl = 'http://98.84.177.58:3001/uploads/$img';
+            imageUrl = 'http://10.0.2.2:3001/uploads/$img';
             print("Image URL set to: $imageUrl");
           } else {
             print("No image URL found in profile data");

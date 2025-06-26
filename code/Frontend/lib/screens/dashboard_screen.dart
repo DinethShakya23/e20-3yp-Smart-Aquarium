@@ -17,6 +17,7 @@ import 'seeFish_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Notification.dart';
+import 'change_wifi_screen.dart';
 
 class DashBoard extends StatefulWidget {
   final String userEmail;
@@ -40,7 +41,8 @@ class _DashBoardState extends State<DashBoard> {
     "pH",
     "Schedule Feed",
     "See Fish Activity",
-    "Profile"
+    "Profile",
+    "Change Wi-Fi",
   ];
   List<String> _filteredItems = [];
 
@@ -234,12 +236,14 @@ class _DashBoardState extends State<DashBoard> {
                 "See Fish Activity",
                 Colors.indigo,
                 SeefishScreen(),
-                Icons.account_circle,
-                "Profile",
-                Colors.amber,
-                ProfileScreen(userEmail: userEmail)),
-            DashboardCard(FontAwesomeIcons.bell, "Check Notifications",
-                Colors.pinkAccent, FishAlertWidget()),
+                FontAwesomeIcons.bell,
+                "Check Notifications",
+                Colors.pinkAccent,
+                FishAlertWidget()),
+            // DashboardCard(FontAwesomeIcons.bell, "Check Notifications",
+            //     Colors.pinkAccent, FishAlertWidget()),
+            DashboardCard(
+                Icons.wifi, "Change Wi-Fi", Colors.teal, ChangeWiFiScreen()),
           ],
         ),
       ),
