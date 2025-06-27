@@ -19,6 +19,7 @@ class RegistrationScreen extends StatelessWidget {
     return Scaffold(
       body: Builder(builder: (context) {
         return Container(
+          height: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [Color(0xFF0468BF), Color(0xFFA1D6F3)], // Gradient colors
