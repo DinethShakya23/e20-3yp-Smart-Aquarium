@@ -40,7 +40,7 @@ class _ChangeWiFiScreenState extends State<ChangeWiFiScreen> {
         body: jsonEncode({
           "ssid": ssid,
           "password": password,
-          "pi_ip": "192.168.1.50" // Optional: Let user choose if needed
+          "pi_ip": "192.168.4.1" // Optional: Let user choose if needed
         }),
       );
 
