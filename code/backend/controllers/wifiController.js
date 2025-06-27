@@ -15,7 +15,7 @@ exports.requestWiFiChange = async (req, res) => {
 
     try {
         // Forward request to Raspberry Pi
-        const response = await axios.post(`http://${pi_ip}:3001/api/change-wifi`, {
+        const response = await axios.post(`http://${pi_ip}:5000/api/change-wifi`, {
             ssid,
             password,
         });
