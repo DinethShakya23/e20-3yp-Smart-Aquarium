@@ -17,6 +17,7 @@ class RegistrationScreen extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Builder(builder: (context) {
         return Container(
           height: double.infinity,
