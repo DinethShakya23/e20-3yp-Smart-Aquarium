@@ -51,6 +51,8 @@ class _DashBoardState extends State<DashBoard> {
   double turbidityLevel = 50.0;
   String userEmail = "";
 
+  String webSocketStatus = "Not connected.";
+
   @override
   void initState() {
     super.initState();
@@ -67,41 +69,77 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   void _listenToWebSocket() {
-    debugPrint("🔌 Connecting to WebSocket...");
+    debugPrint("🔌 Connecting ...");
+
+    setState(() {
+      webSocketStatus = "🔌 Connecting ...";
+    });
 
     channel.stream.listen(
-      (message) {
+          (message) {
         debugPrint("📩 Received Raw WebSocket Message: $message");
 
         try {
           Map<String, dynamic> jsonData = jsonDecode(message);
-
           if (jsonData['type'] == 'sensor' &&
               jsonData['data'] is Map<String, dynamic>) {
             Map<String, dynamic> data = jsonData['data'];
 
-            setState(() {
-              TemperatureLevel =
-                  (data['temperature'] as num?)?.toDouble() ?? TemperatureLevel;
-              pHLevel = (data['pH'] as num?)?.toDouble() ?? pHLevel;
-              turbidityLevel =
-                  (data['turbidity'] as num?)?.toDouble() ?? turbidityLevel;
-            });
+            List<String> missingFields = [];
 
-            debugPrint(
-                "✅ Updated Values - 🌡 Temp: $TemperatureLevel°C, pH: $pHLevel, 💧 Turbidity: $turbidityLevel NTU");
+            if (!data.containsKey('temperature')) missingFields.add('Temperature');
+            if (!data.containsKey('pH')) missingFields.add('pH');
+            if (!data.containsKey('turbidity')) missingFields.add('Turbidity');
+
+            if (missingFields.isNotEmpty) {
+              debugPrint("⚠️ Missing sensor data: ${missingFields.join(', ')}");
+
+              setState(() {
+                webSocketStatus =
+                "⚠️ Device failure: Missing data from ${missingFields.join(', ')} sensor(s).";
+              });
+            } else {
+              setState(() {
+                TemperatureLevel =
+                    (data['temperature'] as num?)?.toDouble() ?? TemperatureLevel;
+                pHLevel =
+                    (data['pH'] as num?)?.toDouble() ?? pHLevel;
+                turbidityLevel =
+                    (data['turbidity'] as num?)?.toDouble() ?? turbidityLevel;
+                webSocketStatus =
+                "✅ Connected. Temp: $TemperatureLevel°C, pH: $pHLevel, Turbidity: $turbidityLevel NTU";
+              });
+            }
           } else {
             debugPrint("⚠️ Unexpected WebSocket message format: $jsonData");
+            setState(() {
+              webSocketStatus =
+              "⚠️ Device failure.";
+            });
           }
+
         } catch (e) {
           debugPrint("❌ Error parsing WebSocket data: $e");
         }
       },
-      onError: (error) => debugPrint("❌ WebSocket Error: $error"),
-      onDone: () => debugPrint("🔌 WebSocket connection closed."),
+      onError: (error) {
+        debugPrint("❌ WebSocket Error: $error");
+        setState(() {
+          webSocketStatus =
+          "❌ Network failed. Please check your connection.";
+        });
+      },
+      onDone: () {
+        debugPrint("🔌 WebSocket connection closed.");
+        setState(() {
+          webSocketStatus =
+          "🔌 WebSocket connection closed.";
+        });
+      },
       cancelOnError: true,
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +169,40 @@ class _DashBoardState extends State<DashBoard> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: _isSearching ? _buildSearchResults() : _buildDashboard(),
+        child: _isSearching ? _buildSearchResults()   : Column(
+          children: [
+          _buildWebSocketStatus(), // ✅ NEW
+      Expanded(child: _buildDashboard()),
+      ],
+    ),
+      ),
+    );
+  }
+
+  Widget _buildWebSocketStatus() {
+    Color color;
+
+    if (webSocketStatus.startsWith("✅")) {
+      color = Colors.greenAccent;
+    } else if (webSocketStatus.startsWith("⚠️")) {
+      color = Colors.orangeAccent;
+    } else if (webSocketStatus.startsWith("❌")) {
+      color = Colors.redAccent;
+    } else {
+      color = Colors.white;
+    }
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      color: Colors.black.withOpacity(0.3),
+      child: Text(
+        webSocketStatus,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }
