@@ -143,8 +143,8 @@ class _FishAlertWidgetState extends State<FishAlertWidget> {
                 const SizedBox(width: 8),
                 Text(
                   _connected
-                      ? 'Connected to WebSocket'
-                      : 'Disconnected / Using dummy data',
+                      ? 'Connected '
+                      : 'Disconnected ',
                   style: TextStyle(
                     color: _connected ? Colors.green[900] : Colors.red[900],
                     fontWeight: FontWeight.bold,
