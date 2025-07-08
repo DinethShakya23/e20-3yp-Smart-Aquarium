@@ -14,7 +14,7 @@ class FishAlertWidget extends StatefulWidget {
 
 class _FishAlertWidgetState extends State<FishAlertWidget> {
   final WebSocketChannel channel =
-  IOWebSocketChannel.connect('ws://54.211.9.164:8765');
+  IOWebSocketChannel.connect('ws://18.140.68.45:8765');
   final List<Map<String, dynamic>> _alerts = [];
   bool _usingDummyData = false;
   bool _connected = false;

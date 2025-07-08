@@ -29,7 +29,11 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-  final channel = WebSocketChannel.connect(Uri.parse('ws://54.211.9.164:8081'));
+
+  final channel = WebSocketChannel.connect(
+    Uri.parse('ws://18.140.68.45:8081'),
+  );
+
 
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
@@ -85,21 +89,32 @@ class _DashBoardState extends State<DashBoard> {
 
             List<String> missingFields = [];
             List<String> invalidFields = [];
+            
+            final temperature = (data['temperature'] as num).toDouble();
+            final pH = (data['pH'] as num).toDouble();
+            final turbidity = (data['turbidity'] as num).toDouble();
+
+            if (temperature == -1) missingFields.add("temperature");
+            if (pH == -1) missingFields.add("pH");
+            if (turbidity == -1) missingFields.add("turbidity");
 
             if (!data.containsKey('temperature')) {
               missingFields.add('Temperature');
             } else if (data['temperature'] is num) {
               double temp = data['temperature'].toDouble();
-              if (temp < 0 || temp > 50) {
+              if (temp < -1 || temp > 50) {
                 invalidFields.add('Temperature out of range (-50°C to 150°C)');
               }
             }
+
+
+            
 
             if (!data.containsKey('pH')) {
               missingFields.add('pH');
             } else if (data['pH'] is num) {
               double pH = data['pH'].toDouble();
-              if (pH < 0 || pH > 14) {
+              if (pH < -1 || pH > 14) {
                 invalidFields.add('pH out of range (0 to 14)');
               }
             }
@@ -108,10 +123,11 @@ class _DashBoardState extends State<DashBoard> {
               missingFields.add('Turbidity');
             } else if (data['turbidity'] is num) {
               double turbidity = data['turbidity'].toDouble();
-              if (turbidity < 0 || turbidity > 1000) {
+              if (turbidity < -1 || turbidity > 1000) {
                 invalidFields.add('Turbidity out of range (0 to 1000 NTU)');
               }
             }
+
 
             if (missingFields.isNotEmpty) {
               debugPrint("⚠️ Missing sensor data: ${missingFields.join(', ')}");

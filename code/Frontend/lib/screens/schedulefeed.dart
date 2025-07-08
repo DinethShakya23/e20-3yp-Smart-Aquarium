@@ -367,7 +367,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
       _scheduledQuantity = "$_selectedQuantity g";
     });
 
-    final String wsUrl = "ws://54.211.9.164:8081";
+    final String wsUrl = "ws://18.140.68.45:8081";
 
     Map<String, dynamic> data = {
       "time": _scheduledTime,
@@ -390,7 +390,7 @@ class _ScheduleFeedState extends State<Schedulefeed> {
   }
 
   void _feedNow(int grams) async {
-    final String wsUrl = "ws://54.211.9.164:8081";
+    final String wsUrl = "ws://18.140.68.45:8081";
 
     Map<String, dynamic> data = {
       "feed_now": true,

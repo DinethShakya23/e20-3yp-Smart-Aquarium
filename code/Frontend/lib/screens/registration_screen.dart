@@ -116,7 +116,7 @@ class RegistrationScreen extends StatelessWidget {
 
                             try {
                               final response = await http.post(
-                                Uri.parse('http://10.0.2.2:3001/api/register'),
+                                Uri.parse('http://18.140.68.45:3001/api/register'),
                                 headers: {'Content-Type': 'application/json'},
                                 body: jsonEncode({'email': email, 'password': password}),
                               );

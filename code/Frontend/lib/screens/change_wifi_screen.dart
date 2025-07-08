@@ -35,7 +35,7 @@ class _ChangeWiFiScreenState extends State<ChangeWiFiScreen> {
     try {
       final response = await http.post(
         Uri.parse(
-            "http://10.0.2.2:3001/api/change-wifi"), // Replace with your Pi's IP
+            "http://18.140.68.45:3001/api/change-wifi"), // Replace with your Pi's IP
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "ssid": ssid,
