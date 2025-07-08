@@ -30,7 +30,7 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   final channel = WebSocketChannel.connect(
-    Uri.parse('ws://54.211.9.164:8081'),
+    Uri.parse('ws://18.140.68.45:8081'),
   );
 
   bool _isSearching = false;
@@ -87,9 +87,13 @@ class _DashBoardState extends State<DashBoard> {
 
             List<String> missingFields = [];
 
-            if (!data.containsKey('temperature')) missingFields.add('Temperature');
-            if (!data.containsKey('pH')) missingFields.add('pH');
-            if (!data.containsKey('turbidity')) missingFields.add('Turbidity');
+            final temperature = (data['temperature'] as num).toDouble();
+            final pH = (data['pH'] as num).toDouble();
+            final turbidity = (data['turbidity'] as num).toDouble();
+
+            if (temperature == -1) missingFields.add("temperature");
+            if (pH == -1) missingFields.add("pH");
+            if (turbidity == -1) missingFields.add("turbidity");
 
             if (missingFields.isNotEmpty) {
               debugPrint("⚠️ Missing sensor data: ${missingFields.join(', ')}");

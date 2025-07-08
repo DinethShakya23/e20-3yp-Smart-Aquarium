@@ -34,7 +34,7 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
 
   Future<void> fetchTurbidityData() async {
     final url =
-        Uri.parse("http://54.211.9.164:3001/api/turbidity/hourly-turbidity");
+        Uri.parse("http://18.140.68.453001/api/turbidity/hourly-turbidity");
 
     try {
       final response = await http.get(url);
@@ -56,7 +56,7 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
     String jsonString = '''
     {
       "2025-05-01": [
-        {"time": "00:00", "turbidity": 1.3},
+        {"time": "00:00", "turbidity": 4.3},
         {"time": "01:00", "turbidity": 1.8},
         {"time": "02:00", "turbidity": 2.1},
         {"time": "03:00", "turbidity": 1.7},

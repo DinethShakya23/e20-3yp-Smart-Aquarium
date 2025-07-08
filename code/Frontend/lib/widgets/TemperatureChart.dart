@@ -33,7 +33,7 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
   }
 
   Future<void> fetchTemperatureData() async {
-    final url = Uri.parse("http://54.211.9.164:3001/api/temperature/hourly");
+    final url = Uri.parse("http://18.140.68.453001/api/temperature/hourly");
 
     try {
       final response = await http.get(url);
