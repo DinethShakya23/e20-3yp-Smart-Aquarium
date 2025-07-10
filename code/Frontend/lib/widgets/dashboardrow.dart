@@ -12,15 +12,16 @@ class DashboardRow extends StatelessWidget {
   final Widget destination2;
 
   const DashboardRow(
-      this.firstIcon,
-      this.firstLabel,
-      this.firstColor,
-      this.destination1,
-      this.secondIcon,
-      this.secondLabel,
-      this.secondColor,
-      this.destination2,
-      {super.key});
+    this.firstIcon,
+    this.firstLabel,
+    this.firstColor,
+    this.destination1,
+    this.secondIcon,
+    this.secondLabel,
+    this.secondColor,
+    this.destination2, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -35,12 +35,13 @@ class _ChangeWiFiScreenState extends State<ChangeWiFiScreen> {
     try {
       final response = await http.post(
         Uri.parse(
-            "http://18.140.68.45:3001/api/change-wifi"), // Replace with your Pi's IP
+          "http://18.140.68.45:3001/api/change-wifi",
+        ), // Replace with your Pi's IP
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "ssid": ssid,
           "password": password,
-          "pi_ip": "192.168.4.1" // Optional: Let user choose if needed
+          "pi_ip": "192.168.4.1", // Optional: Let user choose if needed
         }),
       );
 
@@ -104,7 +105,8 @@ class _ChangeWiFiScreenState extends State<ChangeWiFiScreen> {
                   labelText: "Wi-Fi SSID",
                   prefixIcon: const Icon(Icons.wifi),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100)),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
                   fillColor: Colors.white,
                   filled: true,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -118,7 +120,8 @@ class _ChangeWiFiScreenState extends State<ChangeWiFiScreen> {
                   labelText: "Wi-Fi Password",
                   prefixIcon: const Icon(Icons.lock),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100)),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
                   fillColor: Colors.white,
                   filled: true,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -128,28 +131,38 @@ class _ChangeWiFiScreenState extends State<ChangeWiFiScreen> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 12,
+                  ),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
                 onPressed: isLoading ? null : changeWiFi,
-                child: isLoading
-                    ? const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue))
-                    : const Text(
-                        "Apply Wi-Fi",
-                        style: TextStyle(
+                child:
+                    isLoading
+                        ? const CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.blue,
+                          ),
+                        )
+                        : const Text(
+                          "Apply Wi-Fi",
+                          style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
               ),
               const SizedBox(height: 20),
               Text(
                 message,
                 style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.w500),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
