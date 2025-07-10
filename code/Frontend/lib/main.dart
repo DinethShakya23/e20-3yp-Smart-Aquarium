@@ -21,12 +21,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Smart Aquarium',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: isTesting
-          ? LoginScreen()
-          : SplashScreen(), // Show Splash Screen first
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home:
+          isTesting
+              ? LoginScreen()
+              : SplashScreen(), // Show Splash Screen first
     );
   }
 }

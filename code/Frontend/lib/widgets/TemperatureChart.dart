@@ -11,9 +11,7 @@ class TemperatureChartApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: TemperatureChartPage(),
-    );
+    return MaterialApp(home: TemperatureChartPage());
   }
 }
 
@@ -33,7 +31,7 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
   }
 
   Future<void> fetchTemperatureData() async {
-    final url = Uri.parse("http://18.140.68.453001/api/temperature/hourly");
+    final url = Uri.parse("http://18.140.68.45:3001/api/temperature/hourly");
 
     try {
       final response = await http.get(url);
@@ -48,7 +46,8 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
         });
       } else {
         print(
-            "⚠ Server responded with status ${response.statusCode}, loading fallback data...");
+          "⚠ Server responded with status ${response.statusCode}, loading fallback data...",
+        );
         loadFallbackJson();
       }
     } catch (e) {
@@ -114,54 +113,51 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
     final spots = getSpotsForDate(selectedDate);
 
     return Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF0468BF),
-              Color(0xFFA1D6F3),
-            ],
-          ),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF0468BF), Color(0xFFA1D6F3)],
         ),
-        child: Scaffold(
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: Text(
-              "Temperature - $selectedDate",
-              style: const TextStyle(color: Colors.white),
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.calendar_today, color: Colors.white),
-                onPressed: () async {
-                  final pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.parse(selectedDate),
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2030),
-                  );
-
-                  if (pickedDate != null) {
-                    final formatted =
-                        DateFormat('yyyy-MM-dd').format(pickedDate);
-                    if (data.containsKey(formatted)) {
-                      setState(() => selectedDate = formatted);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("No data for $formatted")),
-                      );
-                    }
-                  }
-                },
-              ),
-            ],
+          elevation: 0,
+          title: Text(
+            "Temperature - $selectedDate",
+            style: const TextStyle(color: Colors.white),
           ),
-          body: data.isEmpty
-              ? const Center(child: CircularProgressIndicator())
-              : Padding(
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.calendar_today, color: Colors.white),
+              onPressed: () async {
+                final pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.parse(selectedDate),
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime(2030),
+                );
+
+                if (pickedDate != null) {
+                  final formatted = DateFormat('yyyy-MM-dd').format(pickedDate);
+                  if (data.containsKey(formatted)) {
+                    setState(() => selectedDate = formatted);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("No data for $formatted")),
+                    );
+                  }
+                }
+              },
+            ),
+          ],
+        ),
+        body:
+            data.isEmpty
+                ? const Center(child: CircularProgressIndicator())
+                : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
@@ -206,8 +202,10 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                                                 sideTitles: SideTitles(
                                                   showTitles: true,
                                                   interval: 3,
-                                                  getTitlesWidget:
-                                                      (value, meta) {
+                                                  getTitlesWidget: (
+                                                    value,
+                                                    meta,
+                                                  ) {
                                                     return Text(
                                                       value.toInt().toString(),
                                                       style: const TextStyle(
@@ -221,7 +219,9 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                                             borderData: FlBorderData(
                                               show: true,
                                               border: Border.all(
-                                                  color: Colors.grey, width: 1),
+                                                color: Colors.grey,
+                                                width: 1,
+                                              ),
                                             ),
                                             minX: 0,
                                             maxX: 23,
@@ -238,10 +238,12 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                                                   show: true,
                                                   gradient: LinearGradient(
                                                     colors: [
-                                                      const Color(0xFF0468BF)
-                                                          .withOpacity(0.4),
-                                                      const Color(0xFFA1D6F3)
-                                                          .withOpacity(0.1),
+                                                      const Color(
+                                                        0xFF0468BF,
+                                                      ).withOpacity(0.4),
+                                                      const Color(
+                                                        0xFFA1D6F3,
+                                                      ).withOpacity(0.1),
                                                     ],
                                                     begin: Alignment.topCenter,
                                                     end: Alignment.bottomCenter,
@@ -271,6 +273,7 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                     ],
                   ),
                 ),
-        ));
+      ),
+    );
   }
 }

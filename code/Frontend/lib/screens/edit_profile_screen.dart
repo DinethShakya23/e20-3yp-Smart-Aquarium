@@ -40,8 +40,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
-    final pickedFile =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
 
     if (pickedFile != null) {
       setState(() {
@@ -52,14 +54,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> _saveChanges() async {
     final uri = Uri.parse(
-        //"http://54.211.9.164:3001/api/profile"); // Update IP if needed
-        "http://18.140.68.45:3001/api/profile");
+      //"http://54.211.9.164:3001/api/profile"); // Update IP if needed
+      "http://18.140.68.45:3001/api/profile",
+    );
 
-    final request = http.MultipartRequest('POST', uri)
-      ..fields['name'] = nameController.text
-      ..fields['email'] = emailController.text
-      ..fields['phone'] = phoneController.text
-      ..fields['location'] = locationController.text;
+    final request =
+        http.MultipartRequest('POST', uri)
+          ..fields['name'] = nameController.text
+          ..fields['email'] = emailController.text
+          ..fields['phone'] = phoneController.text
+          ..fields['location'] = locationController.text;
 
     if (_selectedImage != null) {
       final mimeType = lookupMimeType(_selectedImage!.path);
@@ -83,14 +87,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       } else {
         ScaffoldMessenger.of(context as BuildContext).showSnackBar(
           SnackBar(
-              content:
-                  Text("Failed to update profile: ${response.statusCode}")),
+            content: Text("Failed to update profile: ${response.statusCode}"),
+          ),
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context as BuildContext).showSnackBar(
-        SnackBar(content: Text("Error: ${e.toString()}")),
-      );
+      ScaffoldMessenger.of(
+        context as BuildContext,
+      ).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
     }
   }
 
@@ -111,12 +115,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 onTap: _pickImage,
                 child: CircleAvatar(
                   radius: 60,
-                  backgroundImage: _selectedImage != null
-                      ? FileImage(_selectedImage!)
-                      : NetworkImage(widget.imageUrl) as ImageProvider,
-                  child: _selectedImage == null
-                      ? const Icon(Icons.edit, size: 30, color: Colors.white70)
-                      : null,
+                  backgroundImage:
+                      _selectedImage != null
+                          ? FileImage(_selectedImage!)
+                          : NetworkImage(widget.imageUrl) as ImageProvider,
+                  child:
+                      _selectedImage == null
+                          ? const Icon(
+                            Icons.edit,
+                            size: 30,
+                            color: Colors.white70,
+                          )
+                          : null,
                 ),
               ),
             ),
@@ -149,7 +159,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

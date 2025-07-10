@@ -29,11 +29,7 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-
-  final channel = WebSocketChannel.connect(
-    Uri.parse('ws://18.140.68.45:8081'),
-  );
-
+  final channel = WebSocketChannel.connect(Uri.parse('ws://18.140.68.45:8081'));
 
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
@@ -89,7 +85,7 @@ class _DashBoardState extends State<DashBoard> {
 
             List<String> missingFields = [];
             List<String> invalidFields = [];
-            
+
             final temperature = (data['temperature'] as num).toDouble();
             final pH = (data['pH'] as num).toDouble();
             final turbidity = (data['turbidity'] as num).toDouble();
@@ -106,9 +102,6 @@ class _DashBoardState extends State<DashBoard> {
                 invalidFields.add('Temperature out of range (-50°C to 150°C)');
               }
             }
-
-
-            
 
             if (!data.containsKey('pH')) {
               missingFields.add('pH');
@@ -127,7 +120,6 @@ class _DashBoardState extends State<DashBoard> {
                 invalidFields.add('Turbidity out of range (0 to 1000 NTU)');
               }
             }
-
 
             if (missingFields.isNotEmpty) {
               debugPrint("⚠️ Missing sensor data: ${missingFields.join(', ')}");

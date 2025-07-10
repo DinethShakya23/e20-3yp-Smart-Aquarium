@@ -27,7 +27,7 @@ class _TemperatureState extends State<Temperature> {
     "Water Change",
     "Filter Cleaning",
     "pH Check",
-    "Temperature Monitoring"
+    "Temperature Monitoring",
   ];
   List<String> _filteredItems = [];
   // double TemperatureLevel = 30.0; // Initial dummy value
@@ -64,13 +64,16 @@ class _TemperatureState extends State<Temperature> {
             Navigator.pop(context);
           },
         ),
-        title: _isSearching
-            ? SearchField(_searchController, _filterItems)
-            : const Text(
-                "Temperature",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+        title:
+            _isSearching
+                ? SearchField(_searchController, _filterItems)
+                : const Text(
+                  "Temperature",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         backgroundColor: Colors.blueGrey.shade900,
         elevation: 4.0,
         shadowColor: Colors.blueGrey.shade500,
@@ -96,9 +99,10 @@ class _TemperatureState extends State<Temperature> {
 
   void _filterItems(String query) {
     setState(() {
-      _filteredItems = _allItems
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      _filteredItems =
+          _allItems
+              .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+              .toList();
     });
   }
 
@@ -133,94 +137,80 @@ class _TemperatureState extends State<Temperature> {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(100.0),
-            child: Image.asset(
-              "assert/images/Logo00.jpg",
-              height: 86,
-              width: 86,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const Icon(
-                Icons.image_not_supported,
-                size: 86,
+        child: Column(
+          children: [
+            // ✅ REMOVED: The ClipRRect widget for the logo and the SizedBox below it.
+            const SizedBox(height: 20),
+            const Text(
+              "Current Temperature",
+              style: TextStyle(
                 color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            "Current Temperature",
-            style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 20),
-
-          // Corrected Gauge Implementation
-          SizedBox(
-            height: MediaQuery.of(context).size.width * 0.6,
-            child: SfRadialGauge(
-              axes: <RadialAxis>[
-                RadialAxis(
-                  minimum: 10,
-                  maximum: 40,
-                  ranges: <GaugeRange>[
-                    GaugeRange(
-                      startValue: 0,
-                      endValue: 22,
-                      color: Colors.orange,
-                    ),
-                    GaugeRange(
-                      startValue: 22,
-                      endValue: 28,
-                      color: Colors.green,
-                    ),
-                    GaugeRange(
-                      startValue: 28,
-                      endValue: 40,
-                      color: Colors.red,
-                    ),
-                  ],
-                  pointers: <GaugePointer>[
-                    NeedlePointer(value: widget.temperature),
-                  ],
-                  annotations: <GaugeAnnotation>[
-                    GaugeAnnotation(
-                      widget: Text(
-                        "${widget.temperature.toStringAsFixed(1)} °C",
-                        style:
-                            const TextStyle(fontSize: 18, color: Colors.white),
+            const SizedBox(height: 20),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.45,
+              child: SfRadialGauge(
+                axes: <RadialAxis>[
+                  RadialAxis(
+                    minimum: 10,
+                    maximum: 40,
+                    ranges: <GaugeRange>[
+                      GaugeRange(
+                        startValue: 0,
+                        endValue: 22,
+                        color: Colors.orange,
                       ),
-                      angle: 90,
-                      positionFactor: 0.5,
-                    ),
-                  ],
-                ),
-              ],
+                      GaugeRange(
+                        startValue: 22,
+                        endValue: 28,
+                        color: Colors.green,
+                      ),
+                      GaugeRange(
+                        startValue: 28,
+                        endValue: 40,
+                        color: Colors.red,
+                      ),
+                    ],
+                    pointers: <GaugePointer>[
+                      NeedlePointer(value: widget.temperature),
+                    ],
+                    annotations: <GaugeAnnotation>[
+                      GaugeAnnotation(
+                        widget: Text(
+                          "${widget.temperature.toStringAsFixed(1)} °C",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                        angle: 90,
+                        positionFactor: 0.5,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-
-          const SizedBox(height: 20),
-          Text(
-            "Temperature: ${widget.temperature.toStringAsFixed(1)} °C",
-            style: const TextStyle(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-
-          const SizedBox(height: 20),
-
-          const Text(
-            "Temperature History",
-            style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: double.infinity,
-            height: 500,
-            child: TemperatureChartPage(), // Assuming you have a chart widget
-          ),
-        ]),
+            const SizedBox(height: 20),
+            const Text(
+              "Temperature Variation Chart",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 500,
+              child: TemperatureChartPage(), // Using the corrected chart widget
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -230,32 +220,55 @@ class _TemperatureState extends State<Temperature> {
       backgroundColor: Colors.grey[900],
       context: context,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (context) {
         return Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text("Notifications",
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)),
+              const Text(
+                "Notifications",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const Divider(color: Colors.white54),
-              NotificationItem(Icons.warning, "High Temperature",
-                  "Temperature reached 30°C", "2 min ago"),
-              NotificationItem(Icons.opacity, "Turbidity Alert",
-                  "Water quality has changed", "5 min ago"),
-              NotificationItem(Icons.analytics, "Analytics Updated",
-                  "New data available", "10 min ago"),
-              NotificationItem(Icons.fastfood, "Feeding Schedule Updated",
-                  "New schedule available", "2 min ago"),
+              NotificationItem(
+                Icons.warning,
+                "High Temperature",
+                "Temperature reached 30°C",
+                "2 min ago",
+              ),
+              NotificationItem(
+                Icons.opacity,
+                "Turbidity Alert",
+                "Water quality has changed",
+                "5 min ago",
+              ),
+              NotificationItem(
+                Icons.analytics,
+                "Analytics Updated",
+                "New data available",
+                "10 min ago",
+              ),
+              NotificationItem(
+                Icons.fastfood,
+                "Feeding Schedule Updated",
+                "New schedule available",
+                "2 min ago",
+              ),
               const SizedBox(height: 10),
               TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("Close",
-                      style: TextStyle(color: Colors.blueAccent))),
+                onPressed: () => Navigator.pop(context),
+                child: const Text(
+                  "Close",
+                  style: TextStyle(color: Colors.blueAccent),
+                ),
+              ),
             ],
           ),
         );
