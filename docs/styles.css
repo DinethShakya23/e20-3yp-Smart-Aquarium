@@ -46,6 +46,8 @@ body {
 
 .nav-container {
     display: flex;
+    padding-left: 40px;
+    padding-right: 40px;
     justify-content: space-between;
     align-items: center;
 }
@@ -145,11 +147,11 @@ body {
     bottom: -150px;
 }
 
-.bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-duration: 15s; animation-delay: 0s; }
-.bubble:nth-child(2) { width: 60px; height: 60px; left: 20%; animation-duration: 12s; animation-delay: 2s; }
-.bubble:nth-child(3) { width: 100px; height: 100px; left: 80%; animation-duration: 18s; animation-delay: 4s; }
-.bubble:nth-child(4) { width: 40px; height: 40px; left: 70%; animation-duration: 22s; animation-delay: 1s; }
-.bubble:nth-child(5) { width: 120px; height: 120px; left: 40%; animation-duration: 25s; animation-delay: 3s; }
+.bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-duration: 2s; animation-delay: 0s; }
+.bubble:nth-child(2) { width: 60px; height: 60px; left: 20%; animation-duration: 4s; animation-delay: 2s; }
+.bubble:nth-child(3) { width: 100px; height: 100px; left: 80%; animation-duration: 3s; animation-delay: 1s; }
+.bubble:nth-child(4) { width: 40px; height: 40px; left: 70%; animation-duration: 2s; animation-delay: 0s; }
+.bubble:nth-child(5) { width: 120px; height: 120px; left: 40%; animation-duration: 3s; animation-delay: 3s; }
 
 @keyframes float {
     to {
