@@ -1,12 +1,11 @@
+import 'dart:convert'; // ✅ NEW: For handling JSON data
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-// import 'dart:async';
-// import 'dart:math'; // Import for random turbidity values
+import 'package:web_socket_channel/web_socket_channel.dart'; // ✅ NEW: For WebSocket connection
 
 import '../Widgets/searchfield.dart';
 import '../Widgets/searchbutton.dart';
 import '../Widgets/notificationbutton.dart';
-// import '../Widgets/popupmenu.dart';
 import '../Widgets/notificationitem.dart';
 import '../widgets/TemperatureChart.dart';
 
@@ -20,6 +19,11 @@ class Temperature extends StatefulWidget {
 }
 
 class _TemperatureState extends State<Temperature> {
+  // ✅ NEW: WebSocket and state variables for real-time data
+  late WebSocketChannel _channel;
+  late double _currentTemperature;
+
+  // Existing state variables
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
   final List<String> _allItems = [
@@ -30,36 +34,68 @@ class _TemperatureState extends State<Temperature> {
     "Temperature Monitoring",
   ];
   List<String> _filteredItems = [];
-  // double TemperatureLevel = 30.0; // Initial dummy value
-  // late Timer _timer;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _simulateTurbidityUpdates();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    // ✅ NEW: Initialize with the passed value and connect to WebSocket
+    _currentTemperature = widget.temperature; // Start with the initial value
+    _connectToWebSocket(); // Connect for live updates
+  }
 
-  // @override
-  // void dispose() {
-  //   _timer.cancel(); // Cancel timer to prevent memory leaks
-  //   super.dispose();
-  // }
+  // ✅ NEW: Method to connect and listen to the WebSocket
+  void _connectToWebSocket() {
+    _channel = WebSocketChannel.connect(
+      Uri.parse('ws://18.140.68.45:8081'), // Your WebSocket server URL
+    );
 
-  // void _simulateTurbidityUpdates() {
-  //   _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-  //     setState(() {
-  //       TemperatureLevel =
-  //           20 + Random().nextDouble() * 80; // Random between 20-100
-  //     });
-  //   });
-  // }
+    _channel.stream.listen(
+      (message) {
+        if (!mounted) return; // Ensure widget is still active
+
+        try {
+          final data = jsonDecode(message);
+          if (data['type'] == 'sensor' && data['data'] is Map) {
+            final sensorData = data['data'];
+            if (sensorData['temperature'] != null &&
+                sensorData['temperature'] is num) {
+              final newTemp = (sensorData['temperature'] as num).toDouble();
+              // Update state only with valid data (not -1)
+              if (newTemp != -1) {
+                setState(() {
+                  _currentTemperature = newTemp;
+                });
+              }
+            }
+          }
+        } catch (e) {
+          debugPrint('TemperatureScreen: Error parsing WebSocket data: $e');
+        }
+      },
+      onError: (error) {
+        debugPrint('TemperatureScreen: WebSocket Error: $error');
+      },
+      onDone: () {
+        debugPrint('TemperatureScreen: WebSocket connection closed.');
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    // ✅ NEW: Important! Close the WebSocket connection.
+    _channel.sink.close();
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.home, color: Colors.white),
+          // Using a back arrow is more intuitive for returning
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -75,12 +111,9 @@ class _TemperatureState extends State<Temperature> {
                   ),
                 ),
         backgroundColor: Colors.blueGrey.shade900,
-        elevation: 4.0,
-        shadowColor: Colors.blueGrey.shade500,
         actions: [
           SearchButton(_isSearching, _toggleSearch),
           NotificationButton(_showNotifications),
-          // PopupMenu(context),
         ],
       ),
       body: Container(
@@ -97,6 +130,92 @@ class _TemperatureState extends State<Temperature> {
     );
   }
 
+  Widget _buildDefaultView() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            const Text(
+              "Current Temperature",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.45,
+              child: SfRadialGauge(
+                axes: <RadialAxis>[
+                  RadialAxis(
+                    minimum: 10,
+                    maximum: 40,
+                    ranges: <GaugeRange>[
+                      GaugeRange(
+                        // Corrected startValue to match axis minimum
+                        startValue: 10,
+                        endValue: 22,
+                        color: Colors.orange,
+                      ),
+                      GaugeRange(
+                        startValue: 22,
+                        endValue: 28,
+                        color: Colors.green,
+                      ),
+                      GaugeRange(
+                        startValue: 28,
+                        endValue: 40,
+                        color: Colors.red,
+                      ),
+                    ],
+                    pointers: <GaugePointer>[
+                      // ✅ MODIFIED: Use the real-time state variable
+                      NeedlePointer(value: _currentTemperature),
+                    ],
+                    annotations: <GaugeAnnotation>[
+                      GaugeAnnotation(
+                        widget: Text(
+                          // ✅ MODIFIED: Display the real-time state variable
+                          "${_currentTemperature.toStringAsFixed(1)} °C",
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        angle: 90,
+                        positionFactor: 0.5,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              "Temperature History",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 500,
+              child: TemperatureChartPage(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // No changes are needed for the methods below
   void _filterItems(String query) {
     setState(() {
       _filteredItems =
@@ -130,88 +249,6 @@ class _TemperatureState extends State<Temperature> {
           onTap: () {},
         );
       },
-    );
-  }
-
-  Widget _buildDefaultView() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            // ✅ REMOVED: The ClipRRect widget for the logo and the SizedBox below it.
-            const SizedBox(height: 20),
-            const Text(
-              "Current Temperature",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.45,
-              child: SfRadialGauge(
-                axes: <RadialAxis>[
-                  RadialAxis(
-                    minimum: 10,
-                    maximum: 40,
-                    ranges: <GaugeRange>[
-                      GaugeRange(
-                        startValue: 0,
-                        endValue: 22,
-                        color: Colors.orange,
-                      ),
-                      GaugeRange(
-                        startValue: 22,
-                        endValue: 28,
-                        color: Colors.green,
-                      ),
-                      GaugeRange(
-                        startValue: 28,
-                        endValue: 40,
-                        color: Colors.red,
-                      ),
-                    ],
-                    pointers: <GaugePointer>[
-                      NeedlePointer(value: widget.temperature),
-                    ],
-                    annotations: <GaugeAnnotation>[
-                      GaugeAnnotation(
-                        widget: Text(
-                          "${widget.temperature.toStringAsFixed(1)} °C",
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                        angle: 90,
-                        positionFactor: 0.5,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              "Temperature Variation Chart",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              height: 500,
-              child: TemperatureChartPage(), // Using the corrected chart widget
-            ),
-          ],
-        ),
-      ),
     );
   }
 
