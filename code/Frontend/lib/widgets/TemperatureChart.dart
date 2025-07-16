@@ -4,25 +4,33 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-void main() => runApp(TemperatureChartApp());
+void main() => runApp(const TemperatureChartApp());
 
 class TemperatureChartApp extends StatelessWidget {
   const TemperatureChartApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: TemperatureChartPage());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: TemperatureChartPage(),
+    );
   }
 }
 
 class TemperatureChartPage extends StatefulWidget {
+  const TemperatureChartPage({super.key});
+
   @override
-  _TemperatureChartPageState createState() => _TemperatureChartPageState();
+  State<TemperatureChartPage> createState() => _TemperatureChartPageState();
 }
 
 class _TemperatureChartPageState extends State<TemperatureChartPage> {
   Map<String, dynamic> data = {};
-  String selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  // ADJUSTMENT 1: Adds 5 hours to the initial date for fetching
+  String selectedDate = DateFormat(
+    'yyyy-MM-dd',
+  ).format(DateTime.now().add(const Duration(hours: 5)));
 
   @override
   void initState() {
@@ -31,6 +39,10 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
   }
 
   Future<void> fetchTemperatureData() async {
+    // ADJUSTMENT 1: Adds 5 hours to the 'today' check
+    final String today = DateFormat(
+      'yyyy-MM-dd',
+    ).format(DateTime.now().add(const Duration(hours: 5)));
     final url = Uri.parse("http://18.140.68.45:3001/api/temperature/hourly");
 
     try {
@@ -42,7 +54,22 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
 
         setState(() {
           data = jsonData;
-          selectedDate = jsonData.keys.first;
+          if (!jsonData.containsKey(today) && jsonData.keys.isNotEmpty) {
+            selectedDate = jsonData.keys.first;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      "No data for today. Showing data for $selectedDate",
+                    ),
+                  ),
+                );
+              }
+            });
+          } else {
+            selectedDate = today;
+          }
         });
       } else {
         print(
@@ -57,33 +84,25 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
   }
 
   void loadFallbackJson() {
+    // ADJUSTMENT 1: Adds 5 hours to the fallback's 'today' check
+    final String today = DateFormat(
+      'yyyy-MM-dd',
+    ).format(DateTime.now().add(const Duration(hours: 5)));
     String jsonString = '''
     {
       "2025-05-01": [
-        {"time": "00:00", "temperature": 24},
-        {"time": "01:00", "temperature": 23.5},
-        {"time": "02:00", "temperature": 23},
-        {"time": "03:00", "temperature": 22.5},
-        {"time": "04:00", "temperature": 22},
-        {"time": "05:00", "temperature": 21.5},
-        {"time": "06:00", "temperature": 22},
-        {"time": "07:00", "temperature": 23},
-        {"time": "08:00", "temperature": 25},
-        {"time": "09:00", "temperature": 26},
-        {"time": "10:00", "temperature": 27},
-        {"time": "11:00", "temperature": 28},
-        {"time": "12:00", "temperature": 29},
-        {"time": "13:00", "temperature": 30},
-        {"time": "14:00", "temperature": 30.5},
-        {"time": "15:00", "temperature": 31},
-        {"time": "16:00", "temperature": 30},
-        {"time": "17:00", "temperature": 29},
-        {"time": "18:00", "temperature": 28},
-        {"time": "19:00", "temperature": 27},
-        {"time": "20:00", "temperature": 26},
-        {"time": "21:00", "temperature": 25},
-        {"time": "22:00", "temperature": 24},
-        {"time": "23:00", "temperature": 23}
+        {"time": "00:00", "temperature": 24}, {"time": "01:00", "temperature": 23.5},
+        {"time": "02:00", "temperature": 23}, {"time": "03:00", "temperature": 22.5},
+        {"time": "04:00", "temperature": 22}, {"time": "05:00", "temperature": 21.5},
+        {"time": "06:00", "temperature": 22}, {"time": "07:00", "temperature": 23},
+        {"time": "08:00", "temperature": 25}, {"time": "09:00", "temperature": 26},
+        {"time": "10:00", "temperature": 27}, {"time": "11:00", "temperature": 28},
+        {"time": "12:00", "temperature": 29}, {"time": "13:00", "temperature": 30},
+        {"time": "14:00", "temperature": 30.5}, {"time": "15:00", "temperature": 31},
+        {"time": "16:00", "temperature": 30}, {"time": "17:00", "temperature": 29},
+        {"time": "18:00", "temperature": 28}, {"time": "19:00", "temperature": 27},
+        {"time": "20:00", "temperature": 26}, {"time": "21:00", "temperature": 25},
+        {"time": "22:00", "temperature": 24}, {"time": "23:00", "temperature": 23}
       ]
     }
     ''';
@@ -93,7 +112,22 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
 
     setState(() {
       data = jsonData;
-      selectedDate = jsonData.keys.first;
+      if (!jsonData.containsKey(today) && jsonData.keys.isNotEmpty) {
+        selectedDate = jsonData.keys.first;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  "No data for today. Showing fallback for $selectedDate",
+                ),
+              ),
+            );
+          }
+        });
+      } else {
+        selectedDate = today;
+      }
     });
   }
 
@@ -102,9 +136,17 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
 
     final entries = List<Map<String, dynamic>>.from(data[date]);
     return entries.map((entry) {
-      int hour = int.parse(entry['time'].split(":")[0]);
+      // Get the original hour from the data string (e.g., "14:00")
+      int originalHour = int.parse(entry['time'].split(":")[0]);
       double temp = entry['temperature'].toDouble();
-      return FlSpot(hour.toDouble(), temp);
+
+      // --- ADJUSTMENT 2: SHIFT DATA DISPLAY TIME ---
+      // Add 5 hours and use the modulo operator (%) to wrap around the 24-hour clock.
+      // E.g., (21 + 5) % 24 = 2, so 21:00 is displayed at hour 2.
+      int adjustedHour = (originalHour + 5) % 24;
+      // --- END OF ADJUSTMENT ---
+
+      return FlSpot(adjustedHour.toDouble(), temp);
     }).toList();
   }
 
@@ -127,7 +169,10 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
           elevation: 0,
           title: Text(
             "Temperature - $selectedDate",
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           actions: [
             IconButton(
@@ -135,7 +180,10 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
               onPressed: () async {
                 final pickedDate = await showDatePicker(
                   context: context,
-                  initialDate: DateTime.parse(selectedDate),
+                  // ADJUSTMENT 1: Adds 5 hours to the date picker's initial date
+                  initialDate:
+                      DateTime.tryParse(selectedDate) ??
+                      DateTime.now().add(const Duration(hours: 5)),
                   firstDate: DateTime(2020),
                   lastDate: DateTime(2030),
                 );
@@ -156,7 +204,9 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
         ),
         body:
             data.isEmpty
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(
+                  child: CircularProgressIndicator(color: Colors.white),
+                )
                 : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -169,10 +219,9 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.fromLTRB(8, 24, 24, 12),
                             child: Column(
                               children: [
-                                const SizedBox(height: 8),
                                 Expanded(
                                   child: Row(
                                     children: [
@@ -192,10 +241,30 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                                           LineChartData(
                                             gridData: FlGridData(show: true),
                                             titlesData: FlTitlesData(
-                                              leftTitles: AxisTitles(
+                                              topTitles: const AxisTitles(
                                                 sideTitles: SideTitles(
                                                   showTitles: false,
-                                                  interval: 2,
+                                                ),
+                                              ),
+                                              rightTitles: const AxisTitles(
+                                                sideTitles: SideTitles(
+                                                  showTitles: false,
+                                                ),
+                                              ),
+                                              leftTitles: AxisTitles(
+                                                sideTitles: SideTitles(
+                                                  showTitles: true,
+                                                  interval: 5,
+                                                  reservedSize: 32,
+                                                  getTitlesWidget:
+                                                      (value, meta) => Text(
+                                                        value
+                                                            .toInt()
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
                                                 ),
                                               ),
                                               bottomTitles: AxisTitles(
@@ -225,7 +294,7 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                                             ),
                                             minX: 0,
                                             maxX: 23,
-                                            minY: 5,
+                                            minY: 15,
                                             maxY: 40,
                                             lineBarsData: [
                                               LineChartBarData(
@@ -259,7 +328,7 @@ class _TemperatureChartPageState extends State<TemperatureChartPage> {
                                 ),
                                 const SizedBox(height: 12),
                                 const Text(
-                                  "Time (Hours)",
+                                  "Time (24-Hour Clock)",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,

@@ -23,7 +23,10 @@ class PHChartPage extends StatefulWidget {
 
 class _PHChartPageState extends State<PHChartPage> {
   Map<String, dynamic> data = {};
-  String selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  // ADJUSTMENT 1: Adds 5 hours to the initial date for fetching
+  String selectedDate = DateFormat(
+    'yyyy-MM-dd',
+  ).format(DateTime.now().add(const Duration(hours: 5)));
   bool isLoading = true;
 
   @override
@@ -34,7 +37,10 @@ class _PHChartPageState extends State<PHChartPage> {
 
   /// Fetches hourly pH data from the server.
   Future<void> fetchPHData() async {
-    // Correct endpoint for hourly pH data
+    // ADJUSTMENT 1: Adds 5 hours to the 'today' check
+    final String today = DateFormat(
+      'yyyy-MM-dd',
+    ).format(DateTime.now().add(const Duration(hours: 5)));
     final url = Uri.parse("http://18.140.68.45:3001/api/pH/hourly-ph");
 
     try {
@@ -47,11 +53,24 @@ class _PHChartPageState extends State<PHChartPage> {
         if (mounted) {
           setState(() {
             data = jsonData;
-            // Set to the first available date or handle empty data
-            selectedDate =
-                data.keys.isNotEmpty
-                    ? data.keys.first
-                    : DateFormat('yyyy-MM-dd').format(DateTime.now());
+            // Check if data for today exists. If not, fallback to the first available date.
+            if (!jsonData.containsKey(today) && jsonData.keys.isNotEmpty) {
+              selectedDate = jsonData.keys.first; // Fallback to the first date
+              // Let the user know we're showing a different date
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "No data for today. Showing data for $selectedDate",
+                      ),
+                    ),
+                  );
+                }
+              });
+            } else {
+              selectedDate = today; // Stick with today's date
+            }
             isLoading = false;
           });
         }
@@ -69,6 +88,10 @@ class _PHChartPageState extends State<PHChartPage> {
 
   /// Loads a hardcoded set of sample data if the network request fails.
   void loadFallbackJson() {
+    // ADJUSTMENT 1: Adds 5 hours to the fallback's 'today' check
+    final String today = DateFormat(
+      'yyyy-MM-dd',
+    ).format(DateTime.now().add(const Duration(hours: 5)));
     String jsonString = '''
     {
       "2025-07-10": [
@@ -93,7 +116,23 @@ class _PHChartPageState extends State<PHChartPage> {
       print("📦 Loaded fallback pH JSON keys: ${jsonData.keys}");
       setState(() {
         data = jsonData;
-        selectedDate = jsonData.keys.first;
+        // Check if data for today exists in the fallback. If not, use the first key.
+        if (!jsonData.containsKey(today) && jsonData.keys.isNotEmpty) {
+          selectedDate = jsonData.keys.first;
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    "No data for today. Showing fallback for $selectedDate",
+                  ),
+                ),
+              );
+            }
+          });
+        } else {
+          selectedDate = today;
+        }
         isLoading = false;
       });
     }
@@ -104,9 +143,15 @@ class _PHChartPageState extends State<PHChartPage> {
     if (!data.containsKey(date)) return [];
     final entries = List<Map<String, dynamic>>.from(data[date]);
     return entries.map((entry) {
-      int hour = int.parse(entry['time'].split(":")[0]);
+      int originalHour = int.parse(entry['time'].split(":")[0]);
       double ph = (entry['ph'] as num).toDouble();
-      return FlSpot(hour.toDouble(), ph);
+
+      // --- ADJUSTMENT 2: SHIFT DATA DISPLAY TIME ---
+      // Add 5 hours and use the modulo operator (%) to wrap around the 24-hour clock.
+      int adjustedHour = (originalHour + 5) % 24;
+      // --- END OF ADJUSTMENT ---
+
+      return FlSpot(adjustedHour.toDouble(), ph);
     }).toList();
   }
 
@@ -114,7 +159,10 @@ class _PHChartPageState extends State<PHChartPage> {
   Future<void> _selectDate() async {
     final pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.tryParse(selectedDate) ?? DateTime.now(),
+      // ADJUSTMENT 1: Adds 5 hours to the date picker's initial date
+      initialDate:
+          DateTime.tryParse(selectedDate) ??
+          DateTime.now().add(const Duration(hours: 5)),
       firstDate: DateTime(2020),
       lastDate: DateTime(2030),
     );
@@ -186,10 +234,8 @@ class _PHChartPageState extends State<PHChartPage> {
                                 Expanded(
                                   child: Row(
                                     children: [
-                                      // ✅ MODIFIED: Rotated title moved back to the left
                                       const RotatedBox(
-                                        quarterTurns:
-                                            -1, // Rotated for left side
+                                        quarterTurns: -1,
                                         child: Text(
                                           "pH Value",
                                           style: TextStyle(
@@ -199,14 +245,11 @@ class _PHChartPageState extends State<PHChartPage> {
                                         ),
                                       ),
                                       const SizedBox(width: 8),
-                                      // Chart is now the second element
                                       Expanded(
                                         child: LineChart(
                                           LineChartData(
                                             gridData: FlGridData(show: true),
-                                            // ✅ MODIFIED: Titles data updated
                                             titlesData: FlTitlesData(
-                                              // Show left titles
                                               leftTitles: AxisTitles(
                                                 sideTitles: SideTitles(
                                                   showTitles: true,
@@ -220,7 +263,6 @@ class _PHChartPageState extends State<PHChartPage> {
                                                   reservedSize: 40,
                                                 ),
                                               ),
-                                              // Hide right titles
                                               rightTitles: const AxisTitles(
                                                 sideTitles: SideTitles(
                                                   showTitles: false,
