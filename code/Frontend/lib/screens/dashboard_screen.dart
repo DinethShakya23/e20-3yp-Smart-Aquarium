@@ -269,7 +269,7 @@ class _DashBoardState extends State<DashBoard> {
         shadowColor: Colors.blueGrey.shade500,
         actions: [
           SearchButton(_isSearching, _toggleSearch),
-          NotificationButton(_showNotifications), // ✅ Corrected
+          //NotificationButton(_showNotifications), // ✅ Corrected
           DashboardPopupMenu(userEmail: widget.userEmail),
         ],
       ),
@@ -470,58 +470,58 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
-  void _showNotifications(BuildContext context) {
-    showModalBottomSheet(
-      backgroundColor: Colors.grey[900],
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              Text(
-                "Notifications",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Divider(color: Colors.white54),
-              NotificationItem(
-                Icons.warning,
-                "High Temperature",
-                "Temperature reached 30°C",
-                "2 min ago",
-              ),
-              NotificationItem(
-                Icons.opacity,
-                "Turbidity Alert",
-                "Water quality has changed",
-                "5 min ago",
-              ),
-              NotificationItem(
-                Icons.analytics,
-                "Analytics Updated",
-                "New data available",
-                "10 min ago",
-              ),
-              NotificationItem(
-                Icons.fastfood,
-                "Feeding Schedule Updated",
-                "New schedule available",
-                "2 min ago",
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  // void _showNotifications(BuildContext context) {
+  //   showModalBottomSheet(
+  //     backgroundColor: Colors.grey[900],
+  //     context: context,
+  //     shape: const RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+  //     ),
+  //     builder: (context) {
+  //       return Padding(
+  //         padding: const EdgeInsets.all(16),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: const [
+  //             Text(
+  //               "Notifications",
+  //               style: TextStyle(
+  //                 fontSize: 18,
+  //                 color: Colors.white,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //             Divider(color: Colors.white54),
+  //             NotificationItem(
+  //               Icons.warning,
+  //               "High Temperature",
+  //               "Temperature reached 30°C",
+  //               "2 min ago",
+  //             ),
+  //             NotificationItem(
+  //               Icons.opacity,
+  //               "Turbidity Alert",
+  //               "Water quality has changed",
+  //               "5 min ago",
+  //             ),
+  //             NotificationItem(
+  //               Icons.analytics,
+  //               "Analytics Updated",
+  //               "New data available",
+  //               "10 min ago",
+  //             ),
+  //             NotificationItem(
+  //               Icons.fastfood,
+  //               "Feeding Schedule Updated",
+  //               "New schedule available",
+  //               "2 min ago",
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   void dispose() {

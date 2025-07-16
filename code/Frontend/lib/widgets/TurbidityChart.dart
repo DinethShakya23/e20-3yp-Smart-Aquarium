@@ -26,7 +26,10 @@ class TurbidityChartPage extends StatefulWidget {
 
 class _TurbidityChartPageState extends State<TurbidityChartPage> {
   Map<String, dynamic> data = {};
-  String selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  // ADJUSTMENT 1: Adds 5 hours to the initial date for fetching
+  String selectedDate = DateFormat(
+    'yyyy-MM-dd',
+  ).format(DateTime.now().add(const Duration(hours: 5)));
   bool isLoading = true;
 
   @override
@@ -37,7 +40,10 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
 
   /// Fetches hourly turbidity data from the server.
   Future<void> fetchTurbidityData() async {
-    // Correct endpoint for hourly turbidity data
+    // ADJUSTMENT 1: Adds 5 hours to the 'today' check
+    final String today = DateFormat(
+      'yyyy-MM-dd',
+    ).format(DateTime.now().add(const Duration(hours: 5)));
     final url = Uri.parse(
       "http://18.140.68.45:3001/api/turbidity/hourly-turbidity",
     );
@@ -52,10 +58,24 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
         if (mounted) {
           setState(() {
             data = jsonData;
-            selectedDate =
-                data.keys.isNotEmpty
-                    ? data.keys.first
-                    : DateFormat('yyyy-MM-dd').format(DateTime.now());
+            // Check if data for today exists. If not, fallback to the first available date.
+            if (!jsonData.containsKey(today) && jsonData.keys.isNotEmpty) {
+              selectedDate = jsonData.keys.first; // Fallback to the first date
+              // Let the user know we're showing a different date
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "No data for today. Showing data for $selectedDate",
+                      ),
+                    ),
+                  );
+                }
+              });
+            } else {
+              selectedDate = today; // Stick with today's date
+            }
             isLoading = false;
           });
         }
@@ -73,6 +93,10 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
 
   /// Loads a hardcoded set of sample data if the network request fails.
   void loadFallbackJson() {
+    // ADJUSTMENT 1: Adds 5 hours to the fallback's 'today' check
+    final String today = DateFormat(
+      'yyyy-MM-dd',
+    ).format(DateTime.now().add(const Duration(hours: 5)));
     String jsonString = '''
     {
       "2025-07-10": [
@@ -97,7 +121,23 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
       print("📦 Loaded fallback turbidity JSON keys: ${jsonData.keys}");
       setState(() {
         data = jsonData;
-        selectedDate = jsonData.keys.first;
+        // Check if data for today exists in the fallback. If not, use the first key.
+        if (!jsonData.containsKey(today) && jsonData.keys.isNotEmpty) {
+          selectedDate = jsonData.keys.first;
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    "No data for today. Showing fallback for $selectedDate",
+                  ),
+                ),
+              );
+            }
+          });
+        } else {
+          selectedDate = today;
+        }
         isLoading = false;
       });
     }
@@ -108,9 +148,15 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
     if (!data.containsKey(date)) return [];
     final entries = List<Map<String, dynamic>>.from(data[date]);
     return entries.map((entry) {
-      int hour = int.parse(entry['time'].split(":")[0]);
+      int originalHour = int.parse(entry['time'].split(":")[0]);
       double turb = (entry['turbidity'] as num).toDouble();
-      return FlSpot(hour.toDouble(), turb);
+
+      // --- ADJUSTMENT 2: SHIFT DATA DISPLAY TIME ---
+      // Add 5 hours and use the modulo operator (%) to wrap around the 24-hour clock.
+      int adjustedHour = (originalHour + 5) % 24;
+      // --- END OF ADJUSTMENT ---
+
+      return FlSpot(adjustedHour.toDouble(), turb);
     }).toList();
   }
 
@@ -130,7 +176,10 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
   Future<void> _selectDate() async {
     final pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.tryParse(selectedDate) ?? DateTime.now(),
+      // ADJUSTMENT 1: Adds 5 hours to the date picker's initial date
+      initialDate:
+          DateTime.tryParse(selectedDate) ??
+          DateTime.now().add(const Duration(hours: 5)),
       firstDate: DateTime(2020),
       lastDate: DateTime(2030),
     );
@@ -222,8 +271,7 @@ class _TurbidityChartPageState extends State<TurbidityChartPage> {
                                               leftTitles: AxisTitles(
                                                 sideTitles: SideTitles(
                                                   showTitles: true,
-                                                  interval:
-                                                      5, // Adjusted interval for turbidity
+                                                  interval: 5,
                                                   getTitlesWidget:
                                                       (value, meta) => Text(
                                                         value
