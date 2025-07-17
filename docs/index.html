@@ -164,7 +164,7 @@
         <section id="testing" class="testing-section">
         <div class="container">
             <div class="section-header">
-                <h2>System Testing</h2>
+                <h2>Testing</h2>
                 <div class="section-line"></div>
             </div>
             <p class="testing-description">
@@ -177,28 +177,30 @@
                         <i class="fas fa-check-double"></i>
                         <div>
                             <h4>Sensor Calibration & Accuracy</h4>
-                            <p>Temperature, pH, and water level sensors were calibrated against lab-grade equipment to ensure data accuracy within a ±2% margin.</p>
+                            <p>Temperature sensor was calibrated against lab grade thermometer to ensure data accuracy.
+                            <p>pH senser was calibrated using pH powder.</p>
+                            </p>
                         </div>
                     </div>
                     <div class="test-item">
                         <i class="fas fa-check-double"></i>
                         <div>
                             <h4>Actuator Functionality Test</h4>
-                            <p>Automated feeder, water pump, and aeration systems were tested for response time and operational reliability over 500+ cycles.</p>
+                            <p>Automated feeder, pelture module, water pump  were tested for correct functionality.</p>
                         </div>
                     </div>
                     <div class="test-item">
                         <i class="fas fa-check-double"></i>
                         <div>
-                            <h4>Power Consumption Analysis</h4>
-                            <p>The system was monitored for power usage in various states (idle, active monitoring, full operation) to optimize for energy efficiency.</p>
+                            <h4>Sensor Failure Testing</h4>
+                            <p>Tested upon disconnected sensors and out of range sensor readings.</p>
                         </div>
                     </div>
                     <div class="test-item">
                         <i class="fas fa-check-double"></i>
                         <div>
-                            <h4>Long-Duration Stability Test</h4>
-                            <p>The complete hardware setup ran continuously for 168 hours to test for overheating, component failure, and long-term stability.</p>
+                            <h4>Integrated testing</h4>
+                            <p>Tested upon disconnected sensors and out of range sensor readings</p>
                         </div>
                     </div>
                 </div>
@@ -207,33 +209,70 @@
                     <div class="test-item">
                         <i class="fas fa-check-double"></i>
                         <div>
-                            <h4>Unit & Integration Testing</h4>
-                            <p>Achieved 95% code coverage with unit tests. Integration tests confirmed seamless data flow from sensors to the cloud and to the user dashboard.</p>
+                            <h4>Unit Testing</h4>
+                            <p>Achieved 95% code coverage with unit tests.</p>
+                        </div>
+                    </div>
+                    <div class="test-item">
+                        <i class="fas fa-check-double"></i>
+                        <div>
+                            <h4>Integrated Testing</h4>
+                            <p>Integration tests confirmed seamless data flow from sensors to the cloud and to the user dashboard.</p>
                         </div>
                     </div>
                     <div class="test-item">
                         <i class="fas fa-check-double"></i>
                         <div>
                             <h4>Real-time Data Sync Test</h4>
-                            <p>Verified that sensor data is updated on the user interface within 2 seconds, ensuring a true real-time monitoring experience.</p>
+                            <p>Verified that sensor data is updated on the user interface at least within 2 seconds, ensuring a true real-time monitoring experience.</p>
                         </div>
                     </div>
                     <div class="test-item">
                         <i class="fas fa-check-double"></i>
                         <div>
-                            <h4>API & Security Testing</h4>
-                            <p>API endpoints were tested for security vulnerabilities, including SQL injection and XSS. User authentication and data encryption were validated.</p>
-                        </div>
-                    </div>
-                    <div class="test-item">
-                        <i class="fas fa-check-double"></i>
-                        <div>
-                            <h4>User Acceptance Testing (UAT)</h4>
-                            <p>A focus group of beta testers used the system, providing feedback that led to a 30% improvement in UI/UX and overall usability.</p>
+                            <h4>API Testing</h4>
+                            <p>API endpoints were tested.</p>
+                            <p> Used tools:- postman for url endpoints, wscat for websocket connections.</p>
                         </div>
                     </div>
                 </div>
+                
             </div>
+                    <!-- <div class="test-item">
+                        <i class="fas fa-check-double"></i>
+                        <div>
+                            <h4>Software + Hardware Integration Testing</h4>
+                            <p>Software and hardware end-to-end testing</p>
+                        </div>
+                    </div> -->
+                     <style>
+        .test-item {
+            display: flex;
+            align-items: center;      /* Align icon and text vertically */
+            gap: 10px;                /* Space between icon and text */
+            margin: 50px auto;        /* Horizontally center */
+            padding: 20px 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 500px;         /* Optional: limit width for nicer layout */
+        }
+        .test-item i {
+            font-size: 24px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="test-item">
+        <i class="fas fa-check-double"></i>
+        <div>
+            <h4>Software + Hardware Integration Testing</h4>
+            <p>Software and hardware end-to-end testing</p>
+        </div>
+    </div>
+
         </div>
     </section>
 
@@ -279,7 +318,7 @@
             </div>
             <p class="demo-description">See the final product in action. This video demonstrates the complete functionality and user experience of the AquaSense system.</p>
             <div class="demo-content">
-                <div class="video-container" data-video-id="video_id"> <div class="video-placeholder">    <!--place the video id-->
+                <div class="video-container" data-video-id="lyGhVAexHR8"> <div class="video-placeholder">
                         <div class="play-button"><i class="fas fa-play"></i></div>
                         <div class="video-info">
                             <h3>Final Product Demo</h3>
