@@ -81,7 +81,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | **Total**                                                          |                |          | **20,502.50** |
 
 <p align="center">
-  <img src="docs/images/21.png" width="500">
+  <img src="docs/images/21.png" width="1200">
 </p>
 - "-" are get form the department
 
