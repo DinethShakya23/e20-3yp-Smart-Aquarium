@@ -80,6 +80,9 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Jumper wires, Breadboard, Ethernet Cable                           | 1,417.50       | 60/1/1   | 1,417.50    |
 | **Total**                                                          |                |          | **20,502.50** |
 
+<p align="center">
+  <img src="docs/images/21.png" width="500">
+</p>
 - "-" are get form the department
 
 ## 7. For More Details
