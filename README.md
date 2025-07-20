@@ -96,6 +96,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 
 ## 🗂️ Project Structure
 
+```
 Aquasense/
 │
 ├── code/
@@ -107,6 +108,7 @@ Aquasense/
 ├── docs/                               # Project page
 │
 └── README.md                           # Project overview and setup instructions
+```
 
 ## Getting Started
 
