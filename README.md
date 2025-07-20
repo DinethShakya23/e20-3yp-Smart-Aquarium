@@ -92,21 +92,21 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Frontend  | Flutter (Mobile App) |
 | Computer Vision | OpenCV (Python) |
 | Hardware Control | Python + GPIO |
-| Protocols | MQTT, I2C, 1-wire, RSTP, websockets |
+| Protocols | MQTT, I2C, 1-Wire, RSTP, Websockets |
 
 ## 🗂️ Project Structure
 
 Aquasense/
 │
 ├── code/
-│   ├── Frontend/                      # Flutter mobile application (Frontend)
-│   ├── backend/                       # Node.js backend
-│   ├── Rasberry pi code/              # Hardware control (Raspberry Pi GPIO & MQTT)
-│   └── object-tracking-yolov8-deep-sort-master/   # Fish behavior detection (YOLO + Deep SORT)
+│ ├── Frontend/                         # Flutter mobile application (Frontend)
+│ ├── backend/                          # Node.js backend
+│ ├── Rasberry pi code/                 # Hardware control (GPIO & MQTT)
+│ └── object-tracking-yolov8-deep-sort-master/        # Fish behavior detection (YOLO + Deep SORT)
 │
-├── docs/                   # Project page
-|
-└── README.md               # Project documentation            # Project documentation
+├── docs/                               # Project page
+│
+└── README.md                           # Project overview and setup instructions
 
 ## Getting Started
 
