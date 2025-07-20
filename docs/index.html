@@ -6,7 +6,7 @@
     <title>AquaSense - Smart Aquarium System</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <nav class="navbar">
@@ -18,9 +18,9 @@
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#intro" class="nav-link">Introduction</a></li>
-                <li><a href="#demo" class="nav-link">Intro Video</a></li>
+                <li><a href="#key-features" class="nav-link">Key Features</a></li>
                 <li><a href="#architecture" class="nav-link">Architecture</a></li>
-                <li><a href="#userflow" class="nav-link">User Flow</a></li>
+                <li><a href="#design" class="nav-link">Design</a></li>
                 <li><a href="#testing" class="nav-link">Testing</a></li>
                 <li><a href="#bom" class="nav-link">BOM</a></li>
                 <li><a href="#timeline" class="nav-link">Timeline</a></li>
@@ -28,10 +28,16 @@
                 <li><a href="#team" class="nav-link">Team</a></li>
                 <li><a href="#links" class="nav-link">Links</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-controls">
+                 <div class="theme-switcher" id="theme-switcher">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
@@ -60,136 +66,181 @@
         </div>
     </section>
 
-    <section id="intro" class="intro-section">
-        <div class="container">
-            <div class="intro-grid">
-                <div class="intro-content">
-                    <div class="section-header">
-                        <h2>Introduction</h2>
-                        <div class="section-line"></div>
-                    </div>
-                    <div class="intro-description">
-                        <p><strong>AquaSense</strong> is a solution for fish enthusiasts, offering a seamless and integrated all-in-one solution with real-time monitoring, automated controlling with just few clicks.</p>
-                    </div>
-                    
-                    <div class="problem-solution">
-                        <div class="problem-domain">
-                            <h3><i class="fas fa-exclamation-triangle"></i> Problem Domain</h3>
-                            <ul class="problem-list">
-                                <li><i class="fas fa-times-circle"></i> Inconsistent Environment Management</li>
-                                <li><i class="fas fa-times-circle"></i> Time-Consuming Maintenance</li>
-                                <li><i class="fas fa-times-circle"></i> Overfeeding, Underfeeding and forgetting to feed</li>
-                                <li><i class="fas fa-times-circle"></i> Lack of Problem Detection</li>
-                            </ul>
+    <main class="content-wrapper">
+        <section id="intro" class="intro-section content-section">
+            <div class="container">
+                <div class="intro-grid">
+                    <div class="intro-content animate-on-scroll" data-animation="fade-in-right">
+                        <div class="section-header">
+                            <h2>Introduction</h2>
+                            <div class="section-line"></div>
+                        </div>
+                        <div class="intro-description">
+                            <p><strong>AquaSense</strong> is a solution for fish enthusiasts, offering a seamless and integrated all-in-one solution with real-time monitoring, automated controlling with just few clicks.</p>
                         </div>
                         
-                        <div class="our-solution">
-                            <h3><i class="fas fa-lightbulb"></i> Our Solution</h3>
-                            <ul class="solution-list">
-                                <li><i class="fas fa-check-circle"></i> Real-Time Monitoring</li>
-                                <li><i class="fas fa-check-circle"></i> Automated Control</li>
-                                <li><i class="fas fa-check-circle"></i> Live Video Feedback</li>
-                                <li><i class="fas fa-check-circle"></i> Low Oxygen Level Detection using fish behavior monitoring</li>
-                                <li><i class="fas fa-check-circle"></i> Alert Systems</li>
-                            </ul>
+                        <div class="problem-solution">
+                            <div class="problem-domain">
+                                <h3><i class="fas fa-exclamation-triangle"></i> Problem Domain</h3>
+                                <ul class="problem-list">
+                                    <li><i class="fas fa-times-circle"></i> Inconsistent Environment Management</li>
+                                    <li><i class="fas fa-times-circle"></i> Time-Consuming Maintenance</li>
+                                    <li><i class="fas fa-times-circle"></i> Overfeeding, Underfeeding and forgetting to feed</li>
+                                    <li><i class="fas fa-times-circle"></i> Lack of Problem Detection</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="our-solution">
+                                <h3><i class="fas fa-lightbulb"></i> Our Solution</h3>
+                                <ul class="solution-list">
+                                    <li><i class="fas fa-check-circle"></i> Real-Time Monitoring</li>
+                                    <li><i class="fas fa-check-circle"></i> Automated Control</li>
+                                    <li><i class="fas fa-check-circle"></i> Live Video Streaming</li>
+                                    <li><i class="fas fa-check-circle"></i> Low Oxygen Level Detection using fish behavior monitoring</li>
+                                    <li><i class="fas fa-check-circle"></i> Alert Systems</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="intro-buttons" style="margin-top: 2rem;">
+                            <a href="#" id="play-intro-video-btn" class="btn btn-primary"><i class="fas fa-play"></i> Watch Intro Video</a>
                         </div>
                     </div>
+                    <div class="intro-image animate-on-scroll" data-animation="fade-in-left">
+                        <div class="image-placeholder">
+                            <img src="images/Intro Image.png" alt="Introductory Image" style="max-width:100%; height:auto;" data-enlargeable>
+                            <p>AquaSense System Overview</p>
+                        </div> 
+                    </div>
                 </div>
-                <div class="intro-image">
+            </div>
+        </section>
+
+        <section id="key-features" class="key-features-section content-section">
+    <div class="container">
+        <div class="section-header animate-on-scroll" data-animation="fade-in-up">
+            <h2>Key Features</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="100">
+                <div class="feature-card-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3>Real-Time Monitoring</h3>
+                <p>Sensors track water parameters such as temperature, pH levels, and turbidity, displaying live data on your dashboard.</p>
+            </div>
+            <div class="feature-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="200">
+                <div class="feature-card-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Automated Control</h3>
+                <p>The system automates feeding and temperature regulation, reducing manual intervention for users.</p>
+            </div>
+            <div class="feature-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="300">
+                <div class="feature-card-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>Live Video Streaming</h3>
+                <p>Users can view the aquarium from anywhere, anytime, ensuring peace of mind when you're away.</p>
+            </div>
+            <div class="feature-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="400">
+                <div class="feature-card-icon">
+                    <i class="fas fa-fish"></i>
+                </div>
+                <h3>Fish Behavior Monitoring</h3>
+                <p>Detects irregular fish movements and low Oxygen levels, notifying users of potential health issues.</p>
+            </div>
+            <div class="feature-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="500">
+                <div class="feature-card-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Alert Systems</h3>
+                <p>Continuously monitors the aquarium and sends instant notifications to users if unfavorable conditions arise.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <section id="architecture" class="architecture-section content-section">
+            <div class="container">
+                <div class="section-header animate-on-scroll" data-animation="fade-in-up">
+                    <h2>Solution Architecture</h2>
+                    <div class="section-line"></div>
+                </div>
+                <p class="architecture-description animate-on-scroll" data-animation="fade-in-up" data-animation-delay="100">
+                    The architecture of our system is designed to seamlessly integrate IoT sensors, cloud analytics, and user interfaces.
+                </p>
+                <div class="architecture-image animate-on-scroll" data-animation="fade-in-up" data-animation-delay="200">
                     <div class="image-placeholder">
-                        <img src="images/Intro Image.png" alt="Introductory Image" style="max-width:100%; height:auto;">
-                        <p>AquaSense System Overview</p>
-                    </div> 
+                        <img src="images/Solution Architecture.jpg" alt="System Architecture Diagram" style="max-width:100%; height:auto;" data-enlargeable>
+                        <p>System Architecture Diagram</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="demo" class="demo-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Intro Video</h2>
-                <div class="section-line"></div>
-            </div>
-            <p class="demo-description">Discover how our system seamlessly integrates real-time performance and user-friendly features in this brief introduction.</p>
-            <div class="demo-content">
-                <div class="video-container" data-video-id="j0_2CdlJUlw"> <div class="video-placeholder">
-                        <div class="play-button"><i class="fas fa-play"></i></div>
-                        <div class="video-info">
-                            <h3>Intro Video</h3>
-                            <p>Click to watch the Intro Video</p>
+        <section id="design" class="design-section content-section">
+            <div class="container">
+                <div class="section-header animate-on-scroll" data-animation="fade-in-up">
+                    <h2>Design and Prototyping</h2>
+                    <div class="section-line"></div>
+                </div>
+                <p class="design-description animate-on-scroll" data-animation="fade-in-up" data-animation-delay="100">
+                    From the user interface to the physical enclosure, every component was carefully designed and prototyped.
+                </p>
+                <div class="design-grid">
+                    <div class="design-card animate-on-scroll" data-animation="fade-in-up">
+                        <div class="design-card-image">
+                            <img src="images/UI Design.png" alt="UI Design Mockup" data-enlargeable>
                         </div>
+                        <h3>UI Design</h3>
+                        <p>The user interface was designed in Figma with a focus on clarity, ease of use, and providing at-a-glance information.</p>
                     </div>
-                    <div class="video-overlay">
-                        <iframe></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="architecture" class="architecture-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Solution Architecture</h2>
-                <div class="section-line"></div>
-            </div>
-            <p class="architecture-description">
-                The architecture of our system is designed to seamlessly integrate IoT sensors, cloud analytics, and user interfaces.
-            </p>
-            <div class="architecture-image">
-                <div class="image-placeholder">
-                    <img src="images/Solution Architecture.jpg" alt="System Architecture Diagram" style="max-width:100%; height:auto;">
-                    <p>System Architecture Diagram</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="userflow" class="userflow-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>User Flow</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="userflow-image">
-                <div class="image-placeholder">
-                    <img src="images/User Flow.jpg" alt="User Flow Diagram" style="max-width:100%; height:auto;">
-                    <p>User Flow Diagram</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-        <section id="testing" class="testing-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Testing</h2>
-                <div class="section-line"></div>
-            </div>
-            <p class="testing-description">
-                To ensure reliability and performance, our system underwent rigorous testing across both hardware and software components.
-            </p>
-            <div class="testing-grid">
-                <div class="testing-column">
-                    <h3><i class="fas fa-cogs"></i> Hardware Testing</h3>
-                    <div class="test-item">
-                        <i class="fas fa-check-double"></i>
-                        <div>
-                            <h4>Sensor Calibration & Accuracy</h4>
-                            <p>Temperature sensor was calibrated against lab grade thermometer to ensure data accuracy.
-                            <p>pH senser was calibrated using pH powder.</p>
-                            </p>
+                    <div class="design-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="150">
+                        <div class="design-card-image">
+                            <img src="images/3D Design.png" alt="3D Model of the Enclosure" data-enlargeable>
                         </div>
+                        <h3>3D Model</h3>
+                        <p>A custom enclosure was designed in solidworks to house all electronic components securely and efficiently.</p>
                     </div>
-                    <div class="test-item">
-                        <i class="fas fa-check-double"></i>
-                        <div>
-                            <h4>Actuator Functionality Test</h4>
-                            <p>Automated feeder, pelture module, water pump  were tested for correct functionality.</p>
+                    <div class="design-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="300">
+                       <div class="design-card-image">
+                            <img src="images/Fish feeding dispenser.png" alt="Fish feeding dispenser" data-enlargeable>
                         </div>
+                        <h3>Fish Feeding Dispenser</h3>
+                        <p>The feeder mechanism was prototyped to ensure reliable, portion-controlled feeding on an automated schedule.</p>
                     </div>
-                    <div class="test-item">
+                </div>
+            </div>
+        </section>
+
+        <section id="testing" class="testing-section content-section">
+            <div class="container">
+                <div class="section-header animate-on-scroll" data-animation="fade-in-up">
+                    <h2>Testing</h2>
+                    <div class="section-line"></div>
+                </div>
+                <p class="testing-description animate-on-scroll" data-animation="fade-in-up" data-animation-delay="100">
+                    To ensure reliability and performance, our system underwent rigorous testing across both hardware and software components.
+                </p>
+                <div class="testing-grid">
+                    <div class="testing-column animate-on-scroll" data-animation="fade-in-right">
+                        <h3><i class="fas fa-cogs"></i> Hardware Testing</h3>
+                        <div class="test-item">
+                            <i class="fas fa-check-double"></i>
+                            <div>
+                                <h4>Sensor Calibration & Accuracy</h4>
+                                <p>Temperature and pH sensors were calibrated against lab-grade equipment to ensure data accuracy.</p>
+                            </div>
+                        </div>
+                        <div class="test-item">
+                            <i class="fas fa-check-double"></i>
+                            <div>
+                                <h4>Actuator Functionality Test</h4>
+                                <p>Automated feeder, Peltier module, and water pump were tested for correct functionality and response time.</p>
+                            </div>
+                        </div>
+                        <div class="test-item">
                         <i class="fas fa-check-double"></i>
                         <div>
                             <h4>Sensor Failure Testing</h4>
@@ -203,10 +254,10 @@
                             <p>Tested upon disconnected sensors and out of range sensor readings</p>
                         </div>
                     </div>
-                </div>
-                <div class="testing-column">
-                    <h3><i class="fas fa-laptop-code"></i> Software Testing</h3>
-                    <div class="test-item">
+                    </div>
+                    <div class="testing-column animate-on-scroll" data-animation="fade-in-left">
+                        <h3><i class="fas fa-laptop-code"></i> Software Testing</h3>
+                        <div class="test-item">
                         <i class="fas fa-check-double"></i>
                         <div>
                             <h4>Unit Testing</h4>
@@ -234,116 +285,78 @@
                             <p>API endpoints were tested.</p>
                             <p> Used tools:- postman for url endpoints, wscat for websocket connections.</p>
                         </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bom" class="bom-section content-section">
+            <div class="container">
+                <div class="section-header animate-on-scroll" data-animation="fade-in-up">
+                    <h2>Bill of Materials (BOM)</h2>
+                    <div class="section-line"></div>
+                </div>
+                <p class="bom-description animate-on-scroll" data-animation="fade-in-up" data-animation-delay="100">
+                    Below is a breakdown of the estimated costs for the hardware. (Some components are obtained from the department)
+                </p>
+                <div class="bom-image animate-on-scroll" data-animation="fade-in-up" data-animation-delay="200">
+                    <div class="image-placeholder">
+                        <img src="images/BOM.jpg" alt="Billing Of Materials" style="max-width:100%; height:auto;" data-enlargeable>
+                        <p>Hardware Cost Breakdown</p>
                     </div>
                 </div>
-                
             </div>
-                    <!-- <div class="test-item">
-                        <i class="fas fa-check-double"></i>
-                        <div>
-                            <h4>Software + Hardware Integration Testing</h4>
-                            <p>Software and hardware end-to-end testing</p>
+        </section>
+
+        <section id="timeline" class="timeline-section content-section">
+            <div class="container">
+                <div class="section-header animate-on-scroll" data-animation="fade-in-up">
+                    <h2>Project Timeline</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="timeline-image animate-on-scroll" data-animation="fade-in-up" data-animation-delay="100">
+                    <div class="image-placeholder">
+                        <img src="images/Timeline.png" alt="Project Timeline" style="max-width:100%; height:auto;" data-enlargeable>
+                        <p>Project Development Timeline</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="final-product" class="demo-section content-section">
+            <div class="container">
+                <div class="section-header animate-on-scroll" data-animation="fade-in-up">
+                    <h2>Final Product</h2>
+                    <div class="section-line"></div>
+                </div>
+                <p class="demo-description animate-on-scroll" data-animation="fade-in-up" data-animation-delay="100">See the final product in action. This video demonstrates the complete functionality and user experience of the AquaSense system.</p>
+                <div class="demo-content animate-on-scroll" data-animation="zoom-in">
+                    <div class="video-container" data-video-id="lG8dTVmr92U">
+                        <div class="video-placeholder">
+                            <div class="play-button"><i class="fas fa-play"></i></div>
+                            <div class="video-info">
+                                <h3>Final Product Demo</h3>
+                                <p>Click to watch the final demonstration</p>
+                            </div>
                         </div>
-                    </div> -->
-                     <style>
-        .test-item {
-            display: flex;
-            align-items: center;      /* Align icon and text vertically */
-            gap: 10px;                /* Space between icon and text */
-            margin: 50px auto;        /* Horizontally center */
-            padding: 20px 30px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 500px;         /* Optional: limit width for nicer layout */
-        }
-        .test-item i {
-            font-size: 24px;
-            color: green;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="test-item">
-        <i class="fas fa-check-double"></i>
-        <div>
-            <h4>Software + Hardware Integration Testing</h4>
-            <p>Software and hardware end-to-end testing</p>
-        </div>
-    </div>
-
-        </div>
-    </section>
-
-
-    <section id="bom" class="bom-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Bill of Materials (BOM)</h2>
-                <div class="section-line"></div>
-            </div>
-            <p class="bom-description">
-                Below is a breakdown of the estimated costs for the hardware. (Some components are obtained from the department)
-            </p>
-            <div class="bom-image">
-                <div class="image-placeholder">
-                    <img src="images/BOM.jpg" alt="Billing Of Materials" style="max-width:100%; height:auto;">
-                    <p>Hardware Cost Breakdown</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="timeline" class="timeline-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Project Timeline</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="timeline-image">
-                <div class="image-placeholder">
-                    <img src="images/Timeline.png" alt="Project Timeline" style="max-width:100%; height:auto;">
-                    <p>Project Development Timeline</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="final-product" class="demo-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Final Product</h2>
-                <div class="section-line"></div>
-            </div>
-            <p class="demo-description">See the final product in action. This video demonstrates the complete functionality and user experience of the AquaSense system.</p>
-            <div class="demo-content">
-                <div class="video-container" data-video-id="lyGhVAexHR8"> <div class="video-placeholder">
-                        <div class="play-button"><i class="fas fa-play"></i></div>
-                        <div class="video-info">
-                            <h3>Final Product Demo</h3>
-                            <p>Click to watch the final demonstration</p>
+                        <div class="video-overlay">
+                            <iframe></iframe>
                         </div>
                     </div>
-                    <div class="video-overlay">
-                        <iframe></iframe>
-                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <section id="team" class="team-section">
+        </section>
+        
+        <section id="team" class="team-section content-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll" data-animation="fade-in-up">
                 <h2>Our Team</h2>
                 <div class="section-line"></div>
             </div>
             
             <div class="team-members">
-                <h3>Team Members</h3>
+                <h3 class="animate-on-scroll" data-animation="fade-in-up">Team Members</h3>
                 <div class="team-grid">
-                    <div class="team-card">
+                    <div class="team-card animate-on-scroll" data-animation="fade-in-up">
                         <div class="team-image">
                             <img src="images/Member 1.jpg " alt="Amara​keerthi H.K.K.G.">
                         </div>
@@ -354,7 +367,7 @@
                         </a>
                     </div>
                     
-                    <div class="team-card">
+                    <div class="team-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="150">
                         <div class="team-image">
                             <img src="images/Member 2.jpg " alt="De Silva H.D.S.">
                         </div>
@@ -365,7 +378,7 @@
                         </a>
                     </div>
                     
-                    <div class="team-card">
+                    <div class="team-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="300">
                         <div class="team-image">
                             <img src="images/Member 3.jpg " alt="Madhura T.W.K.J.">
                         </div>
@@ -376,7 +389,7 @@
                         </a>
                     </div>
                     
-                    <div class="team-card">
+                    <div class="team-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="450">
                         <div class="team-image">
                             <img src="images/Member 4.jpg " alt="Ukwaththa U.A.N.T.">
                         </div>
@@ -390,8 +403,8 @@
             </div>
             
             <div class="supervisor-section">
-                <h3>Supervisor</h3>
-                <div class="supervisor-card">
+                <h3 class="animate-on-scroll" data-animation="fade-in-up">Supervisor</h3>
+                <div class="supervisor-card animate-on-scroll" data-animation="fade-in-up">
                     <div class="team-image">
                         <img src="images/Supervisor 01.png " alt="Dr. Isuru Nawinne">
                     </div>
@@ -406,27 +419,26 @@
         </div>
     </section>
 
-
-    <section id="links" class="links-section">
+    <section id="links" class="links-section content-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll" data-animation="fade-in-up">
                 <h2>Useful Links</h2>
                 <div class="section-line"></div>
             </div>
             <div class="links-grid">
-                <a href="https://github.com/cepdnaclk/e20-3yp-Smart-Aquarium" class="link-card" target="_blank">
+                <a href="https://github.com/cepdnaclk/e20-3yp-Smart-Aquarium" class="link-card animate-on-scroll" data-animation="fade-in-up" target="_blank">
                     <i class="fab fa-github"></i>
                     <h4>Project Repository</h4>
                     <p>Access our source code and documentation</p>
                 </a>
                 
-                <a href="https://www.ce.pdn.ac.lk" class="link-card" target="_blank">
+                <a href="https://www.ce.pdn.ac.lk" class="link-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="150" target="_blank">
                     <i class="fas fa-building-columns"></i>
                     <h4>Department Of Computer Engineering</h4>
                     <p>Visit the official website of our department</p>
                 </a>
                 
-                <a href="https://www.pdn.ac.lk/" class="link-card" target="_blank">
+                <a href="https://www.pdn.ac.lk/" class="link-card animate-on-scroll" data-animation="fade-in-up" data-animation-delay="300" target="_blank">
                     <i class="fas fa-university"></i>
                     <h4>University Of Peradeniya</h4>
                     <p>Explore the University of Peradeniya</p>
@@ -435,7 +447,10 @@
         </div>
     </section>
 
-    <footer class="footer">
+
+    </main>
+
+        <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
@@ -446,6 +461,11 @@
             </div>
         </div>
     </footer>
+
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close-btn">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
 
     <script src="script.js"></script>
 </body>

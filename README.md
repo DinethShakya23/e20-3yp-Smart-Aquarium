@@ -3,7 +3,7 @@
 ## Smart Fish Tank monitoring & Controlling System
 
 ---
-
+ 
 <p align="center">
   <img src="docs/images/Readme_image.jpg" width="500">
 </p>
@@ -23,33 +23,34 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | E/20/231 |   Madhura T.W.K.J.        |   e20231@eng.pdn.ac.lk     |            https://www.thecn.com/EM1301            |
 | E/20/404 |     Ukwaththa U.A.N.T.      |   e20404@eng.pdn.ac.lk     |       https://www.thecn.com/EU116                 |
 
-## 1. Problem Domain
+## Problem Domain
 
 - Inconsistent Environment Management
 - Time-Consuming Maintenance
 - Overfeeding and Underfeeding
-- Lack of Early Problem Detection
+- Understanding fish health and environmental conditions is challenging
 
-## 2. Our Solution
+## Our Solution
 
-- Real-Time Monitoring: Sensors track water parameters such as temperature, pH levels, and turbidity, ensuring a stable environment.
+- Real-Time Monitoring: Sensors track water parameters such as temperature, pH levels, and turbidity.
 - Automated Control: The system automates feeding and temperature regulation, reducing manual intervention for users.
-- Fish Behavior Monitoring: Detects irregular fish movements and alerts users to potential health issues.
+- Live video streaming: Users can view the aquarium from anywhere anytime.
+- Fish Behavior Monitoring: Detects irregular fish movements and low Oxygen levels notify users to potential health issue.
 - Alert Systems: Continuously monitors the aquarium and sends notifications to users if unfavourable conditions arise.
 
-## 3. Solution Architecture
+## Solution Architecture
 
   <p align="center">
   <img src="docs/images/Solution Architecture.png" width="700">
 </p>
 
-## 4. User Flow
+## User Flow
 
   <p align="center">
   <img src="docs/images/Uesrflow.PNG" width="500">
 </p>
 
-## 5. Infrastructure
+## Infrastructure
 
 - Hardware Components
 
@@ -63,7 +64,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
   <img src="docs/images/hardware3.PNG"  height="150" width="500">
 </p>
 
-## 6. BOM
+## BOM
 
 | Item                                                                | Unit Cost (LKR) | Quantity | Cost (LKR)  |
 |---------------------------------------------------------------------|----------------|----------|-------------|
@@ -80,9 +81,59 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Jumper wires, Breadboard, Ethernet Cable                           | 1,417.50       | 60/1/1   | 1,417.50    |
 | **Total**                                                          |                |          | **20,502.50** |
 
-- "-" are get form the department
+- "-" are received form the department
 
-## 7. For More Details
+## Software & Tools
+
+| Component | Technology |
+|-----------|------------|
+| Backend   | Node.js + Express |
+| Database  | MySQL |
+| Frontend  | Flutter (Mobile App) |
+| Computer Vision | OpenCV (Python) |
+| Hardware Control | Python + GPIO |
+| Protocols | MQTT, I2C, 1-wire, RSTP, websockets |
+
+## 🗂️ Project Structure
+
+Aquasense/
+│
+├── code/
+│   ├── Frontend/                      # Flutter mobile application (Frontend)
+│   ├── backend/                       # Node.js backend
+│   ├── Rasberry pi code/              # Hardware control (Raspberry Pi GPIO & MQTT)
+│   └── object-tracking-yolov8-deep-sort-master/   # Fish behavior detection (YOLO + Deep SORT)
+│
+├── docs/                   # Project page
+|
+└── README.md               # Project documentation            # Project documentation
+
+## Getting Started
+
+### clone the Repository
+
+```bash
+git clone https://github.com/cepdnaclk/e20-3yp-Smart-Aquarium.git
+cd e20-3yp-Smart-Aquarium
+```
+
+### frontend
+
+```bash
+cd code/Frontend
+flutter pub get
+flutter run
+```
+
+### backend
+
+```bash
+cd code/backend
+npm install
+npm start
+```
+
+## For More Details
 - [Our Project Page](https://cepdnaclk.github.io/e20-3yp-Smart-Aquarium/)  
 - [Department of Computer Engineering](https://www.ce.pdn.ac.lk/)  
 - [Faculty Of Engineering University Of Peradeniya](https://eng.pdn.ac.lk/)  
