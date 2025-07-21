@@ -75,7 +75,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Raspberry Pi Camera V2.1 Sony IMX219 Sensor 8 Megapixel (MD0290)    | 8,350.00       | 1        | 8,350.00    |
 | Double BTS7960B DC 43A Motor Driver H-Bridge PWM (MD0012)          | 1,450.00       | 1        | 1,450.00    |
 | DFRobot Gravity: Analog Turbidity Sensor, ADS1115                   | -              | 1        | -           |
-| DC 12V 5A Power Supply Unit, Silicon Pipe, JST XH Connector, Silicon Tube 35g  | 2,275.00       | 1        | 2,275.00    |
+| DC 12V 5A Power Supply Unit, Silicon Pipe, JST XH Connector, Silicon Tube 35g  | 2,275.00       | 1/1/2/1     | 2,275.00    |
 | Fish and Fish tank                                                 | 1,750.00       | 1        | 1,750.00    |
 | Jumper wires, Breadboard, Ethernet Cable, Circuit Wire             | 1,797.50       | 60/2/1/3 | 1,797.50    |
 | **Total**                                                          |                |          | **23,357.50** |
