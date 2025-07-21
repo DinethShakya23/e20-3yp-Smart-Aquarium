@@ -69,13 +69,13 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Item                                                                | Unit Cost (LKR) | Quantity | Cost (LKR)  |
 |---------------------------------------------------------------------|----------------|----------|-------------|
 | Gravity Analog pH Sensor, DS18B20 Waterproof Digital Temperature Sensor | 5,520.00       | 1        | 5,520.00    |
-| Raspberry Pi 3 Model B+                                            | -              | 1        | -           |
+| Raspberry Pi 3 Model B+                                            | 19,090.00         | 1        | 19,090.00    |
 | Peltier Module TEC1-12706, Aluminium Heatsink, Cooling Fan 4010 Axial 40x40x10mm 5V | 1,010.00       | 1        | 1,010.00    |
 | Servo Motor Plastic Wheel SG90 Full Set Normal                     | 395.00         | 1        | 395.00      |
 | DS3231 Precision RTC Real time Clock Memory Module AT24C32 IIC ZS-042 | 480.00         | 1        | 480.00      |
 | Raspberry Pi Camera V2.1 Sony IMX219 Sensor 8 Megapixel (MD0290)    | 6,950.00       | 1        | 6,950.00    |
 | Double BTS7960B DC 43A Motor Driver H-Bridge PWM (MD0012)          | 1,080.00       | 1        | 1,080.00    |
-| DFRobot Gravity: Analog Turbidity Sensor, ADS1115                   | -              | 1        | -           |
+| DFRobot Gravity: Analog Turbidity Sensor, ADS1115                   | 3,460.00         | 1        | 3,460.00    |
 | DC 12V 5A Power Supply Unit                                        | 1,850.00       | 1        | 1,850.00    |
 | Fish and Fish tank                                                 | 1,800.00       | 1        | 1,800.00    |
 | Jumper wires, Breadboard, Ethernet Cable                           | 1,417.50       | 60/1/1   | 1,417.50    |
