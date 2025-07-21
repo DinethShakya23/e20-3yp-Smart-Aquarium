@@ -16,7 +16,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 
 ## Team and ePortfolio
 
-| Registration Numbers  | Name  | Email  | ePortfolioe Link  |
+| Registration Numbers  | Name  | Email  | ePortfolio Link  |
 |-----------------------|-------|--------|------------------ |
 | E/20/016 | Kavindu Gajendra   | e20016@eng.pdn.ac.lk | https://www.thecn.com/EA768 |
 | E/20/055 |   De Silva H.D.S.        |    e20055@eng.pdn.ac.lk    |             https://www.thecn.com/ED671          |
@@ -69,6 +69,7 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | Item                                                                | Unit Cost (LKR) | Quantity | Cost (LKR)  |
 |---------------------------------------------------------------------|----------------|----------|-------------|
 | Gravity Analog pH Sensor, DS18B20 Waterproof Digital Temperature Sensor | 5,520.00       | 1        | 5,520.00    |
+<<<<<<< HEAD
 | Raspberry Pi 3 Model B+                                            | 19,090.00         | 1        | 19,090.00    |
 | Peltier Module TEC1-12706, Aluminium Heatsink, Cooling Fan 4010 Axial 40x40x10mm 5V | 1,010.00       | 1        | 1,010.00    |
 | Servo Motor Plastic Wheel SG90 Full Set Normal                     | 395.00         | 1        | 395.00      |
@@ -82,6 +83,19 @@ Maintaining optimal conditions in a fish tank requires constant attention, makin
 | **Total**                                                          |                |          | **20,502.50** |
 
 - "-" are received form the department
+=======
+| Raspberry Pi 3 Model B+, Peltier Module TEC1-12706, Cooling Fan 4010 Axial 40x40x10mm 5V | 19,090.00         | 1/1/1       | 19,090.00        |
+| Aluminium Heatsink, Aluminium Water Block, Twisted Twin TT Cable, PCB Dot Board  | 1,340.00       | 1/1/1/1        | 1,340.00    |
+| Servo Motor Plastic Wheel SG90 Full Set Normal                     | 395.00         | 1        | 395.00      |
+| DS3231 Precision RTC Real time Clock Memory Module AT24C32 IIC ZS-042 | 480.00         | 1        | 480.00      |
+| Raspberry Pi Camera V2.1 Sony IMX219 Sensor 8 Megapixel (MD0290)    | 8,350.00       | 1        | 8,350.00    |
+| Double BTS7960B DC 43A Motor Driver H-Bridge PWM (MD0012)          | 1,450.00       | 1        | 1,450.00    |
+| DFRobot Gravity: Analog Turbidity Sensor, ADS1115                   | 3,460.00           | 1/1        | 3,460.00         |
+| DC 12V 5A Power Supply Unit, Silicon Pipe, JST XH Connector, Silicon Tube 35g  | 2,275.00       | 1/1/2/1     | 2,275.00    |
+| Fish and Fish tank                                                 | 1,750.00       | 1        | 1,750.00    |
+| Jumper wires, Breadboard, Ethernet Cable, Circuit Wire             | 1,797.50       | 60/2/1/3 | 1,797.50    |
+| **Total**                                                          |                |          | **45,907.50** |
+>>>>>>> 719fa188b04f7f5108c3f8dc4e4820842bd1c7b2
 
 ## Software & Tools
 
