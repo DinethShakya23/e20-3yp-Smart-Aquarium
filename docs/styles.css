@@ -496,6 +496,110 @@ img[data-enlargeable] {
     animation: blink 1s infinite;
 }
 
+/* Downloads Section */
+.downloads-section {
+    background: var(--background-section-primary);
+    padding: 80px 0;
+    margin: 0 30px 50px 30px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.downloads-description {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #9faab9;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 800px; /* Helps center the two cards nicely */
+    margin: 0 auto;
+}
+
+.download-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.download-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.download-card i:first-of-type {
+    font-size: 3rem;
+    color: #ccdce4;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.download-card i:ffa-drafting-compass {
+    font-size: 3rem;
+    color: #ccdce4;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+
+.download-card:hover i:first-of-type {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.download-card h4 {
+    font-size: 1.3rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.download-card p {
+    color: #64748b;
+    flex-grow: 1; /* This pushes the button to the bottom */
+    margin-bottom: 2rem;
+}
+
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: #0ea5e9;
+    color: white;
+    border: 2px solid transparent;
+}
+
+.btn-download:hover {
+    background: #0284c7;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+}
+
+.btn-download i {
+    font-size: 1rem;
+    margin: 0;
+    color: white;
+}
+
 /* The blinking animation for the cursor */
 @keyframes blink {
     0%, 100% {
