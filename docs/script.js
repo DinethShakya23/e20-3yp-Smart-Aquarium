@@ -11,12 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', newTheme);
     });
 
-
-
-    
-
-
-
     // --- Mobile Navigation Toggle ---
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -79,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     animatedElements.forEach(el => observer.observe(el));
     
     
-     const allCards = document.querySelectorAll('.link-card, .team-card, .supervisor-card');
+     const allCards = document.querySelectorAll('.intro-content, .intro-image, .image-placeholder, .team-card, .link-card, .supervisor-card, .video-container, .testing-column, .test-item, .download-card');
     allCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
