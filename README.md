@@ -4,7 +4,7 @@ Welcome to AquaSense! This document helps you navigate through all available doc
 
 ## 📚 Main Documentation
 
-- **[README.md](README.md)** - Main project overview, setup instructions, and quick start guide
+- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Main project overview, setup instructions, and quick start guide
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Guidelines for contributing to the project
 - **[LICENSE](LICENSE)** - Project license information
 
@@ -42,13 +42,13 @@ Welcome to AquaSense! This document helps you navigate through all available doc
 
 ### For First-Time Setup
 
-1. **Prerequisites**: Review the [Prerequisites section](README.md#prerequisites) in main README
-2. **Clone Repository**: Follow [Getting Started](README.md#getting-started)
-3. **Backend Setup**: Follow [Backend Setup Guide](README.md#2-backend-setup)
-4. **Frontend Setup**: Follow [Frontend Setup Guide](README.md#3-frontend-setup)
+1. **Prerequisites**: Review the [Prerequisites section](DOCUMENTATION.md#prerequisites) in main README
+2. **Clone Repository**: Follow [Getting Started](DOCUMENTATION.md#getting-started)
+3. **Backend Setup**: Follow [Backend Setup Guide](DOCUMENTATION.md#2-backend-setup)
+4. **Frontend Setup**: Follow [Frontend Setup Guide](DOCUMENTATION.md#3-frontend-setup)
 5. **Optional Components**: 
-   - [Object Tracking Setup](README.md#4-object-tracking-setup)
-   - [Raspberry Pi Setup](README.md#5-raspberry-pi-setup)
+   - [Object Tracking Setup](DOCUMENTATION.md#4-object-tracking-setup)
+   - [Raspberry Pi Setup](DOCUMENTATION.md#5-raspberry-pi-setup)
 
 ### For Developers
 
@@ -88,7 +88,7 @@ If you find issues or gaps in documentation:
 ### Contact Team
 For general questions:
 - Create a GitHub issue
-- Contact team members via emails in [README.md](README.md#team-and-eportfolio)
+- Contact team members via emails in [README.md](DOCUMENTATION.md#team-and-eportfolio)
 
 ## 📋 Documentation Checklist
 
