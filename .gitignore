@@ -1,126 +1,90 @@
-*.json
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/.cmake/api/v1/query/client-agp/cache-v2
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/.cmake/api/v1/query/client-agp/cmakeFiles-v1
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/.cmake/api/v1/query/client-agp/codemodel-v2
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/additional_project_files.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/build.ninja
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/build_file_index.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/cmake_install.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeCache.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_C.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_CXX.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.c
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.o
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.cpp
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.o
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/cmake.check_cache
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/rules.ninja
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/CMakeFiles/TargetDirectories.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/configure_fingerprint.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/metadata_generation_command.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/arm64-v8a/symbol_folder_index.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/.cmake/api/v1/query/client-agp/cache-v2
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/.cmake/api/v1/query/client-agp/cmakeFiles-v1
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/.cmake/api/v1/query/client-agp/codemodel-v2
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/additional_project_files.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/build.ninja
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/build_file_index.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/cmake_install.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeCache.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_C.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_CXX.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.c
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.o
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.cpp
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.o
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/cmake.check_cache
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/rules.ninja
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/CMakeFiles/TargetDirectories.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/configure_fingerprint.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/metadata_generation_command.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/armeabi-v7a/symbol_folder_index.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/hash_key.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/.cmake/api/v1/query/client-agp/cache-v2
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/.cmake/api/v1/query/client-agp/cmakeFiles-v1
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/.cmake/api/v1/query/client-agp/codemodel-v2
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/additional_project_files.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/build.ninja
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/build_file_index.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/cmake_install.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeCache.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_C.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_CXX.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.c
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.o
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.cpp
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.o
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/cmake.check_cache
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/rules.ninja
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/CMakeFiles/TargetDirectories.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/configure_fingerprint.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/metadata_generation_command.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86/symbol_folder_index.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/.cmake/api/v1/query/client-agp/cache-v2
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/.cmake/api/v1/query/client-agp/cmakeFiles-v1
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/.cmake/api/v1/query/client-agp/codemodel-v2
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/additional_project_files.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/build.ninja
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/build_file_index.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/cmake_install.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeCache.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_C.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CMakeDetermineCompilerABI_CXX.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.c
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdC/CMakeCCompilerId.o
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.cpp
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/3.22.1-g37088a8-dirty/CompilerIdCXX/CMakeCXXCompilerId.o
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/cmake.check_cache
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/rules.ninja
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/CMakeFiles/TargetDirectories.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/configure_fingerprint.bin
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/metadata_generation_command.txt
-code/Frontend/android/app/.cxx/Debug/5y535z6j/x86_64/symbol_folder_index.txt
-code/Frontend/linux/flutter/generated_plugin_registrant.cc
-code/Frontend/linux/flutter/generated_plugin_registrant.h
-code/Frontend/linux/flutter/generated_plugins.cmake
-code/Frontend/macos/Flutter/GeneratedPluginRegistrant.swift
-code/Frontend/windows/flutter/generated_plugin_registrant.cc
-code/Frontend/windows/flutter/generated_plugin_registrant.h
-code/Frontend/windows/flutter/generated_plugins.cmake
-code/Frontend/linux/flutter/generated_plugin_registrant.cc
-code/Frontend/linux/flutter/generated_plugin_registrant.h
-code/Frontend/linux/flutter/generated_plugins.cmake
-code/Frontend/macos/Flutter/GeneratedPluginRegistrant.swift
-code/Frontend/windows/flutter/generated_plugin_registrant.cc
-code/Frontend/windows/flutter/generated_plugin_registrant.h
-code/Frontend/windows/flutter/generated_plugins.cmake
+# Environment and Configuration
+.env
+.env.local
+.env.*.local
+*.env
 
-# Ignore CMake build outputs
+# Build artifacts
+build/
+dist/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+package-lock.json
+
+# Flutter
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# CMake build outputs
+code/Frontend/android/app/.cxx/
+# CMake build outputs
 code/Frontend/android/app/.cxx/
 *.ninja
-*.cmake
-*.txt
-*.bin
-*.o
-*.json
-*.cache
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles/
 
-# Optional: Ignore all generated folders
-build/
-.idea/
-.gradle/
+# Generated files
+code/Frontend/linux/flutter/generated_*
+code/Frontend/macos/Flutter/Generated*
+code/Frontend/windows/flutter/generated_*
 
-# Ignore Node.js dependencies
-node_modules/
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Model weights and data (download separately)
+*.pt
+*.pb
+*.h5
+*.weights
+deep_sort/model_data/*.pb
+
+# Database
+*.db
+*.sqlite
+*.sql
+
+# Secrets
+secrets.yaml
+credentials.json
+
+# Coverage
+coverage/
+*.coverage
+htmlcov/
+
+# Raspberry Pi
+*.7z.unpacked/
