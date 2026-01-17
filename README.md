@@ -2,6 +2,8 @@
 
 ## Smart Fish Tank monitoring & Controlling System
 
+📖 **[Complete Documentation Index](DOCUMENTATION.md)** - Navigate all project documentation
+
 ---
  
 <p align="center">
