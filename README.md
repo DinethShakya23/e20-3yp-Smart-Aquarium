@@ -230,7 +230,7 @@ pip install -r requirements.txt
 #### Download Model Weights
 
 Download the Deep SORT feature extraction model from:
-[Google Drive Link](https://drive.google.com/open?id=18fKzfqnqhqW3s9zwsCbnVJ5XF2JFeqMp)
+[Google Drive Link](https://drive.google.com/file/d/18fKzfqnqhqW3s9zwsCbnVJ5XF2JFeqMp/view?usp=sharing)
 
 Place the downloaded model in the `deep_sort/model_data/` directory.
 
