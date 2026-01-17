@@ -108,38 +108,259 @@ Aquasense/
 └── README.md                           # Project overview and setup instructions
 ```
 
+## Prerequisites
+
+Before setting up AquaSense, ensure you have the following installed:
+
+### Software Requirements
+- **Node.js** (v14.x or higher) and npm
+- **Flutter SDK** (v3.0 or higher)
+- **MySQL** (v8.0 or higher)
+- **Python** (v3.7 or higher)
+- **Git**
+
+### Hardware Requirements
+- Raspberry Pi 3 Model B+ or higher
+- Sensors (pH, Temperature, Turbidity)
+- Camera module
+- Motor drivers and actuators
+- See [BOM](#bom) section for complete hardware list
+
+### Optional Tools
+- MySQL Workbench (for database management)
+- Postman (for API testing)
+- Android Studio or VS Code (for development)
+
 ## Getting Started
 
-### clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/cepdnaclk/e20-3yp-Smart-Aquarium.git
 cd e20-3yp-Smart-Aquarium
 ```
 
-### frontend
+### 2. Backend Setup
 
-```bash
-cd code/Frontend
-flutter pub get
-flutter run
-```
-
-### backend
+#### Install Dependencies
 
 ```bash
 cd code/backend
 npm install
+```
+
+#### Configure Database
+
+1. Create a MySQL database:
+```sql
+CREATE DATABASE aquasense;
+```
+
+2. Update database credentials in `config/config.json`:
+```json
+{
+  "development": {
+    "username": "your_mysql_username",
+    "password": "your_mysql_password",
+    "database": "aquasense",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+```
+
+#### Run Database Migrations
+
+```bash
+npx sequelize-cli db:migrate
+```
+
+#### Start the Backend Server
+
+```bash
+# Development mode (with auto-restart)
+npm run dev
+
+# Production mode
 npm start
 ```
 
-## For More Details
+The backend server will run at `http://localhost:3001`
+
+### 3. Frontend Setup
+
+#### Install Flutter Dependencies
+
+```bash
+cd code/Frontend
+flutter pub get
+```
+
+#### Configure Backend URL
+
+Update the backend API URL in the app configuration to match your backend server address.
+
+For Android Emulator: `http://10.0.2.2:3001`
+For Physical Device: `http://<your_computer_ip>:3001`
+
+#### Run the Mobile App
+
+```bash
+# List available devices
+flutter devices
+
+# Run on connected device
+flutter run
+
+# Run on specific device
+flutter run -d <device_id>
+```
+
+### 4. Object Tracking Setup (Computer Vision)
+
+#### Install Python Dependencies
+
+```bash
+cd code/object-tracking-yolov8-deep-sort-master
+pip install -r requirements.txt
+```
+
+#### Download Model Weights
+
+Download the Deep SORT feature extraction model from:
+[Google Drive Link](https://drive.google.com/open?id=18fKzfqnqhqW3s9zwsCbnVJ5XF2JFeqMp)
+
+Place the downloaded model in the `deep_sort/model_data/` directory.
+
+#### Run Object Tracking
+
+```bash
+python main.py
+```
+
+### 5. Raspberry Pi Setup
+
+#### Extract Hardware Control Code
+
+```bash
+cd code/Rasberry\ pi\ code/
+7z x "Rasberry pi code.7z"
+```
+
+#### Install Required Libraries
+
+```bash
+pip install RPi.GPIO
+pip install paho-mqtt
+pip install adafruit-circuitpython-ads1x15
+```
+
+#### Configure and Run
+
+See the [Raspberry Pi README](code/Rasberry%20pi%20code/README.md) for detailed setup instructions including GPIO pin configuration and MQTT settings.
+
+## 🔧 Configuration
+
+### Environment Variables
+
+#### Backend (.env file)
+Create a `.env` file in `code/backend/` with:
+```
+PORT=3001
+DB_HOST=localhost
+DB_USER=your_username
+DB_PASSWORD=your_password
+DB_NAME=aquasense
+JWT_SECRET=your_jwt_secret
+MQTT_BROKER=mqtt://localhost:1883
+```
+
+#### Raspberry Pi
+Configure MQTT broker settings and GPIO pin assignments in the hardware control scripts.
+
+### API Endpoints
+
+#### Authentication
+- `POST /api/register` - Register new user
+- `POST /api/login` - User login
+
+#### Sensor Data
+- `GET /api/sensors/current` - Get current sensor readings
+- `GET /api/sensors/history` - Get historical sensor data
+
+#### Control
+- `POST /api/control/feed` - Trigger fish feeding
+- `POST /api/control/temperature` - Set target temperature
+
+See the [Backend README](code/backend/README.md) for complete API documentation.
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+#### Backend won't start
+- Verify MySQL is running: `sudo service mysql status`
+- Check database credentials in `config/config.json`
+- Ensure port 3001 is not in use: `lsof -i :3001`
+
+#### Flutter build errors
+- Run `flutter clean` then `flutter pub get`
+- Check Flutter SDK version: `flutter --version`
+- Ensure Android SDK is properly configured
+
+#### Database migration errors
+- Drop existing database and recreate: `DROP DATABASE aquasense; CREATE DATABASE aquasense;`
+- Run migrations again: `npx sequelize-cli db:migrate`
+
+#### Raspberry Pi sensor errors
+- Check GPIO pin connections
+- Verify sensor power supply (3.3V or 5V as required)
+- Test I2C devices: `i2cdetect -y 1`
+
+#### Object tracking not detecting fish
+- Verify camera is properly connected
+- Check model weights are downloaded
+- Adjust detection confidence threshold in configuration
+
+## 🤝 Contributing
+
+We welcome contributions to AquaSense! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Development Guidelines
+- Follow existing code style and conventions
+- Write clear commit messages
+- Update documentation for any new features
+- Test thoroughly before submitting PR
+
+## 📄 License
+
+This project is part of the Department of Computer Engineering, University of Peradeniya.
+
+## 🙏 Acknowledgments
+
+- Department of Computer Engineering, University of Peradeniya
+- Project supervisors and mentors
+- All contributors and testers
+
+## 📞 Support
+
+For questions or support:
+- Create an issue in this repository
+- Contact team members via provided emails
+- Visit our [Project Page](https://cepdnaclk.github.io/e20-3yp-Smart-Aquarium/)
+
+## 🔗 For More Details
 - [Our Project Page](https://cepdnaclk.github.io/e20-3yp-Smart-Aquarium/)  
 - [Department of Computer Engineering](https://www.ce.pdn.ac.lk/)  
 - [Faculty Of Engineering University Of Peradeniya](https://eng.pdn.ac.lk/)  
 
+---
 
-
-  
-  
+**Note**: This is an academic project developed as part of the Third Year Project at the Department of Computer Engineering, University of Peradeniya.
 
