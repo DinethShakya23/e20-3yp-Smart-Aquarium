@@ -396,7 +396,7 @@ ping 192.168.1.100
 
 ### Datasets
 - [Fish4Knowledge Dataset](http://groups.inf.ed.ac.uk/f4k/)
-- [Sample Training Data](https://drive.google.com/drive/folders/1kZ0QVwlwMERyTyi5c72GeqKgr8qAUx2o?usp=sharing) (from line 79 above)
+- [Sample Aquarium Training Data](https://drive.google.com/drive/folders/1kZ0QVwlwMERyTyi5c72GeqKgr8qAUx2o?usp=sharing)
 
 ### Related Work
 - [Fish Detection and Tracking](https://github.com/computervisiondeveloper/deep_sort)
