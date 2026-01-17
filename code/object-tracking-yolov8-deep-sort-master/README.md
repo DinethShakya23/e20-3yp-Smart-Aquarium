@@ -66,7 +66,7 @@ wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt
 
 #### Deep SORT Feature Extractor
 Download the Deep SORT feature extraction model:
-- [Download from Google Drive](https://drive.google.com/open?id=18fKzfqnqhqW3s9zwsCbnVJ5XF2JFeqMp)
+- [Download from Google Drive](https://drive.google.com/file/d/18fKzfqnqhqW3s9zwsCbnVJ5XF2JFeqMp/view?usp=sharing)
 
 Place the downloaded model in:
 ```
@@ -396,7 +396,7 @@ ping 192.168.1.100
 
 ### Datasets
 - [Fish4Knowledge Dataset](http://groups.inf.ed.ac.uk/f4k/)
-- [Custom Aquarium Dataset](https://drive.google.com/drive/folders/1kZ0QVwlwMERyTyi5c72GeqKgr8qAUx2o?usp=sharing)
+- [Sample Training Data](https://drive.google.com/drive/folders/1kZ0QVwlwMERyTyi5c72GeqKgr8qAUx2o?usp=sharing) (from line 79 above)
 
 ### Related Work
 - [Fish Detection and Tracking](https://github.com/computervisiondeveloper/deep_sort)
